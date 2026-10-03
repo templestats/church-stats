@@ -45,23 +45,31 @@
         </div>
       </div>
 
-      <div class="filters">
-        <div class="filter">
-          <label for="continent">Continent</label>
-          <select id="continent"></select>
-        </div>
-        <div class="filter">
-          <label for="country">Country</label>
-          <select id="country"></select>
-        </div>
-        <div class="filter">
-          <label>Geographies</label>
-          <div id="geo-picker" class="multi-picker">
-            <button id="geo-picker-button" type="button" class="picker-button">Select geographies</button>
-            <div id="geo-menu" class="picker-menu" hidden></div>
-          </div>
-        </div>
-      </div>
+     <div class="filters">
+  <div class="filter">
+    <label>Continent</label>
+    <div id="continent-picker" class="multi-picker">
+      <button id="continent-picker-button" type="button" class="picker-button">Select continents</button>
+      <div id="continent-menu" class="picker-menu" hidden></div>
+    </div>
+  </div>
+
+  <div class="filter">
+    <label>Country</label>
+    <div id="country-picker" class="multi-picker">
+      <button id="country-picker-button" type="button" class="picker-button">Select countries</button>
+      <div id="country-menu" class="picker-menu" hidden></div>
+    </div>
+  </div>
+
+  <div class="filter">
+    <label>Geographies</label>
+    <div id="geo-picker" class="multi-picker">
+      <button id="geo-picker-button" type="button" class="picker-button">Select geographies</button>
+      <div id="geo-menu" class="picker-menu" hidden></div>
+    </div>
+  </div>
+</div>
 
       <div class="selection-row">
         <div id="selection-chips" class="chips"></div>
