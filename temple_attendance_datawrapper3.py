@@ -1614,7 +1614,7 @@ def update_datawrapper(
     print()
     print("Updating Datawrapper charts...")
 
-    update_datawrapper_chart(
+    us_url = update_datawrapper_chart(
         session=session,
         token=token,
         chart_id=us_chart_id,
@@ -1627,7 +1627,7 @@ def update_datawrapper(
         ),
     )
 
-    update_datawrapper_chart(
+    countries_url = update_datawrapper_chart(
         session=session,
         token=token,
         chart_id=countries_chart_id,
@@ -1640,7 +1640,7 @@ def update_datawrapper(
         ),
     )
 
-    update_datawrapper_chart(
+    historical_url = update_datawrapper_chart(
         session=session,
         token=token,
         chart_id=historical_chart_id,
@@ -1650,6 +1650,47 @@ def update_datawrapper(
             "Temple Endowment Attendance Trends, "
             "annualized trailing 7 days"
         ),
+    )
+
+    # --------------------------------------------------------
+    # Save current public chart URLs for the dashboard.
+    #
+    # The dashboard will read this file from GitHub Pages so
+    # it never needs hardcoded Datawrapper version URLs.
+    # --------------------------------------------------------
+
+    if not us_url:
+        raise RuntimeError(
+            "Datawrapper U.S. chart published successfully, "
+            "but no public URL was returned."
+        )
+
+    if not countries_url:
+        raise RuntimeError(
+            "Datawrapper countries chart published successfully, "
+            "but no public URL was returned."
+        )
+
+    if not historical_url:
+        raise RuntimeError(
+            "Datawrapper historical chart published successfully, "
+            "but no public URL was returned."
+        )
+
+    datawrapper_urls = {
+        "us": us_url,
+        "countries": countries_url,
+        "historical": historical_url,
+    }
+
+    write_json(
+        output_dir / "datawrapper_urls.json",
+        datawrapper_urls,
+    )
+
+    print(
+        "✓ Current Datawrapper public URLs saved to "
+        "datawrapper_urls.json"
     )
 
 
