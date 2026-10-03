@@ -1,0 +1,472 @@
+run_date,scope,id,name,weekly_endowments,weekly_living,members,temple_count,annualized_endowments,annualized_endowments_per_member,membership_year,membership_source
+2026-09-26,state,AL,Alabama,0,0,41252,0,0,0.0,2025,Church state pages
+2026-09-26,state,AK,Alaska,410,4,33574,1,21320,0.6350151903258474,2025,Church state pages
+2026-09-26,state,AZ,Arizona,7270,58,442094,3,378040,0.8551122611933208,2025,Church state pages
+2026-09-26,state,AR,Arkansas,0,0,38035,0,0,0.0,2025,Church state pages
+2026-09-26,state,CA,California,7841,66,725648,8,407732,0.5618867550106939,2025,Church state pages
+2026-09-26,state,CO,Colorado,1373,15,148945,2,71396,0.47934472456275806,2025,Church state pages
+2026-09-26,state,CT,Connecticut,316,1,16442,1,16432,0.9993918014840044,2025,Church state pages
+2026-09-26,state,DE,Delaware,0,0,6018,0,0,0.0,2025,Church state pages
+2026-09-26,state,FL,Florida,1262,25,178456,2,65624,0.3677321020307527,2025,Church state pages
+2026-09-26,state,GA,Georgia,812,6,92581,1,42224,0.45607630075285427,2025,Church state pages
+2026-09-26,state,HI,Hawaii,1277,17,75827,1,66404,0.8757302807707017,2025,Church state pages
+2026-09-26,state,ID,Idaho,16174,92,482905,6,841048,1.7416427661755418,2025,Church state pages
+2026-09-26,state,IL,Illinois,1620,15,58832,2,84240,1.4318738101713353,2025,Church state pages
+2026-09-26,state,IN,Indiana,563,12,48878,1,29276,0.5989606776054667,2025,Church state pages
+2026-09-26,state,IA,Iowa,0,0,29981,0,0,0.0,2025,Church state pages
+2026-09-26,state,KS,Kansas,0,0,39838,0,0,0.0,2025,Church state pages
+2026-09-26,state,KY,Kentucky,0,0,39792,0,0,0.0,2025,Church state pages
+2026-09-26,state,LA,Louisiana,300,8,29913,1,15600,0.5215123859191656,2025,Church state pages
+2026-09-26,state,ME,Maine,0,0,11275,0,0,0.0,2025,Church state pages
+2026-09-26,state,MD,Maryland,1269,17,44671,1,65988,1.4771999731369345,2025,Church state pages
+2026-09-26,state,MA,Massachusetts,0,0,29541,0,0,0.0,2025,Church state pages
+2026-09-26,state,MI,Michigan,471,6,47105,1,24492,0.5199448041609172,2025,Church state pages
+2026-09-26,state,MN,Minnesota,0,0,34002,0,0,0.0,2025,Church state pages
+2026-09-26,state,MS,Mississippi,0,0,22000,0,0,0.0,2025,Church state pages
+2026-09-26,state,MO,Missouri,1315,5,84311,1,68380,0.8110448221465764,2025,Church state pages
+2026-09-26,state,MT,Montana,875,8,52050,2,45500,0.8741594620557157,2025,Church state pages
+2026-09-26,state,NE,Nebraska,517,11,26199,1,26884,1.0261460361082484,2025,Church state pages
+2026-09-26,state,NV,Nevada,2598,23,181842,3,135096,0.7429306760814334,2025,Church state pages
+2026-09-26,state,NH,New Hampshire,0,0,8575,0,0,0.0,2025,Church state pages
+2026-09-26,state,NJ,New Jersey,0,0,36632,0,0,0.0,2025,Church state pages
+2026-09-26,state,NM,New Mexico,747,7,68699,1,38844,0.5654230774829327,2025,Church state pages
+2026-09-26,state,NY,New York,0,0,92133,0,0,0.0,2025,Church state pages
+2026-09-26,state,NC,North Carolina,861,5,98483,1,44772,0.45461653280261566,2025,Church state pages
+2026-09-26,state,ND,North Dakota,0,0,11807,0,0,0.0,2025,Church state pages
+2026-09-26,state,OH,Ohio,434,3,65991,1,22568,0.34198602839781184,2025,Church state pages
+2026-09-26,state,OK,Oklahoma,635,10,53890,1,33020,0.612729634440527,2025,Church state pages
+2026-09-26,state,OR,Oregon,2189,17,148062,3,113828,0.7687860490875444,2025,Church state pages
+2026-09-26,state,PA,Pennsylvania,328,3,54354,1,17056,0.31379475291606873,2025,Church state pages
+2026-09-26,state,RI,Rhode Island,0,0,5025,0,0,0.0,2025,Church state pages
+2026-09-26,state,SC,South Carolina,0,0,46753,0,0,0.0,2025,Church state pages
+2026-09-26,state,SD,South Dakota,0,0,12064,0,0,0.0,2025,Church state pages
+2026-09-26,state,TN,Tennessee,860,8,61991,2,44720,0.7213950412156603,2025,Church state pages
+2026-09-26,state,TX,Texas,5416,52,395964,3,281632,0.7112565788809083,2025,Church state pages
+2026-09-26,state,UT,Utah,72015,390,2206370,17,3744780,1.6972583927446439,2025,Church state pages
+2026-09-26,state,VT,Vermont,0,0,4685,0,0,0.0,2025,Church state pages
+2026-09-26,state,VA,Virginia,929,10,99973,1,48308,0.483210466826043,2025,Church state pages
+2026-09-26,state,WA,Washington,3845,33,278576,4,199940,0.7177215553385791,2025,Church state pages
+2026-09-26,state,WV,West Virginia,0,0,17663,0,0,0.0,2025,Church state pages
+2026-09-26,state,WI,Wisconsin,0,0,28950,0,0,0.0,2025,Church state pages
+2026-09-26,state,WY,Wyoming,1200,6,66665,2,62400,0.9360234005850147,2025,Church state pages
+2026-09-26,country,ARG,Argentina,1197,33,505819,3,62244,0.12305587571838938,2025,UK English Church country pages
+2026-09-26,country,AUS,Australia,2857,27,165272,5,148564,0.8989060457911806,2025,UK English Church country pages
+2026-09-26,country,BOL,Bolivia,741,28,235773,1,38532,0.16342838238475144,2025,UK English Church country pages
+2026-09-26,country,BRA,Brazil,5750,108,1573360,10,299000,0.1900391518787817,2025,UK English Church country pages
+2026-09-26,country,KHM,Cambodia,212,15,18070,1,11024,0.6100719424460431,2025,UK English Church country pages
+2026-09-26,country,CAN,Canada,3389,27,211581,6,176228,0.8329103274868727,2025,UK English Church country pages
+2026-09-26,country,CPV,Cape Verde,11,2,18030,1,572,0.031724902939545205,2025,UK English Church country pages
+2026-09-26,country,CHL,Chile,1866,21,624203,3,97032,0.15544942911200363,2025,UK English Church country pages
+2026-09-26,country,COL,Colombia,1155,23,223090,2,60060,0.2692187009727016,2025,UK English Church country pages
+2026-09-26,country,DNK,Denmark,235,0,4426,1,12220,2.7609579755987346,2025,UK English Church country pages
+2026-09-26,country,DOM,Dominican Republic,0,0,156358,1,0,0.0,2025,UK English Church country pages
+2026-09-26,country,ECU,Ecuador,523,13,279046,1,27196,0.09746063373063939,2025,UK English Church country pages
+2026-09-26,country,SLV,El Salvador,526,8,132399,1,27352,0.20658766304881457,2025,UK English Church country pages
+2026-09-26,country,FJI,Fiji,465,26,24847,1,24180,0.9731557129633356,2025,UK English Church country pages
+2026-09-26,country,FRA,France,700,2,40546,1,36400,0.8977457702362749,2025,UK English Church country pages
+2026-09-26,country,PYF,French Polynesia,1215,6,30350,1,63180,2.08171334431631,2025,UK English Church country pages
+2026-09-26,country,DEU,Germany,178,3,42229,1,9256,0.21918586753179095,2025,UK English Church country pages
+2026-09-26,country,GTM,Guatemala,1413,40,297143,3,73476,0.24727488111784562,2025,UK English Church country pages
+2026-09-26,country,HTI,Haiti,64,10,27550,1,3328,0.12079854809437386,2025,UK English Church country pages
+2026-09-26,country,HND,Honduras,495,21,197073,2,25740,0.13061149929214047,2025,UK English Church country pages
+2026-09-26,country,HKG,Hong Kong,404,5,24930,1,21008,0.8426795026073004,2025,UK English Church country pages
+2026-09-26,country,CIV,Ivory Coast,266,13,71182,1,13832,0.1943187884577562,2025,UK English Church country pages
+2026-09-26,country,JPN,Japan,1200,5,131776,2,62400,0.47353084021369596,2025,UK English Church country pages
+2026-09-26,country,KEN,Kenya,240,33,24547,1,12480,0.5084124332912372,2025,UK English Church country pages
+2026-09-26,country,MEX,Mexico,5674,135,1572287,13,295048,0.1876553072053639,2025,UK English Church country pages
+2026-09-26,country,NLD,Netherlands,198,2,9027,1,10296,1.1405782652043868,2025,UK English Church country pages
+2026-09-26,country,NZL,New Zealand,2292,7,120992,2,119184,0.9850568632636869,2025,UK English Church country pages
+2026-09-26,country,NGA,Nigeria,118,30,274043,1,6136,0.022390646723324442,2025,UK English Church country pages
+2026-09-26,country,PAN,Panama,106,20,63936,1,5512,0.08621121121121121,2025,UK English Church country pages
+2026-09-26,country,PRY,Paraguay,240,7,106345,1,12480,0.1173538953406366,2025,UK English Church country pages
+2026-09-26,country,PER,Peru,2109,81,667836,3,109668,0.16421396869890212,2025,UK English Church country pages
+2026-09-26,country,PHL,Philippines,3420,162,905082,5,177840,0.1964904837351754,2025,UK English Church country pages
+2026-09-26,country,PRT,Portugal,352,5,50341,1,18304,0.36360024632009696,2025,UK English Church country pages
+2026-09-26,country,PRI,Puerto Rico,182,6,26947,1,9464,0.3512079266708725,2025,UK English Church country pages
+2026-09-26,country,WSM,Samoa,1536,28,90706,1,79872,0.8805591691839569,2025,UK English Church country pages
+2026-09-26,country,ZAF,South Africa,642,47,78689,2,33384,0.4242524368081943,2025,UK English Church country pages
+2026-09-26,country,KOR,South Korea,274,0,89092,1,14248,0.15992457235217528,2025,UK English Church country pages
+2026-09-26,country,CHE,Switzerland,591,3,9630,1,30732,3.1912772585669784,2025,UK English Church country pages
+2026-09-26,country,TWN,Taiwan,373,3,63425,1,19396,0.3058100118249901,2025,UK English Church country pages
+2026-09-26,country,TON,Tonga,281,7,69594,1,14612,0.2099606287898382,2025,UK English Church country pages
+2026-09-26,country,UKR,Ukraine,0,0,10014,1,0,0.0,2025,UK English Church country pages
+2026-09-26,country,GBR,United Kingdom,1046,12,190066,1,54392,0.2861742763040207,2025,UK English Church country pages
+2026-09-26,country,URY,Uruguay,690,9,112449,1,35880,0.31907798201851506,2025,UK English Church country pages
+2026-09-26,country,VEN,Venezuela,318,50,179389,1,16536,0.0921795650792412,2025,UK English Church country pages
+2026-09-27,state,AL,Alabama,0,0,41252,0,0,0.0,2025,Church state pages
+2026-09-27,state,AK,Alaska,403,4,33574,1,20956,0.6241734675641866,2025,Church state pages
+2026-09-27,state,AZ,Arizona,7329,59,442094,3,381108,0.8620519617999792,2025,Church state pages
+2026-09-27,state,AR,Arkansas,0,0,38035,0,0,0.0,2025,Church state pages
+2026-09-27,state,CA,California,7905,69,725648,8,411060,0.566473000683527,2025,Church state pages
+2026-09-27,state,CO,Colorado,1373,15,148945,2,71396,0.47934472456275806,2025,Church state pages
+2026-09-27,state,CT,Connecticut,316,1,16442,1,16432,0.9993918014840044,2025,Church state pages
+2026-09-27,state,DE,Delaware,0,0,6018,0,0,0.0,2025,Church state pages
+2026-09-27,state,FL,Florida,1262,25,178456,2,65624,0.3677321020307527,2025,Church state pages
+2026-09-27,state,GA,Georgia,812,6,92581,1,42224,0.45607630075285427,2025,Church state pages
+2026-09-27,state,HI,Hawaii,1277,17,75827,1,66404,0.8757302807707017,2025,Church state pages
+2026-09-27,state,ID,Idaho,16154,95,482905,6,840008,1.7394891334734575,2025,Church state pages
+2026-09-27,state,IL,Illinois,1620,15,58832,2,84240,1.4318738101713353,2025,Church state pages
+2026-09-27,state,IN,Indiana,563,12,48878,1,29276,0.5989606776054667,2025,Church state pages
+2026-09-27,state,IA,Iowa,0,0,29981,0,0,0.0,2025,Church state pages
+2026-09-27,state,KS,Kansas,0,0,39838,0,0,0.0,2025,Church state pages
+2026-09-27,state,KY,Kentucky,0,0,39792,0,0,0.0,2025,Church state pages
+2026-09-27,state,LA,Louisiana,300,8,29913,1,15600,0.5215123859191656,2025,Church state pages
+2026-09-27,state,ME,Maine,0,0,11275,0,0,0.0,2025,Church state pages
+2026-09-27,state,MD,Maryland,1269,17,44671,1,65988,1.4771999731369345,2025,Church state pages
+2026-09-27,state,MA,Massachusetts,0,0,29541,0,0,0.0,2025,Church state pages
+2026-09-27,state,MI,Michigan,471,6,47105,1,24492,0.5199448041609172,2025,Church state pages
+2026-09-27,state,MN,Minnesota,0,0,34002,0,0,0.0,2025,Church state pages
+2026-09-27,state,MS,Mississippi,0,0,22000,0,0,0.0,2025,Church state pages
+2026-09-27,state,MO,Missouri,1315,5,84311,1,68380,0.8110448221465764,2025,Church state pages
+2026-09-27,state,MT,Montana,875,8,52050,2,45500,0.8741594620557157,2025,Church state pages
+2026-09-27,state,NE,Nebraska,517,11,26199,1,26884,1.0261460361082484,2025,Church state pages
+2026-09-27,state,NV,Nevada,2604,23,181842,3,135408,0.7446464513148777,2025,Church state pages
+2026-09-27,state,NH,New Hampshire,0,0,8575,0,0,0.0,2025,Church state pages
+2026-09-27,state,NJ,New Jersey,0,0,36632,0,0,0.0,2025,Church state pages
+2026-09-27,state,NM,New Mexico,747,7,68699,1,38844,0.5654230774829327,2025,Church state pages
+2026-09-27,state,NY,New York,0,0,92133,0,0,0.0,2025,Church state pages
+2026-09-27,state,NC,North Carolina,861,5,98483,1,44772,0.45461653280261566,2025,Church state pages
+2026-09-27,state,ND,North Dakota,0,0,11807,0,0,0.0,2025,Church state pages
+2026-09-27,state,OH,Ohio,434,3,65991,1,22568,0.34198602839781184,2025,Church state pages
+2026-09-27,state,OK,Oklahoma,635,10,53890,1,33020,0.612729634440527,2025,Church state pages
+2026-09-27,state,OR,Oregon,2225,18,148062,3,115700,0.7814294011967959,2025,Church state pages
+2026-09-27,state,PA,Pennsylvania,328,3,54354,1,17056,0.31379475291606873,2025,Church state pages
+2026-09-27,state,RI,Rhode Island,0,0,5025,0,0,0.0,2025,Church state pages
+2026-09-27,state,SC,South Carolina,0,0,46753,0,0,0.0,2025,Church state pages
+2026-09-27,state,SD,South Dakota,0,0,12064,0,0,0.0,2025,Church state pages
+2026-09-27,state,TN,Tennessee,860,8,61991,2,44720,0.7213950412156603,2025,Church state pages
+2026-09-27,state,TX,Texas,5415,52,395964,3,281580,0.7111252538109525,2025,Church state pages
+2026-09-27,state,UT,Utah,71954,387,2206370,16,3741608,1.6958207372290233,2025,Church state pages
+2026-09-27,state,VT,Vermont,0,0,4685,0,0,0.0,2025,Church state pages
+2026-09-27,state,VA,Virginia,929,10,99973,1,48308,0.483210466826043,2025,Church state pages
+2026-09-27,state,WA,Washington,3968,36,278576,4,206336,0.7406811785652748,2025,Church state pages
+2026-09-27,state,WV,West Virginia,0,0,17663,0,0,0.0,2025,Church state pages
+2026-09-27,state,WI,Wisconsin,0,0,28950,0,0,0.0,2025,Church state pages
+2026-09-27,state,WY,Wyoming,1200,6,66665,2,62400,0.9360234005850147,2025,Church state pages
+2026-09-27,country,ARG,Argentina,1197,33,505819,3,62244,0.12305587571838938,2025,UK English Church country pages
+2026-09-27,country,AUS,Australia,2857,27,165272,5,148564,0.8989060457911806,2025,UK English Church country pages
+2026-09-27,country,BOL,Bolivia,741,28,235773,1,38532,0.16342838238475144,2025,UK English Church country pages
+2026-09-27,country,BRA,Brazil,5750,108,1573360,10,299000,0.1900391518787817,2025,UK English Church country pages
+2026-09-27,country,KHM,Cambodia,212,15,18070,1,11024,0.6100719424460431,2025,UK English Church country pages
+2026-09-27,country,CAN,Canada,3389,27,211581,6,176228,0.8329103274868727,2025,UK English Church country pages
+2026-09-27,country,CPV,Cape Verde,11,2,18030,1,572,0.031724902939545205,2025,UK English Church country pages
+2026-09-27,country,CHL,Chile,1866,21,624203,3,97032,0.15544942911200363,2025,UK English Church country pages
+2026-09-27,country,COL,Colombia,1155,23,223090,2,60060,0.2692187009727016,2025,UK English Church country pages
+2026-09-27,country,DNK,Denmark,235,0,4426,1,12220,2.7609579755987346,2025,UK English Church country pages
+2026-09-27,country,DOM,Dominican Republic,0,0,156358,1,0,0.0,2025,UK English Church country pages
+2026-09-27,country,ECU,Ecuador,523,13,279046,1,27196,0.09746063373063939,2025,UK English Church country pages
+2026-09-27,country,SLV,El Salvador,526,8,132399,1,27352,0.20658766304881457,2025,UK English Church country pages
+2026-09-27,country,FJI,Fiji,465,26,24847,1,24180,0.9731557129633356,2025,UK English Church country pages
+2026-09-27,country,FRA,France,700,2,40546,1,36400,0.8977457702362749,2025,UK English Church country pages
+2026-09-27,country,PYF,French Polynesia,1210,5,30350,1,62920,2.073146622734761,2025,UK English Church country pages
+2026-09-27,country,DEU,Germany,178,3,42229,1,9256,0.21918586753179095,2025,UK English Church country pages
+2026-09-27,country,GTM,Guatemala,1413,40,297143,3,73476,0.24727488111784562,2025,UK English Church country pages
+2026-09-27,country,HTI,Haiti,64,10,27550,1,3328,0.12079854809437386,2025,UK English Church country pages
+2026-09-27,country,HND,Honduras,495,21,197073,2,25740,0.13061149929214047,2025,UK English Church country pages
+2026-09-27,country,HKG,Hong Kong,404,5,24930,1,21008,0.8426795026073004,2025,UK English Church country pages
+2026-09-27,country,CIV,Ivory Coast,266,13,71182,1,13832,0.1943187884577562,2025,UK English Church country pages
+2026-09-27,country,JPN,Japan,1200,5,131776,2,62400,0.47353084021369596,2025,UK English Church country pages
+2026-09-27,country,KEN,Kenya,240,33,24547,1,12480,0.5084124332912372,2025,UK English Church country pages
+2026-09-27,country,MEX,Mexico,5674,135,1572287,13,295048,0.1876553072053639,2025,UK English Church country pages
+2026-09-27,country,NLD,Netherlands,198,2,9027,1,10296,1.1405782652043868,2025,UK English Church country pages
+2026-09-27,country,NZL,New Zealand,2292,7,120992,2,119184,0.9850568632636869,2025,UK English Church country pages
+2026-09-27,country,NGA,Nigeria,118,30,274043,1,6136,0.022390646723324442,2025,UK English Church country pages
+2026-09-27,country,PAN,Panama,106,20,63936,1,5512,0.08621121121121121,2025,UK English Church country pages
+2026-09-27,country,PRY,Paraguay,240,7,106345,1,12480,0.1173538953406366,2025,UK English Church country pages
+2026-09-27,country,PER,Peru,2109,81,667836,3,109668,0.16421396869890212,2025,UK English Church country pages
+2026-09-27,country,PHL,Philippines,3420,162,905082,5,177840,0.1964904837351754,2025,UK English Church country pages
+2026-09-27,country,PRT,Portugal,352,5,50341,1,18304,0.36360024632009696,2025,UK English Church country pages
+2026-09-27,country,PRI,Puerto Rico,182,6,26947,1,9464,0.3512079266708725,2025,UK English Church country pages
+2026-09-27,country,WSM,Samoa,1536,28,90706,1,79872,0.8805591691839569,2025,UK English Church country pages
+2026-09-27,country,ZAF,South Africa,642,47,78689,2,33384,0.4242524368081943,2025,UK English Church country pages
+2026-09-27,country,KOR,South Korea,274,0,89092,1,14248,0.15992457235217528,2025,UK English Church country pages
+2026-09-27,country,CHE,Switzerland,591,3,9630,1,30732,3.1912772585669784,2025,UK English Church country pages
+2026-09-27,country,TWN,Taiwan,373,3,63425,1,19396,0.3058100118249901,2025,UK English Church country pages
+2026-09-27,country,TON,Tonga,281,7,69594,1,14612,0.2099606287898382,2025,UK English Church country pages
+2026-09-27,country,UKR,Ukraine,0,0,10014,1,0,0.0,2025,UK English Church country pages
+2026-09-27,country,GBR,United Kingdom,1046,12,190066,1,54392,0.2861742763040207,2025,UK English Church country pages
+2026-09-27,country,URY,Uruguay,690,9,112449,1,35880,0.31907798201851506,2025,UK English Church country pages
+2026-09-27,country,VEN,Venezuela,318,50,179389,1,16536,0.0921795650792412,2025,UK English Church country pages
+2026-09-28,state,AL,Alabama,0,0,41252,0,0,0.0,2025,Church state pages
+2026-09-28,state,AK,Alaska,403,4,33574,1,20956,0.6241734675641866,2025,Church state pages
+2026-09-28,state,AZ,Arizona,7329,59,442094,3,381108,0.8620519617999792,2025,Church state pages
+2026-09-28,state,AR,Arkansas,0,0,38035,0,0,0.0,2025,Church state pages
+2026-09-28,state,CA,California,7905,69,725648,8,411060,0.566473000683527,2025,Church state pages
+2026-09-28,state,CO,Colorado,1373,15,148945,2,71396,0.47934472456275806,2025,Church state pages
+2026-09-28,state,CT,Connecticut,316,1,16442,1,16432,0.9993918014840044,2025,Church state pages
+2026-09-28,state,DE,Delaware,0,0,6018,0,0,0.0,2025,Church state pages
+2026-09-28,state,FL,Florida,1262,25,178456,2,65624,0.3677321020307527,2025,Church state pages
+2026-09-28,state,GA,Georgia,812,6,92581,1,42224,0.45607630075285427,2025,Church state pages
+2026-09-28,state,HI,Hawaii,1277,17,75827,1,66404,0.8757302807707017,2025,Church state pages
+2026-09-28,state,ID,Idaho,16154,95,482905,6,840008,1.7394891334734575,2025,Church state pages
+2026-09-28,state,IL,Illinois,1620,15,58832,2,84240,1.4318738101713353,2025,Church state pages
+2026-09-28,state,IN,Indiana,563,12,48878,1,29276,0.5989606776054667,2025,Church state pages
+2026-09-28,state,IA,Iowa,0,0,29981,0,0,0.0,2025,Church state pages
+2026-09-28,state,KS,Kansas,0,0,39838,0,0,0.0,2025,Church state pages
+2026-09-28,state,KY,Kentucky,0,0,39792,0,0,0.0,2025,Church state pages
+2026-09-28,state,LA,Louisiana,300,8,29913,1,15600,0.5215123859191656,2025,Church state pages
+2026-09-28,state,ME,Maine,0,0,11275,0,0,0.0,2025,Church state pages
+2026-09-28,state,MD,Maryland,1269,17,44671,1,65988,1.4771999731369345,2025,Church state pages
+2026-09-28,state,MA,Massachusetts,0,0,29541,0,0,0.0,2025,Church state pages
+2026-09-28,state,MI,Michigan,471,6,47105,1,24492,0.5199448041609172,2025,Church state pages
+2026-09-28,state,MN,Minnesota,0,0,34002,0,0,0.0,2025,Church state pages
+2026-09-28,state,MS,Mississippi,0,0,22000,0,0,0.0,2025,Church state pages
+2026-09-28,state,MO,Missouri,1315,5,84311,1,68380,0.8110448221465764,2025,Church state pages
+2026-09-28,state,MT,Montana,875,8,52050,2,45500,0.8741594620557157,2025,Church state pages
+2026-09-28,state,NE,Nebraska,517,11,26199,1,26884,1.0261460361082484,2025,Church state pages
+2026-09-28,state,NV,Nevada,2604,23,181842,3,135408,0.7446464513148777,2025,Church state pages
+2026-09-28,state,NH,New Hampshire,0,0,8575,0,0,0.0,2025,Church state pages
+2026-09-28,state,NJ,New Jersey,0,0,36632,0,0,0.0,2025,Church state pages
+2026-09-28,state,NM,New Mexico,747,7,68699,1,38844,0.5654230774829327,2025,Church state pages
+2026-09-28,state,NY,New York,0,0,92133,0,0,0.0,2025,Church state pages
+2026-09-28,state,NC,North Carolina,861,5,98483,1,44772,0.45461653280261566,2025,Church state pages
+2026-09-28,state,ND,North Dakota,0,0,11807,0,0,0.0,2025,Church state pages
+2026-09-28,state,OH,Ohio,434,3,65991,1,22568,0.34198602839781184,2025,Church state pages
+2026-09-28,state,OK,Oklahoma,635,10,53890,1,33020,0.612729634440527,2025,Church state pages
+2026-09-28,state,OR,Oregon,2225,18,148062,3,115700,0.7814294011967959,2025,Church state pages
+2026-09-28,state,PA,Pennsylvania,328,3,54354,1,17056,0.31379475291606873,2025,Church state pages
+2026-09-28,state,RI,Rhode Island,0,0,5025,0,0,0.0,2025,Church state pages
+2026-09-28,state,SC,South Carolina,0,0,46753,0,0,0.0,2025,Church state pages
+2026-09-28,state,SD,South Dakota,0,0,12064,0,0,0.0,2025,Church state pages
+2026-09-28,state,TN,Tennessee,860,8,61991,2,44720,0.7213950412156603,2025,Church state pages
+2026-09-28,state,TX,Texas,5415,52,395964,3,281580,0.7111252538109525,2025,Church state pages
+2026-09-28,state,UT,Utah,71954,387,2206370,16,3741608,1.6958207372290233,2025,Church state pages
+2026-09-28,state,VT,Vermont,0,0,4685,0,0,0.0,2025,Church state pages
+2026-09-28,state,VA,Virginia,929,10,99973,1,48308,0.483210466826043,2025,Church state pages
+2026-09-28,state,WA,Washington,3968,36,278576,4,206336,0.7406811785652748,2025,Church state pages
+2026-09-28,state,WV,West Virginia,0,0,17663,0,0,0.0,2025,Church state pages
+2026-09-28,state,WI,Wisconsin,0,0,28950,0,0,0.0,2025,Church state pages
+2026-09-28,state,WY,Wyoming,1200,6,66665,2,62400,0.9360234005850147,2025,Church state pages
+2026-09-28,country,ARG,Argentina,1197,33,505819,3,62244,0.12305587571838938,2025,UK English Church country pages
+2026-09-28,country,AUS,Australia,2857,27,165272,5,148564,0.8989060457911806,2025,UK English Church country pages
+2026-09-28,country,BOL,Bolivia,741,28,235773,1,38532,0.16342838238475144,2025,UK English Church country pages
+2026-09-28,country,BRA,Brazil,5750,108,1573360,10,299000,0.1900391518787817,2025,UK English Church country pages
+2026-09-28,country,KHM,Cambodia,212,15,18070,1,11024,0.6100719424460431,2025,UK English Church country pages
+2026-09-28,country,CAN,Canada,3389,27,211581,6,176228,0.8329103274868727,2025,UK English Church country pages
+2026-09-28,country,CPV,Cape Verde,11,2,18030,1,572,0.031724902939545205,2025,UK English Church country pages
+2026-09-28,country,CHL,Chile,1866,21,624203,3,97032,0.15544942911200363,2025,UK English Church country pages
+2026-09-28,country,COL,Colombia,1155,23,223090,2,60060,0.2692187009727016,2025,UK English Church country pages
+2026-09-28,country,DNK,Denmark,235,0,4426,1,12220,2.7609579755987346,2025,UK English Church country pages
+2026-09-28,country,DOM,Dominican Republic,0,0,156358,1,0,0.0,2025,UK English Church country pages
+2026-09-28,country,ECU,Ecuador,523,13,279046,1,27196,0.09746063373063939,2025,UK English Church country pages
+2026-09-28,country,SLV,El Salvador,526,8,132399,1,27352,0.20658766304881457,2025,UK English Church country pages
+2026-09-28,country,FJI,Fiji,465,26,24847,1,24180,0.9731557129633356,2025,UK English Church country pages
+2026-09-28,country,FRA,France,700,2,40546,1,36400,0.8977457702362749,2025,UK English Church country pages
+2026-09-28,country,PYF,French Polynesia,1210,5,30350,1,62920,2.073146622734761,2025,UK English Church country pages
+2026-09-28,country,DEU,Germany,178,3,42229,1,9256,0.21918586753179095,2025,UK English Church country pages
+2026-09-28,country,GTM,Guatemala,1413,40,297143,3,73476,0.24727488111784562,2025,UK English Church country pages
+2026-09-28,country,HTI,Haiti,64,10,27550,1,3328,0.12079854809437386,2025,UK English Church country pages
+2026-09-28,country,HND,Honduras,495,21,197073,2,25740,0.13061149929214047,2025,UK English Church country pages
+2026-09-28,country,HKG,Hong Kong,404,5,24930,1,21008,0.8426795026073004,2025,UK English Church country pages
+2026-09-28,country,CIV,Ivory Coast,266,13,71182,1,13832,0.1943187884577562,2025,UK English Church country pages
+2026-09-28,country,JPN,Japan,1200,5,131776,2,62400,0.47353084021369596,2025,UK English Church country pages
+2026-09-28,country,KEN,Kenya,240,33,24547,1,12480,0.5084124332912372,2025,UK English Church country pages
+2026-09-28,country,MEX,Mexico,5674,135,1572287,13,295048,0.1876553072053639,2025,UK English Church country pages
+2026-09-28,country,NLD,Netherlands,198,2,9027,1,10296,1.1405782652043868,2025,UK English Church country pages
+2026-09-28,country,NZL,New Zealand,2292,7,120992,2,119184,0.9850568632636869,2025,UK English Church country pages
+2026-09-28,country,NGA,Nigeria,118,30,274043,1,6136,0.022390646723324442,2025,UK English Church country pages
+2026-09-28,country,PAN,Panama,106,20,63936,1,5512,0.08621121121121121,2025,UK English Church country pages
+2026-09-28,country,PRY,Paraguay,240,7,106345,1,12480,0.1173538953406366,2025,UK English Church country pages
+2026-09-28,country,PER,Peru,2109,81,667836,3,109668,0.16421396869890212,2025,UK English Church country pages
+2026-09-28,country,PHL,Philippines,3420,162,905082,5,177840,0.1964904837351754,2025,UK English Church country pages
+2026-09-28,country,PRT,Portugal,352,5,50341,1,18304,0.36360024632009696,2025,UK English Church country pages
+2026-09-28,country,PRI,Puerto Rico,182,6,26947,1,9464,0.3512079266708725,2025,UK English Church country pages
+2026-09-28,country,WSM,Samoa,1536,28,90706,1,79872,0.8805591691839569,2025,UK English Church country pages
+2026-09-28,country,ZAF,South Africa,642,47,78689,2,33384,0.4242524368081943,2025,UK English Church country pages
+2026-09-28,country,KOR,South Korea,274,0,89092,1,14248,0.15992457235217528,2025,UK English Church country pages
+2026-09-28,country,CHE,Switzerland,591,3,9630,1,30732,3.1912772585669784,2025,UK English Church country pages
+2026-09-28,country,TWN,Taiwan,373,3,63425,1,19396,0.3058100118249901,2025,UK English Church country pages
+2026-09-28,country,TON,Tonga,281,7,69594,1,14612,0.2099606287898382,2025,UK English Church country pages
+2026-09-28,country,UKR,Ukraine,0,0,10014,1,0,0.0,2025,UK English Church country pages
+2026-09-28,country,GBR,United Kingdom,1046,12,190066,1,54392,0.2861742763040207,2025,UK English Church country pages
+2026-09-28,country,URY,Uruguay,690,9,112449,1,35880,0.31907798201851506,2025,UK English Church country pages
+2026-09-28,country,VEN,Venezuela,318,50,179389,1,16536,0.0921795650792412,2025,UK English Church country pages
+2026-10-01,state,AL,Alabama,180,0,41252,1,9360,0.22689808978958595,2025,Church state pages
+2026-10-01,state,AK,Alaska,414,3,33574,1,21528,0.6412104604753679,2025,Church state pages
+2026-10-01,state,AZ,Arizona,7907,71,442094,4,411164,0.9300375033363946,2025,Church state pages
+2026-10-01,state,AR,Arkansas,636,3,38035,1,33072,0.8695149204679901,2025,Church state pages
+2026-10-01,state,CA,California,8476,67,725648,9,440752,0.6073909112958349,2025,Church state pages
+2026-10-01,state,CO,Colorado,2628,27,148945,3,136656,0.9174930343415355,2025,Church state pages
+2026-10-01,state,CT,Connecticut,322,3,16442,1,16744,1.0183675951830677,2025,Church state pages
+2026-10-01,state,DE,Delaware,0,0,6018,0,0,0.0,2025,Church state pages
+2026-10-01,state,FL,Florida,1154,23,178456,2,60008,0.3362621598601336,2025,Church state pages
+2026-10-01,state,GA,Georgia,832,9,92581,1,43264,0.4673097071753384,2025,Church state pages
+2026-10-01,state,HI,Hawaii,1265,12,75827,1,65780,0.8675010220633811,2025,Church state pages
+2026-10-01,state,ID,Idaho,16279,94,482905,6,846508,1.7529493378614842,2025,Church state pages
+2026-10-01,state,IL,Illinois,1598,13,58832,2,83096,1.4124286102801196,2025,Church state pages
+2026-10-01,state,IN,Indiana,591,11,48878,1,30732,0.6287491304881542,2025,Church state pages
+2026-10-01,state,IA,Iowa,0,0,29981,0,0,0.0,2025,Church state pages
+2026-10-01,state,KS,Kansas,0,0,39838,0,0,0.0,2025,Church state pages
+2026-10-01,state,KY,Kentucky,0,0,39792,0,0,0.0,2025,Church state pages
+2026-10-01,state,LA,Louisiana,321,7,29913,1,16692,0.5580182529335072,2025,Church state pages
+2026-10-01,state,ME,Maine,0,0,11275,0,0,0.0,2025,Church state pages
+2026-10-01,state,MD,Maryland,1334,13,44671,1,69368,1.5528642743614425,2025,Church state pages
+2026-10-01,state,MA,Massachusetts,354,3,29541,1,18408,0.6231339494262211,2025,Church state pages
+2026-10-01,state,MI,Michigan,430,5,47105,1,22360,0.4746842161129392,2025,Church state pages
+2026-10-01,state,MN,Minnesota,0,0,34002,0,0,0.0,2025,Church state pages
+2026-10-01,state,MS,Mississippi,0,0,22000,0,0,0.0,2025,Church state pages
+2026-10-01,state,MO,Missouri,1264,6,84311,1,65728,0.7795898518580019,2025,Church state pages
+2026-10-01,state,MT,Montana,834,9,52050,2,43368,0.8331988472622478,2025,Church state pages
+2026-10-01,state,NE,Nebraska,488,8,26199,1,25376,0.9685865872743235,2025,Church state pages
+2026-10-01,state,NV,Nevada,2510,25,181842,3,130520,0.7177659726575819,2025,Church state pages
+2026-10-01,state,NH,New Hampshire,0,0,8575,0,0,0.0,2025,Church state pages
+2026-10-01,state,NJ,New Jersey,0,0,36632,0,0,0.0,2025,Church state pages
+2026-10-01,state,NM,New Mexico,880,8,68699,1,45760,0.6660941207295594,2025,Church state pages
+2026-10-01,state,NY,New York,323,2,92133,1,16796,0.18230167258202815,2025,Church state pages
+2026-10-01,state,NC,North Carolina,810,5,98483,1,42120,0.42768802737528305,2025,Church state pages
+2026-10-01,state,ND,North Dakota,0,0,11807,0,0,0.0,2025,Church state pages
+2026-10-01,state,OH,Ohio,403,2,65991,1,20956,0.31755845494082524,2025,Church state pages
+2026-10-01,state,OK,Oklahoma,560,9,53890,1,29120,0.5403599925774726,2025,Church state pages
+2026-10-01,state,OR,Oregon,2300,21,148062,3,119600,0.80776971809107,2025,Church state pages
+2026-10-01,state,PA,Pennsylvania,304,3,54354,1,15808,0.29083416123928324,2025,Church state pages
+2026-10-01,state,RI,Rhode Island,0,0,5025,0,0,0.0,2025,Church state pages
+2026-10-01,state,SC,South Carolina,526,6,46753,1,27352,0.585031976557654,2025,Church state pages
+2026-10-01,state,SD,South Dakota,0,0,12064,0,0,0.0,2025,Church state pages
+2026-10-01,state,TN,Tennessee,848,9,61991,2,44096,0.7113290638963721,2025,Church state pages
+2026-10-01,state,TX,Texas,5301,56,395964,3,275652,0.696154195835985,2025,Church state pages
+2026-10-01,state,UT,Utah,79951,415,2206370,20,4157452,1.8842950185145737,2025,Church state pages
+2026-10-01,state,VT,Vermont,0,0,4685,0,0,0.0,2025,Church state pages
+2026-10-01,state,VA,Virginia,846,10,99973,1,43992,0.44003881047882926,2025,Church state pages
+2026-10-01,state,WA,Washington,4127,37,278576,4,214604,0.7703606915168572,2025,Church state pages
+2026-10-01,state,WV,West Virginia,0,0,17663,0,0,0.0,2025,Church state pages
+2026-10-01,state,WI,Wisconsin,0,0,28950,0,0,0.0,2025,Church state pages
+2026-10-01,state,WY,Wyoming,676,4,66665,2,35152,0.5272931823295582,2025,Church state pages
+2026-10-01,country,ARG,Argentina,1318,36,505819,5,68536,0.13549510793386568,2025,UK English Church country pages
+2026-10-01,country,AUS,Australia,2405,24,165272,5,125060,0.7566919986446585,2025,UK English Church country pages
+2026-10-01,country,BOL,Bolivia,611,28,235773,1,31772,0.1347567363523389,2025,UK English Church country pages
+2026-10-01,country,BRA,Brazil,5777,112,1573360,10,300404,0.1909315096354299,2025,UK English Church country pages
+2026-10-01,country,KHM,Cambodia,207,14,18070,1,10764,0.5956834532374101,2025,UK English Church country pages
+2026-10-01,country,CAN,Canada,4574,34,211581,9,237848,1.12414630803333,2025,UK English Church country pages
+2026-10-01,country,CPV,Cape Verde,15,3,18030,1,780,0.04326123128119801,2025,UK English Church country pages
+2026-10-01,country,CHL,Chile,1979,24,624203,3,102908,0.16486303334011532,2025,UK English Church country pages
+2026-10-01,country,COL,Colombia,813,11,223090,2,42276,0.1895019947106549,2025,UK English Church country pages
+2026-10-01,country,DNK,Denmark,248,1,4426,1,12896,2.9136918210573883,2025,UK English Church country pages
+2026-10-01,country,ECU,Ecuador,515,13,279046,1,26780,0.09596984009804835,2025,UK English Church country pages
+2026-10-01,country,SLV,El Salvador,484,7,132399,1,25168,0.19009207018179897,2025,UK English Church country pages
+2026-10-01,country,FJI,Fiji,236,9,24847,1,12272,0.49390268442870366,2025,UK English Church country pages
+2026-10-01,country,FRA,France,546,1,40546,1,28392,0.7002417007842944,2025,UK English Church country pages
+2026-10-01,country,PYF,French Polynesia,1157,4,30350,1,60164,1.9823393739703459,2025,UK English Church country pages
+2026-10-01,country,DEU,Germany,239,4,42229,1,12428,0.29430012550616874,2025,UK English Church country pages
+2026-10-01,country,GTM,Guatemala,1183,39,297143,3,61516,0.20702490046879785,2025,UK English Church country pages
+2026-10-01,country,HTI,Haiti,42,4,27550,1,2184,0.07927404718693284,2025,UK English Church country pages
+2026-10-01,country,HND,Honduras,454,28,197073,2,23608,0.11979317308814501,2025,UK English Church country pages
+2026-10-01,country,HKG,Hong Kong,226,0,24930,1,11752,0.47139991977537105,2025,UK English Church country pages
+2026-10-01,country,CIV,Ivory Coast,263,10,71182,1,13676,0.192127223174398,2025,UK English Church country pages
+2026-10-01,country,JPN,Japan,1243,3,131776,3,64636,0.49049902865468675,2025,UK English Church country pages
+2026-10-01,country,KEN,Kenya,112,8,24547,1,5824,0.23725913553591071,2025,UK English Church country pages
+2026-10-01,country,MEX,Mexico,5623,144,1572287,14,292396,0.18596859224810738,2025,UK English Church country pages
+2026-10-01,country,NLD,Netherlands,182,2,9027,1,9464,1.0484103245818102,2025,UK English Church country pages
+2026-10-01,country,NZL,New Zealand,2714,13,120992,2,141128,1.1664242263951337,2025,UK English Church country pages
+2026-10-01,country,NGA,Nigeria,134,38,274043,1,6968,0.025426666618012503,2025,UK English Church country pages
+2026-10-01,country,PAN,Panama,115,21,63936,1,5980,0.09353103103103103,2025,UK English Church country pages
+2026-10-01,country,PRY,Paraguay,258,5,106345,1,13416,0.12615543749118435,2025,UK English Church country pages
+2026-10-01,country,PER,Peru,1899,76,667836,3,98748,0.14786264891380518,2025,UK English Church country pages
+2026-10-01,country,PHL,Philippines,3533,178,905082,6,183716,0.2029827131685306,2025,UK English Church country pages
+2026-10-01,country,PRT,Portugal,206,4,50341,1,10712,0.21278878051687491,2025,UK English Church country pages
+2026-10-01,country,PRI,Puerto Rico,202,6,26947,1,10504,0.3898022043270123,2025,UK English Church country pages
+2026-10-01,country,WSM,Samoa,1664,48,90706,1,86528,0.9539390999492867,2025,UK English Church country pages
+2026-10-01,country,ZAF,South Africa,758,34,78689,2,39416,0.5009086403436313,2025,UK English Church country pages
+2026-10-01,country,KOR,South Korea,404,2,89092,1,21008,0.23580119427109056,2025,UK English Church country pages
+2026-10-01,country,ESP,Spain,152,0,71995,1,7904,0.10978540176401139,2025,UK English Church country pages
+2026-10-01,country,CHE,Switzerland,554,3,9630,1,28808,2.991484942886812,2025,UK English Church country pages
+2026-10-01,country,TWN,Taiwan,347,5,63425,1,18044,0.2844934962554198,2025,UK English Church country pages
+2026-10-01,country,TON,Tonga,280,11,69594,1,14560,0.20921343794005232,2025,UK English Church country pages
+2026-10-01,country,UKR,Ukraine,0,0,10014,1,0,0.0,2025,UK English Church country pages
+2026-10-01,country,GBR,United Kingdom,1465,23,190066,2,76180,0.40080814033020107,2025,UK English Church country pages
+2026-10-01,country,URY,Uruguay,478,5,112449,1,24856,0.2210424281229713,2025,UK English Church country pages
+2026-10-01,country,VEN,Venezuela,299,48,179389,1,15548,0.08667198100217963,2025,UK English Church country pages
+2026-10-01,country,ZWE,Zimbabwe,130,29,52430,1,6760,0.1289338165172611,2025,UK English Church country pages
+2026-10-03,state,AL,Alabama,250,0,41252,1,13000,0.3151362358188694,2025,Church state pages
+2026-10-03,state,AK,Alaska,428,5,33574,1,22256,0.6628939059986895,2025,Church state pages
+2026-10-03,state,AZ,Arizona,8105,89,442094,4,421460,0.9533266680841631,2025,Church state pages
+2026-10-03,state,AR,Arkansas,974,4,38035,1,50648,1.3316156171946891,2025,Church state pages
+2026-10-03,state,CA,California,8728,76,725648,9,453856,0.6254492536326153,2025,Church state pages
+2026-10-03,state,CO,Colorado,3208,30,148945,3,166816,1.119983886669576,2025,Church state pages
+2026-10-03,state,CT,Connecticut,232,5,16442,1,12064,0.7337306896971172,2025,Church state pages
+2026-10-03,state,DE,Delaware,0,0,6018,0,0,0.0,2025,Church state pages
+2026-10-03,state,FL,Florida,1039,27,178456,2,54028,0.3027524992154929,2025,Church state pages
+2026-10-03,state,GA,Georgia,836,9,92581,1,43472,0.46955638845983516,2025,Church state pages
+2026-10-03,state,HI,Hawaii,1285,9,75827,1,66820,0.8812164532422488,2025,Church state pages
+2026-10-03,state,ID,Idaho,16694,103,482905,6,868088,1.7976372164297325,2025,Church state pages
+2026-10-03,state,IL,Illinois,1628,12,58832,2,84656,1.4389447919499592,2025,Church state pages
+2026-10-03,state,IN,Indiana,514,12,48878,1,26728,0.5468308850607635,2025,Church state pages
+2026-10-03,state,IA,Iowa,0,0,29981,0,0,0.0,2025,Church state pages
+2026-10-03,state,KS,Kansas,0,0,39838,0,0,0.0,2025,Church state pages
+2026-10-03,state,KY,Kentucky,0,0,39792,0,0,0.0,2025,Church state pages
+2026-10-03,state,LA,Louisiana,321,6,29913,1,16692,0.5580182529335072,2025,Church state pages
+2026-10-03,state,ME,Maine,0,0,11275,0,0,0.0,2025,Church state pages
+2026-10-03,state,MD,Maryland,1269,12,44671,1,65988,1.4771999731369345,2025,Church state pages
+2026-10-03,state,MA,Massachusetts,508,8,29541,1,26416,0.894214820080566,2025,Church state pages
+2026-10-03,state,MI,Michigan,438,4,47105,1,22776,0.48351555036620314,2025,Church state pages
+2026-10-03,state,MN,Minnesota,0,0,34002,0,0,0.0,2025,Church state pages
+2026-10-03,state,MS,Mississippi,0,0,22000,0,0,0.0,2025,Church state pages
+2026-10-03,state,MO,Missouri,1289,7,84311,1,67028,0.7950089549406365,2025,Church state pages
+2026-10-03,state,MT,Montana,830,7,52050,2,43160,0.8292026897214217,2025,Church state pages
+2026-10-03,state,NE,Nebraska,439,3,26199,1,22828,0.871330966830795,2025,Church state pages
+2026-10-03,state,NV,Nevada,2598,30,181842,3,135096,0.7429306760814334,2025,Church state pages
+2026-10-03,state,NH,New Hampshire,0,0,8575,0,0,0.0,2025,Church state pages
+2026-10-03,state,NJ,New Jersey,0,0,36632,0,0,0.0,2025,Church state pages
+2026-10-03,state,NM,New Mexico,1012,8,68699,1,52624,0.7660082388389933,2025,Church state pages
+2026-10-03,state,NY,New York,405,3,92133,1,21060,0.228582592556413,2025,Church state pages
+2026-10-03,state,NC,North Carolina,778,8,98483,1,40456,0.41079171024440764,2025,Church state pages
+2026-10-03,state,ND,North Dakota,0,0,11807,0,0,0.0,2025,Church state pages
+2026-10-03,state,OH,Ohio,368,1,65991,1,19136,0.2899789365216469,2025,Church state pages
+2026-10-03,state,OK,Oklahoma,582,12,53890,1,30264,0.5615884208573019,2025,Church state pages
+2026-10-03,state,OR,Oregon,2246,17,148062,3,116792,0.7888046899271927,2025,Church state pages
+2026-10-03,state,PA,Pennsylvania,250,6,54354,1,13000,0.23917282996651582,2025,Church state pages
+2026-10-03,state,RI,Rhode Island,0,0,5025,0,0,0.0,2025,Church state pages
+2026-10-03,state,SC,South Carolina,643,6,46753,1,33436,0.7151626633585011,2025,Church state pages
+2026-10-03,state,SD,South Dakota,0,0,12064,0,0,0.0,2025,Church state pages
+2026-10-03,state,TN,Tennessee,847,14,61991,2,44044,0.7104902324530981,2025,Church state pages
+2026-10-03,state,TX,Texas,4957,58,395964,3,257764,0.6509783717711711,2025,Church state pages
+2026-10-03,state,UT,Utah,84016,498,2206370,20,4368832,1.9800994393506075,2025,Church state pages
+2026-10-03,state,VT,Vermont,0,0,4685,0,0,0.0,2025,Church state pages
+2026-10-03,state,VA,Virginia,752,10,99973,1,39104,0.3911456093145149,2025,Church state pages
+2026-10-03,state,WA,Washington,4220,45,278576,4,219440,0.7877204066394808,2025,Church state pages
+2026-10-03,state,WV,West Virginia,0,0,17663,0,0,0.0,2025,Church state pages
+2026-10-03,state,WI,Wisconsin,0,0,28950,0,0,0.0,2025,Church state pages
+2026-10-03,state,WY,Wyoming,496,4,66665,2,25792,0.38688967224180604,2025,Church state pages
+2026-10-03,country,ARG,Argentina,1060,27,505819,5,55120,0.10897178635045342,2025,UK English Church country pages
+2026-10-03,country,AUS,Australia,2074,12,165272,4,107848,0.6525485260661213,2025,UK English Church country pages
+2026-10-03,country,BOL,Bolivia,383,20,235773,1,19916,0.08447108023395385,2025,UK English Church country pages
+2026-10-03,country,BRA,Brazil,4761,100,1573360,10,247572,0.15735241775563127,2025,UK English Church country pages
+2026-10-03,country,KHM,Cambodia,141,13,18070,1,7332,0.40575539568345326,2025,UK English Church country pages
+2026-10-03,country,CAN,Canada,4908,38,211581,9,255216,1.2062330738582387,2025,UK English Church country pages
+2026-10-03,country,CPV,Cape Verde,11,3,18030,1,572,0.031724902939545205,2025,UK English Church country pages
+2026-10-03,country,CHL,Chile,1690,22,624203,3,87880,0.1407875322611394,2025,UK English Church country pages
+2026-10-03,country,COL,Colombia,699,9,223090,2,36348,0.16292975928997266,2025,UK English Church country pages
+2026-10-03,country,DNK,Denmark,295,2,4426,1,15340,3.4658834161771352,2025,UK English Church country pages
+2026-10-03,country,ECU,Ecuador,443,15,279046,1,23036,0.08255269740472897,2025,UK English Church country pages
+2026-10-03,country,SLV,El Salvador,425,6,132399,1,22100,0.16691968972575322,2025,UK English Church country pages
+2026-10-03,country,FRA,France,493,4,40546,1,25636,0.6322695210378336,2025,UK English Church country pages
+2026-10-03,country,PYF,French Polynesia,1141,9,30350,1,59332,1.9549258649093904,2025,UK English Church country pages
+2026-10-03,country,DEU,Germany,303,3,42229,1,15756,0.373108527315352,2025,UK English Church country pages
+2026-10-03,country,GTM,Guatemala,824,44,297143,3,42848,0.14419993067311027,2025,UK English Church country pages
+2026-10-03,country,HTI,Haiti,37,4,27550,1,1924,0.0698366606170599,2025,UK English Church country pages
+2026-10-03,country,HND,Honduras,494,33,197073,2,25688,0.13034763767740887,2025,UK English Church country pages
+2026-10-03,country,HKG,Hong Kong,364,0,24930,1,18928,0.7592458884877658,2025,UK English Church country pages
+2026-10-03,country,CIV,Ivory Coast,240,5,71182,1,12480,0.1753252226686522,2025,UK English Church country pages
+2026-10-03,country,JPN,Japan,1150,3,131776,2,59800,0.4538003885381253,2025,UK English Church country pages
+2026-10-03,country,KEN,Kenya,93,4,24547,1,4836,0.19700981790035443,2025,UK English Church country pages
+2026-10-03,country,MEX,Mexico,4730,126,1572287,14,245960,0.1564345440749685,2025,UK English Church country pages
+2026-10-03,country,NLD,Netherlands,150,0,9027,1,7800,0.8640744433366567,2025,UK English Church country pages
+2026-10-03,country,NZL,New Zealand,2621,23,120992,2,136292,1.1264546416291987,2025,UK English Church country pages
+2026-10-03,country,NGA,Nigeria,206,56,274043,1,10712,0.03908875614410877,2025,UK English Church country pages
+2026-10-03,country,PAN,Panama,83,12,63936,1,4316,0.067505005005005,2025,UK English Church country pages
+2026-10-03,country,PRY,Paraguay,180,5,106345,1,9360,0.08801542150547746,2025,UK English Church country pages
+2026-10-03,country,PER,Peru,1786,79,667836,3,92872,0.13906408160087208,2025,UK English Church country pages
+2026-10-03,country,PHL,Philippines,3459,127,905082,6,179868,0.19873116469005017,2025,UK English Church country pages
+2026-10-03,country,PRT,Portugal,44,0,50341,1,2288,0.04545003079001212,2025,UK English Church country pages
+2026-10-03,country,PRI,Puerto Rico,207,4,26947,1,10764,0.39945077374104726,2025,UK English Church country pages
+2026-10-03,country,WSM,Samoa,1668,51,90706,1,86736,0.9562322227857033,2025,UK English Church country pages
+2026-10-03,country,ZAF,South Africa,626,19,78689,2,32552,0.4136791673550306,2025,UK English Church country pages
+2026-10-03,country,KOR,South Korea,696,2,89092,1,36192,0.4062317604274233,2025,UK English Church country pages
+2026-10-03,country,ESP,Spain,386,5,71995,1,20072,0.2787971386901868,2025,UK English Church country pages
+2026-10-03,country,CHE,Switzerland,568,6,9630,1,29536,3.0670820353063344,2025,UK English Church country pages
+2026-10-03,country,TWN,Taiwan,500,12,63425,1,26000,0.4099329917225069,2025,UK English Church country pages
+2026-10-03,country,TON,Tonga,256,11,69594,1,13312,0.19128085754519067,2025,UK English Church country pages
+2026-10-03,country,UKR,Ukraine,0,0,10014,1,0,0.0,2025,UK English Church country pages
+2026-10-03,country,GBR,United Kingdom,1613,20,190066,2,83876,0.44129933812465144,2025,UK English Church country pages
+2026-10-03,country,URY,Uruguay,283,3,112449,1,14716,0.13086821581339095,2025,UK English Church country pages
+2026-10-03,country,VEN,Venezuela,197,15,179389,1,10244,0.057104950693743765,2025,UK English Church country pages
+2026-10-03,country,ZWE,Zimbabwe,171,36,52430,1,8892,0.16959755864962808,2025,UK English Church country pages

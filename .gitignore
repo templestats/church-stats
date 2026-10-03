@@ -1,0 +1,21 @@
+# Secrets
+.env
+
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+
+# Local logs
+*.log
+
+# Local/generated data
+membership_counts.csv
+
+# Local Python virtual environment
+.venv/
+
+# Local LaunchAgent runner
+run_temple_stats.sh
