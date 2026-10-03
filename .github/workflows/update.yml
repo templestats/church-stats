@@ -1,0 +1,39 @@
+name: Update Church Stats
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run Church Stats
+        env:
+          DATAWRAPPER_TOKEN: ${{ secrets.DATAWRAPPER_TOKEN }}
+          DATAWRAPPER_US_CHART_ID: ${{ secrets.DATAWRAPPER_US_CHART_ID }}
+          DATAWRAPPER_COUNTRIES_CHART_ID: ${{ secrets.DATAWRAPPER_COUNTRIES_CHART_ID }}
+          DATAWRAPPER_HISTORICAL_CHART_ID: ${{ secrets.DATAWRAPPER_HISTORICAL_CHART_ID }}
+        run: python temple_attendance_datawrapper3.py
+
+      - name: Commit updated data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add temple_attendance_output/
+          git diff --cached --quiet || git commit -m "Update Church Stats data"
+          git push
