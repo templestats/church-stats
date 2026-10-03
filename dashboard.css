@@ -338,3 +338,22 @@ td.rate { font-variant-numeric: tabular-nums; font-weight: 700; }
   .map-card { padding: 12px; }
   .map-frame, .map-frame iframe { min-height: 360px; height: 360px; }
 }
+.picker-actions {
+  display: flex;
+  gap: 8px;
+  padding: 8px 10px;
+  border-bottom: 1px solid #e5e8eb;
+}
+
+.picker-actions button {
+  border: 0;
+  background: none;
+  padding: 3px 0;
+  font: inherit;
+  color: #315f8c;
+  cursor: pointer;
+}
+
+.picker-actions button:hover {
+  text-decoration: underline;
+}
