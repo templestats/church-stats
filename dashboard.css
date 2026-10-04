@@ -361,3 +361,15 @@ td.rate { font-variant-numeric: tabular-nums; font-weight: 700; }
 .picker-item-inactive {
   opacity: 0.45;
 }
+
+.map-frame,
+.historical-chart {
+  width: 100%;
+}
+
+.map-frame iframe,
+.historical-chart iframe {
+  display: block;
+  width: 100%;
+  border: 0;
+}
