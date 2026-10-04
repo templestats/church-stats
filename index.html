@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -8,6 +7,7 @@
   <link rel="stylesheet" href="dashboard.css">
   <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
 </head>
+
 <body>
   <header class="site-header">
     <div class="wrap">
@@ -18,6 +18,8 @@
   </header>
 
   <main class="wrap">
+
+    <!-- CURRENT ACTIVITY -->
     <section class="section">
       <div class="section-heading">
         <div>
@@ -25,56 +27,133 @@
           <p>Current activity across temples, shown in the latest published maps.</p>
         </div>
       </div>
+
       <div class="map-grid">
+
         <article class="card map-card">
           <h3>Worldwide</h3>
-          <div id="world-map" class="map-frame">Loading map…</div>
+          <div class="map-frame">
+            <iframe
+              title="Worldwide temple endowment attendance"
+              src="https://datawrapper.dwcdn.net/ooUr3/27/"
+              scrolling="no"
+              frameborder="0"
+              style="width: 100%; border: 0;"
+              height="600">
+            </iframe>
+          </div>
         </article>
+
         <article class="card map-card">
           <h3>United States</h3>
-          <div id="us-map" class="map-frame">Loading map…</div>
+          <div class="map-frame">
+            <iframe
+              title="U.S. temple endowment attendance"
+              src="https://datawrapper.dwcdn.net/LuaXr/29/"
+              scrolling="no"
+              frameborder="0"
+              style="width: 100%; border: 0;"
+              height="600">
+            </iframe>
+          </div>
         </article>
+
       </div>
     </section>
 
+
+    <!-- HISTORICAL DATAWRAPPER CHART -->
+    <section class="section card">
+      <div class="section-heading">
+        <div>
+          <h2>Historical trends</h2>
+          <p>Long-term temple endowment attendance and eligible living endowment activity.</p>
+        </div>
+      </div>
+
+      <div class="historical-chart">
+        <iframe
+          title="Historical temple endowment attendance"
+          src="https://datawrapper.dwcdn.net/CQis2/19/"
+          scrolling="no"
+          frameborder="0"
+          style="width: 100%; border: 0;"
+          height="800">
+        </iframe>
+      </div>
+    </section>
+
+
+    <!-- INTERACTIVE EXPLORER -->
     <section class="section card explorer">
       <div class="section-heading">
         <div>
           <h2>Explore trends</h2>
-          <p>Compare annualized trailing-7-day average attendance rates across countries and U.S. states over time.</p>
+          <p>
+            Compare annualized trailing-7-day average attendance rates
+            across countries and U.S. states over time.
+          </p>
         </div>
       </div>
 
-     <div class="filters">
-  <div class="filter">
-    <label>Continent</label>
-    <div id="continent-picker" class="multi-picker">
-      <button id="continent-picker-button" type="button" class="picker-button">Select continents</button>
-      <div id="continent-menu" class="picker-menu" hidden></div>
-    </div>
-  </div>
+      <div class="filters">
 
-  <div class="filter">
-    <label>Country</label>
-    <div id="country-picker" class="multi-picker">
-      <button id="country-picker-button" type="button" class="picker-button">Select countries</button>
-      <div id="country-menu" class="picker-menu" hidden></div>
-    </div>
-  </div>
+        <div class="filter">
+          <label>Continent</label>
+          <div id="continent-picker" class="multi-picker">
+            <button
+              id="continent-picker-button"
+              type="button"
+              class="picker-button">
+              Select continents
+            </button>
+            <div
+              id="continent-menu"
+              class="picker-menu"
+              hidden>
+            </div>
+          </div>
+        </div>
 
-  <div class="filter">
-    <label>Geographies</label>
-    <div id="geo-picker" class="multi-picker">
-      <button id="geo-picker-button" type="button" class="picker-button">Select geographies</button>
-      <div id="geo-menu" class="picker-menu" hidden></div>
-    </div>
-  </div>
-</div>
+        <div class="filter">
+          <label>Country</label>
+          <div id="country-picker" class="multi-picker">
+            <button
+              id="country-picker-button"
+              type="button"
+              class="picker-button">
+              Select countries
+            </button>
+            <div
+              id="country-menu"
+              class="picker-menu"
+              hidden>
+            </div>
+          </div>
+        </div>
 
-    
+        <div class="filter">
+          <label>Geographies</label>
+          <div id="geo-picker" class="multi-picker">
+            <button
+              id="geo-picker-button"
+              type="button"
+              class="picker-button">
+              Select geographies
+            </button>
+            <div
+              id="geo-menu"
+              class="picker-menu"
+              hidden>
+            </div>
+          </div>
+        </div>
+
+      </div>
 
       <div class="range-row">
         <span class="range-label">Show:</span>
+
         <div class="range-buttons" id="range-buttons">
           <button data-range="all" class="active">All time</button>
           <button data-range="365">1 year</button>
@@ -88,6 +167,8 @@
       <div id="trend-status" class="status"></div>
     </section>
 
+
+    <!-- CURRENT COMPARISON -->
     <section class="section card">
       <div class="section-heading">
         <div>
@@ -95,6 +176,7 @@
           <p>Latest available rate for the geographies currently selected.</p>
         </div>
       </div>
+
       <div class="table-wrap">
         <table id="comparison-table">
           <thead>
@@ -107,27 +189,55 @@
               <th>Data through</th>
             </tr>
           </thead>
+
           <tbody></tbody>
         </table>
       </div>
     </section>
 
+
+    <!-- METHODOLOGY -->
     <section class="section methodology">
       <details>
         <summary>About the data</summary>
+
         <div class="method-body">
-          <p><strong>Metric:</strong> Annualized temple endowment attendance per member, based on a trailing 7-day window.</p>
-          <p>Temple activity data comes from Fuller Consideration. Membership denominators are based on the membership data used by the Church Stats Python pipeline.</p>
-          <p>The current day is excluded because its temple activity data is incomplete. Each geography begins its trend when a complete 7-day source history is available.</p>
-          <p>This dashboard is a presentation layer for the data generated by the Church Stats project. It does not calculate or alter the underlying attendance methodology.</p>
+          <p>
+            <strong>Metric:</strong>
+            Annualized temple endowment attendance per member,
+            based on a trailing 7-day window.
+          </p>
+
+          <p>
+            Temple activity data comes from Fuller Consideration.
+            Membership denominators are based on the membership data
+            used by the Church Stats Python pipeline.
+          </p>
+
+          <p>
+            The current day is excluded because its temple activity
+            data is incomplete. Each geography begins its trend when
+            a complete 7-day source history is available.
+          </p>
+
+          <p>
+            This dashboard is a presentation layer for the data
+            generated by the Church Stats project. It does not
+            calculate or alter the underlying attendance methodology.
+          </p>
         </div>
       </details>
     </section>
+
   </main>
 
+
   <footer class="site-footer">
-    <div class="wrap">Temple Stats · Data updates automatically from the Church Stats project.</div>
+    <div class="wrap">
+      Temple Stats · Data updates automatically from the Church Stats project.
+    </div>
   </footer>
+
 
   <script src="dashboard.js"></script>
 </body>
