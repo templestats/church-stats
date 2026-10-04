@@ -20,7 +20,7 @@ function escapeHtml(value) {
     ">": "&gt;",
     '"': "&quot;",
     "'": "&#039;"
-  }[c]));
+  }[c]);
 }
 
 function formatRate(value) {
@@ -42,7 +42,9 @@ function formatDate(value) {
 
 function uniqueSorted(values) {
   return [...new Set(values.filter(Boolean))].sort((a, b) =>
-    a.localeCompare(b, undefined, { sensitivity: "base" })
+    a.localeCompare(b, undefined, {
+      sensitivity: "base"
+    })
   );
 }
 
@@ -60,7 +62,9 @@ function getCurrentRows() {
     return [];
   }
 
-  return state.rows.filter(r => r.date === latest);
+  return state.rows.filter(
+    r => r.date === latest
+  );
 }
 
 function rowKey(r) {
@@ -85,7 +89,15 @@ function getAllCountries() {
   );
 }
 
-function getCountriesForSelectedContinents() {
+/*
+ * Countries shown in the country picker are controlled
+ * by the currently selected continents.
+ *
+ * Importantly, changing continents does NOT erase
+ * country selections. Countries outside the current
+ * continent filter simply become inactive.
+ */
+function getAvailableCountries() {
   return uniqueSorted(
     state.rows
       .filter(r =>
@@ -95,60 +107,73 @@ function getCountriesForSelectedContinents() {
   );
 }
 
-function getAvailableGeographies() {
-  return getCurrentRows()
-    .filter(r =>
-      state.selectedContinents.includes(r.continent) &&
-      state.selectedCountries.includes(r.country)
+/*
+ * All current geographies, before applying the
+ * continent/country filters.
+ *
+ * This is what lets geography selections persist
+ * while becoming temporarily inactive.
+ */
+function getAllCurrentGeographies() {
+  return getCurrentRows().sort((a, b) =>
+    geographyLabel(a).localeCompare(
+      geographyLabel(b),
+      undefined,
+      { sensitivity: "base" }
     )
-    .sort((a, b) =>
-      geographyLabel(a).localeCompare(
-        geographyLabel(b),
-        undefined,
-        { sensitivity: "base" }
-      )
-    );
+  );
 }
 
-function getSelectedGeographies() {
-  const availableKeys = new Set(
-    getAvailableGeographies().map(rowKey)
+/*
+ * A geography is ACTIVE when it passes the continent
+ * and country filters.
+ *
+ * It is still CHECKED if the user selected it previously,
+ * even if it is currently inactive.
+ */
+function isGeographyActive(r) {
+  return (
+    state.selectedContinents.includes(r.continent) &&
+    state.selectedCountries.includes(r.country)
   );
-
-  return getCurrentRows()
-    .filter(r =>
-      availableKeys.has(rowKey(r)) &&
-      state.selectedGeographies.includes(rowKey(r))
-    )
-    .sort((a, b) =>
-      geographyLabel(a).localeCompare(
-        geographyLabel(b),
-        undefined,
-        { sensitivity: "base" }
-      )
-    );
 }
 
-function updateGeographySelectionAfterFiltersChange() {
-  const availableKeys = new Set(
-    getAvailableGeographies().map(rowKey)
+function getActiveSelectedGeographies() {
+  return getAllCurrentGeographies().filter(r =>
+    isGeographyActive(r) &&
+    state.selectedGeographies.includes(rowKey(r))
   );
-
-  state.selectedGeographies =
-    state.selectedGeographies.filter(key =>
-      availableKeys.has(key)
-    );
 }
 
-function updateCountrySelectionAfterContinentsChange() {
-  const availableCountries = new Set(
-    getCountriesForSelectedContinents()
+function getActiveGeographyKeys() {
+  return new Set(
+    getActiveSelectedGeographies().map(rowKey)
   );
+}
 
-  state.selectedCountries =
-    state.selectedCountries.filter(country =>
-      availableCountries.has(country)
-    );
+function updatePickerButton(
+  buttonId,
+  selected,
+  available,
+  label
+) {
+  const button = $(buttonId);
+
+  if (!available.length) {
+    button.textContent = `Select ${label}`;
+    return;
+  }
+
+  if (selected.length === available.length) {
+    button.textContent =
+      `All ${label} selected`;
+  } else if (!selected.length) {
+    button.textContent =
+      `No ${label} selected`;
+  } else {
+    button.textContent =
+      `${selected.length} ${label} selected`;
+  }
 }
 
 function renderSelectors() {
@@ -184,16 +209,13 @@ function renderContinentMenu() {
         type="button"
         data-action="select-all"
         data-filter="continent"
-      >
-        Select all
-      </button>
+      >Select all</button>
+
       <button
         type="button"
         data-action="select-none"
         data-filter="continent"
-      >
-        Select none
-      </button>
+      >Select none</button>
     </div>
 
     ${continents.map(continent => `
@@ -218,9 +240,7 @@ function renderContinentMenu() {
 
 function renderCountryMenu() {
   const menu = $("country-menu");
-
-  const countries =
-    getCountriesForSelectedContinents();
+  const countries = getAllCountries();
 
   const selected = new Set(
     state.selectedCountries
@@ -228,7 +248,7 @@ function renderCountryMenu() {
 
   if (!countries.length) {
     menu.innerHTML =
-      `<div class="picker-item">No countries match the selected continents.</div>`;
+      `<div class="picker-item">No countries available.</div>`;
 
     updatePickerButton(
       "country-picker-button",
@@ -246,33 +266,44 @@ function renderCountryMenu() {
         type="button"
         data-action="select-all"
         data-filter="country"
-      >
-        Select all
-      </button>
+      >Select all</button>
+
       <button
         type="button"
         data-action="select-none"
         data-filter="country"
-      >
-        Select none
-      </button>
+      >Select none</button>
     </div>
 
-    ${countries.map(country => `
-      <label class="picker-item">
-        <input
-          type="checkbox"
-          data-country="${escapeHtml(country)}"
-          ${selected.has(country) ? "checked" : ""}
+    ${countries.map(country => {
+      const active =
+        state.selectedContinents.length > 0 &&
+        state.rows.some(r =>
+          r.country === country &&
+          state.selectedContinents.includes(r.continent)
+        );
+
+      return `
+        <label
+          class="picker-item${active ? "" : " picker-item-inactive"}"
         >
-        <span>${escapeHtml(country)}</span>
-      </label>
-    `).join("")}
+          <input
+            type="checkbox"
+            data-country="${escapeHtml(country)}"
+            ${selected.has(country) ? "checked" : ""}
+            ${active ? "" : "disabled"}
+          >
+          <span>${escapeHtml(country)}</span>
+        </label>
+      `;
+    }).join("")}
   `;
 
   updatePickerButton(
     "country-picker-button",
-    state.selectedCountries,
+    state.selectedCountries.filter(
+      c => countries.includes(c)
+    ),
     countries,
     "countries"
   );
@@ -280,14 +311,17 @@ function renderCountryMenu() {
 
 function renderGeoMenu() {
   const menu = $("geo-menu");
-  const options = getAvailableGeographies();
+
+  const options =
+    getAllCurrentGeographies();
+
   const selected = new Set(
     state.selectedGeographies
   );
 
   if (!options.length) {
     menu.innerHTML =
-      `<div class="picker-item">No geographies match the current filters.</div>`;
+      `<div class="picker-item">No geographies available.</div>`;
 
     updatePickerButton(
       "geo-picker-button",
@@ -299,33 +333,40 @@ function renderGeoMenu() {
     return;
   }
 
+  const activeKeys =
+    getActiveGeographyKeys();
+
   menu.innerHTML = `
     <div class="picker-actions">
       <button
         type="button"
         data-action="select-all"
         data-filter="geo"
-      >
-        Select all
-      </button>
+      >Select all</button>
+
       <button
         type="button"
         data-action="select-none"
         data-filter="geo"
-      >
-        Select none
-      </button>
+      >Select none</button>
     </div>
 
     ${options.map(r => {
       const key = rowKey(r);
+      const checked = selected.has(key);
+      const active = activeKeys.has(key) || !checked
+        ? isGeographyActive(r)
+        : isGeographyActive(r);
 
       return `
-        <label class="picker-item">
+        <label
+          class="picker-item${active ? "" : " picker-item-inactive"}"
+        >
           <input
             type="checkbox"
             data-geo-key="${escapeHtml(key)}"
-            ${selected.has(key) ? "checked" : ""}
+            ${checked ? "checked" : ""}
+            ${active ? "" : "disabled"}
           >
           <span>${escapeHtml(geographyLabel(r))}</span>
         </label>
@@ -333,46 +374,18 @@ function renderGeoMenu() {
     }).join("")}
   `;
 
+  /*
+   * The button describes the number of CHECKED
+   * geographies among all available geographies,
+   * not merely the active ones.
+   */
   updatePickerButton(
     "geo-picker-button",
-    state.selectedGeographies,
+    state.selectedGeographies.filter(
+      key => options.some(r => rowKey(r) === key)
+    ),
     options.map(rowKey),
     "geographies"
-  );
-}
-
-function updatePickerButton(
-  buttonId,
-  selected,
-  available,
-  label
-) {
-  const button = $(buttonId);
-
-  if (!available.length) {
-    button.textContent = `Select ${label}`;
-    return;
-  }
-
-  if (selected.length === available.length) {
-    button.textContent =
-      `All ${label} selected`;
-  } else if (!selected.length) {
-    button.textContent =
-      `No ${label} selected`;
-  } else {
-    button.textContent =
-      `${selected.length} ${label} selected`;
-  }
-}
-
-function getFilteredRowsForTrend() {
-  const selectedKeys = new Set(
-    state.selectedGeographies
-  );
-
-  return state.rows.filter(r =>
-    selectedKeys.has(rowKey(r))
   );
 }
 
@@ -394,13 +407,33 @@ function getRangeCutoff() {
   return end.toISOString().slice(0, 10);
 }
 
+/*
+ * Aggregate the selected geographies mathematically.
+ *
+ * We DO NOT average the individual rates.
+ *
+ * Correct calculation:
+ *
+ *   sum(annualized endowments)
+ *   --------------------------
+ *       sum(members)
+ *
+ * This produces the combined annualized
+ * endowments/member rate.
+ */
 function aggregateRowsByDate(rows) {
   const byDate = new Map();
 
   for (const row of rows) {
+    const members =
+      Number(row.members);
+
+    const annualizedEndowments =
+      Number(row.annualized_endowments);
+
     if (
-      !Number.isFinite(Number(row.members)) ||
-      !Number.isFinite(Number(row.annualized_endowments))
+      !Number.isFinite(members) ||
+      !Number.isFinite(annualizedEndowments)
     ) {
       continue;
     }
@@ -413,11 +446,12 @@ function aggregateRowsByDate(rows) {
       });
     }
 
-    const aggregate = byDate.get(row.date);
+    const aggregate =
+      byDate.get(row.date);
 
-    aggregate.members += Number(row.members);
+    aggregate.members += members;
     aggregate.annualizedEndowments +=
-      Number(row.annualized_endowments);
+      annualizedEndowments;
   }
 
   return [...byDate.values()]
@@ -431,69 +465,91 @@ function aggregateRowsByDate(rows) {
         row.annualizedEndowments,
       rate:
         row.members > 0
-          ? row.annualizedEndowments / row.members
+          ? row.annualizedEndowments /
+            row.members
           : null
     }));
 }
 
 function getSelectionDescription() {
-  const geographyCount =
-    state.selectedGeographies.length;
+  const active =
+    getActiveSelectedGeographies();
 
-  if (!geographyCount) {
-    return "No geographies selected.";
+  if (!active.length) {
+    return "No geographies selected";
   }
 
-  const allAvailable =
-    getAvailableGeographies();
+  const allCurrent =
+    getAllCurrentGeographies();
 
-  if (
-    allAvailable.length &&
-    geographyCount === allAvailable.length
-  ) {
-    const continentCount =
-      state.selectedContinents.length;
+  /*
+   * If all currently active geographies are checked,
+   * give the user a useful description based on the
+   * higher-level filters.
+   */
+  const activeKeys =
+    new Set(active.map(rowKey));
 
+  const allActive =
+    allCurrent.filter(isGeographyActive);
+
+  const allActiveKeys =
+    new Set(allActive.map(rowKey));
+
+  const everythingActiveIsSelected =
+    activeKeys.size === allActiveKeys.size &&
+    [...allActiveKeys].every(key =>
+      activeKeys.has(key)
+    );
+
+  if (everythingActiveIsSelected) {
     const allContinents =
       getAllContinents();
 
-    const countryCount =
-      state.selectedCountries.length;
-
     const allCountries =
-      getCountriesForSelectedContinents();
+      getAllCountries();
 
     if (
-      continentCount === allContinents.length &&
-      countryCount === allCountries.length
+      state.selectedContinents.length ===
+        allContinents.length &&
+      state.selectedCountries.length ===
+        allCountries.length
     ) {
       return "All geographies";
     }
 
-    if (continentCount === 1) {
-      const continent =
-        state.selectedContinents[0];
-
-      if (countryCount === allCountries.length) {
-        return continent;
-      }
+    if (
+      state.selectedContinents.length === 1 &&
+      state.selectedCountries.length ===
+        getAllCountries().filter(country =>
+          state.rows.some(r =>
+            r.country === country &&
+            r.continent ===
+              state.selectedContinents[0]
+          )
+        ).length
+    ) {
+      return state.selectedContinents[0];
     }
 
-    if (countryCount === 1) {
+    if (
+      state.selectedCountries.length === 1
+    ) {
       return state.selectedCountries[0];
     }
   }
 
-  return `${geographyCount} selected geographies`;
+  return `${active.length} selected geographies`;
 }
 
 function renderTrend() {
-  const selectedRows =
-    getFilteredRowsForTrend();
+  const activeSelected =
+    getActiveSelectedGeographies();
 
-  const latest = latestDate();
+  const latest =
+    latestDate();
 
-  if (!selectedRows.length) {
+  if (!activeSelected.length) {
     Plotly.newPlot(
       "trend-chart",
       [],
@@ -504,15 +560,18 @@ function renderTrend() {
           t: 30,
           b: 50
         },
+
         xaxis: {
           visible: false
         },
+
         yaxis: {
           visible: false
         },
+
         annotations: [{
           text:
-            "Select one or more geographies to display the trend.",
+            "Select one or more active geographies to display the trend.",
           showarrow: false,
           font: {
             size: 15,
@@ -536,6 +595,16 @@ function renderTrend() {
     return;
   }
 
+  const selectedKeys =
+    new Set(
+      activeSelected.map(rowKey)
+    );
+
+  const selectedRows =
+    state.rows.filter(r =>
+      selectedKeys.has(rowKey(r))
+    );
+
   const cutoff =
     getRangeCutoff();
 
@@ -547,18 +616,24 @@ function renderTrend() {
   const aggregate =
     aggregateRowsByDate(rowsForChart);
 
-  const selectedDescription =
+  const description =
     getSelectionDescription();
 
   const trace = {
     x: aggregate.map(r => r.date),
+
     y: aggregate.map(r => r.rate),
+
     type: "scatter",
+
     mode: "lines",
-    name: selectedDescription,
+
+    name: description,
+
     line: {
       width: 3
     },
+
     hovertemplate:
       "%{x|%b %-d, %Y}<br>" +
       "%{y:.3f} endowments/member" +
@@ -574,6 +649,7 @@ function renderTrend() {
     },
 
     paper_bgcolor: "white",
+
     plot_bgcolor: "white",
 
     hovermode: "x unified",
@@ -616,33 +692,34 @@ function renderTrend() {
   );
 
   $("trend-status").textContent =
-    `${selectedDescription} · ` +
-    `${state.selectedGeographies.length.toLocaleString()} geographies aggregated · ` +
+    `${description} · ` +
+    `${activeSelected.length.toLocaleString()} geographies aggregated · ` +
     `Data through ${formatDate(latest)}.`;
 
-  renderTable(
-    getSelectedGeographies()
-  );
+  renderTable(activeSelected);
 }
 
 function renderTable(rows) {
   const body =
-    $("comparison-table").querySelector("tbody");
+    $("comparison-table")
+      .querySelector("tbody");
 
   if (!rows.length) {
     body.innerHTML =
       `<tr>
         <td colspan="6">
-          Select one or more geographies to compare.
+          Select one or more active geographies to compare.
         </td>
       </tr>`;
 
     return;
   }
 
-  const latest = latestDate();
+  const latest =
+    latestDate();
 
-  const latestByKey = new Map();
+  const latestByKey =
+    new Map();
 
   rows
     .filter(r => r.date === latest)
@@ -661,7 +738,9 @@ function renderTable(rows) {
         <tr>
           <td>
             <strong>
-              ${escapeHtml(geographyLabel(r))}
+              ${escapeHtml(
+                geographyLabel(r)
+              )}
             </strong>
           </td>
 
@@ -682,7 +761,9 @@ function renderTable(rows) {
           </td>
 
           <td>
-            ${escapeHtml(formatDate(r.date))}
+            ${escapeHtml(
+              formatDate(r.date)
+            )}
           </td>
         </tr>
       `)
@@ -690,13 +771,18 @@ function renderTable(rows) {
 }
 
 function loadMaps() {
-  const world = $("world-map");
-  const us = $("us-map");
+  const world =
+    $("world-map");
+
+  const us =
+    $("us-map");
 
   if (state.urls.countries) {
     world.innerHTML = `
       <iframe
-        src="${escapeHtml(state.urls.countries)}"
+        src="${escapeHtml(
+          state.urls.countries
+        )}"
         title="Worldwide temple attendance map"
         loading="lazy"
       ></iframe>
@@ -709,7 +795,9 @@ function loadMaps() {
   if (state.urls.us) {
     us.innerHTML = `
       <iframe
-        src="${escapeHtml(state.urls.us)}"
+        src="${escapeHtml(
+          state.urls.us
+        )}"
         title="U.S. temple attendance map"
         loading="lazy"
       ></iframe>
@@ -724,47 +812,62 @@ function selectAllContinents() {
   state.selectedContinents =
     getAllContinents();
 
-  state.selectedCountries =
-    getCountriesForSelectedContinents();
-
-  state.selectedGeographies =
-    getAvailableGeographies().map(rowKey);
-
+  /*
+   * Do NOT modify countries or geographies.
+   *
+   * They retain their previous checked state.
+   */
   renderSelectors();
   renderTrend();
 }
 
 function selectNoneContinents() {
+  /*
+   * Do NOT modify countries or geographies.
+   *
+   * Everything simply becomes inactive because no
+   * continent is currently in scope.
+   */
   state.selectedContinents = [];
-  state.selectedCountries = [];
-  state.selectedGeographies = [];
 
   renderSelectors();
   renderTrend();
 }
 
 function selectAllCountries() {
+  /*
+   * Select all countries globally.
+   * Continent filtering still determines which
+   * countries are currently active.
+   */
   state.selectedCountries =
-    getCountriesForSelectedContinents();
-
-  state.selectedGeographies =
-    getAvailableGeographies().map(rowKey);
+    getAllCountries();
 
   renderSelectors();
   renderTrend();
 }
 
 function selectNoneCountries() {
+  /*
+   * Do NOT modify continent or geography selections.
+   */
   state.selectedCountries = [];
-  state.selectedGeographies = [];
 
   renderSelectors();
   renderTrend();
 }
 
 function selectAllGeographies() {
+  /*
+   * Select every geography, including those that
+   * are currently inactive because of other filters.
+   *
+   * This means changing the continent filter later
+   * will automatically reveal those geographies.
+   */
   state.selectedGeographies =
-    getAvailableGeographies().map(rowKey);
+    getAllCurrentGeographies()
+      .map(rowKey);
 
   renderGeoMenu();
   renderTrend();
@@ -803,15 +906,24 @@ function bindEvents() {
     });
 
   document.addEventListener("click", e => {
-    if (!$("continent-picker").contains(e.target)) {
+    if (
+      !$("continent-picker")
+        .contains(e.target)
+    ) {
       $("continent-menu").hidden = true;
     }
 
-    if (!$("country-picker").contains(e.target)) {
+    if (
+      !$("country-picker")
+        .contains(e.target)
+    ) {
       $("country-menu").hidden = true;
     }
 
-    if (!$("geo-picker").contains(e.target)) {
+    if (
+      !$("geo-picker")
+        .contains(e.target)
+    ) {
       $("geo-menu").hidden = true;
     }
   });
@@ -862,9 +974,6 @@ function bindEvents() {
           );
       }
 
-      updateCountrySelectionAfterContinentsChange();
-      updateGeographySelectionAfterFiltersChange();
-
       renderSelectors();
       renderTrend();
     });
@@ -914,8 +1023,6 @@ function bindEvents() {
             x => x !== country
           );
       }
-
-      updateGeographySelectionAfterFiltersChange();
 
       renderSelectors();
       renderTrend();
@@ -1032,17 +1139,22 @@ async function load() {
       await urlsResponse.json();
 
     /*
-     * Default state:
-     * everything is selected.
+     * Initial state:
+     *
+     * - Every continent checked
+     * - Every country checked
+     * - Every geography checked
+     *
+     * These remain independent after initialization.
      */
     state.selectedContinents =
       getAllContinents();
 
     state.selectedCountries =
-      getCountriesForSelectedContinents();
+      getAllCountries();
 
     state.selectedGeographies =
-      getAvailableGeographies()
+      getAllCurrentGeographies()
         .map(rowKey);
 
     const latest =
