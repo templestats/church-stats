@@ -38,8 +38,7 @@
               src="https://datawrapper.dwcdn.net/ooUr3/27/"
               scrolling="no"
               frameborder="0"
-              style="width: 100%; border: 0;"
-              height="600">
+              style="width: 100%; border: 0;">
             </iframe>
           </div>
         </article>
@@ -52,8 +51,7 @@
               src="https://datawrapper.dwcdn.net/LuaXr/29/"
               scrolling="no"
               frameborder="0"
-              style="width: 100%; border: 0;"
-              height="600">
+              style="width: 100%; border: 0;">
             </iframe>
           </div>
         </article>
@@ -77,8 +75,7 @@
           src="https://datawrapper.dwcdn.net/CQis2/19/"
           scrolling="no"
           frameborder="0"
-          style="width: 100%; border: 0;"
-          height="800">
+          style="width: 100%; border: 0;">
         </iframe>
       </div>
     </section>
@@ -238,6 +235,20 @@
     </div>
   </footer>
 
+
+  <!-- Responsive Datawrapper iframe sizing -->
+  <script>
+    window.addEventListener("message", function (event) {
+      if (!event.data || !event.data["datawrapper-height"]) return;
+
+      document.querySelectorAll("iframe").forEach(function (iframe) {
+        if (iframe.contentWindow === event.source) {
+          iframe.style.height =
+            event.data["datawrapper-height"] + "px";
+        }
+      });
+    });
+  </script>
 
   <script src="dashboard.js"></script>
 </body>
