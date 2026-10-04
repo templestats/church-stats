@@ -357,3 +357,7 @@ td.rate { font-variant-numeric: tabular-nums; font-weight: 700; }
 .picker-actions button:hover {
   text-decoration: underline;
 }
+
+.picker-item-inactive {
+  opacity: 0.45;
+}
