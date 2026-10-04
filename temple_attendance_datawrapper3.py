@@ -358,10 +358,7 @@ def clean_url(value: str) -> str:
 
 def normalize_name(value: str) -> str:
     """Normalize names for matching."""
-    value = unicodedata.normalize(
-        "NFKD",
-        value,
-    )
+    value = unicodedata.normalize("NFKD", value)
 
     value = "".join(
         character
@@ -461,10 +458,6 @@ def scrape_full_history(
     """
     Scrape all dated temple activity from Fuller Consideration's
     endowments.php raw-data table.
-
-    Fuller renders the raw-data header as text rather than a conventional
-    table-header row, so identify data rows by their ISO date in the first
-    cell and use the documented fixed column positions.
     """
     soup = page_soup(
         session,
@@ -675,9 +668,7 @@ def locate_temple(
         )
 
     normalized = clean_text(
-        temple_name.removesuffix(
-            " Temple"
-        ).rstrip("* ")
+        temple_name.removesuffix(" Temple").rstrip("* ")
     ).casefold()
 
     # Check states first.
@@ -686,9 +677,7 @@ def locate_temple(
         key=lambda item: len(item[0]),
         reverse=True,
     ):
-        if normalized.endswith(
-            state_name.casefold()
-        ):
+        if normalized.endswith(state_name.casefold()):
             return Geography(
                 scope="state",
                 name=state_name,
@@ -762,9 +751,7 @@ def locate_temple(
 
         seen.add(key)
 
-        if normalized.endswith(
-            candidate.casefold()
-        ):
+        if normalized.endswith(candidate.casefold()):
             if not display_name:
                 display_name = candidate
 
@@ -943,11 +930,6 @@ def scrape_membership(
 ) -> tuple[int, str, str]:
     """
     Read the geography-specific membership count.
-
-    The geography-specific section appears before the page's
-    "Worldwide Statistics" section. We deliberately ignore the
-    worldwide section so its membership figure cannot be mistaken
-    for the geography's figure.
     """
     soup = page_soup(
         session,
@@ -1334,109 +1316,6 @@ def write_csv(
 
 
 # ============================================================
-# DATAWRAPPER CSV GENERATION
-# ============================================================
-
-def build_datawrapper_us_rows(
-    records: list[dict[str, Any]],
-) -> list[dict[str, Any]]:
-    """
-    Build the CSV consumed by the U.S. Datawrapper map.
-
-    Only states with operating temples are included.
-    """
-    rows: list[dict[str, Any]] = []
-
-    for record in sorted(
-        (
-            record
-            for record in records
-            if record["scope"] == "state"
-        ),
-        key=lambda record: record["name"],
-    ):
-        abbreviation = next(
-            abbreviation
-            for name, abbreviation in STATES
-            if name == record["name"]
-        )
-
-        rows.append(
-            {
-                "id": abbreviation,
-                "name": record["name"],
-                "value": record[
-                    "annualized_per_member"
-                ],
-            }
-        )
-
-    return rows
-
-
-def build_datawrapper_country_rows(
-    records: list[dict[str, Any]],
-    all_state_memberships: dict[str, int],
-) -> list[dict[str, Any]]:
-    """
-    Build the CSV consumed by the country Datawrapper map.
-
-    Adds a synthetic USA row whose denominator is the total
-    membership of all 50 U.S. states, not merely states with
-    operating temples.
-    """
-    rows: list[dict[str, Any]] = []
-
-    for record in sorted(
-        (
-            record
-            for record in records
-            if record["scope"] == "country"
-        ),
-        key=lambda record: record["name"],
-    ):
-        rows.append(
-            {
-                "id": record["iso3"],
-                "name": record["name"],
-                "value": record[
-                    "annualized_per_member"
-                ],
-            }
-        )
-
-    us_members = sum(
-        all_state_memberships.values()
-    )
-
-    us_endowments = sum(
-        record["weekly_endowments"]
-        for record in records
-        if record["scope"] == "state"
-    )
-
-    us_annualized = (
-        us_endowments
-        * WEEKS_PER_YEAR
-    )
-
-    us_rate = (
-        us_annualized
-        / us_members
-    )
-
-    rows.append(
-        {
-            "id": "USA",
-            "name": "United States",
-            "value": us_rate,
-        }
-    )
-
-    return rows
-
-
-# ============================================================
 # DATAWRAPPER API
 # ============================================================
 
@@ -1473,14 +1352,8 @@ def update_datawrapper_chart(
     """
     Upload CSV data to an existing Datawrapper chart,
     update its title, and publish it.
-
-    Returns the published public URL when available.
     """
     csv_data = csv_path.read_bytes()
-
-    # --------------------------------------------------------
-    # Upload current data
-    # --------------------------------------------------------
 
     data_url = (
         f"{DATAWRAPPER_API_BASE}/charts/"
@@ -1498,10 +1371,6 @@ def update_datawrapper_chart(
     )
 
     response.raise_for_status()
-
-    # --------------------------------------------------------
-    # Update dynamic chart title
-    # --------------------------------------------------------
 
     metadata_url = (
         f"{DATAWRAPPER_API_BASE}/charts/"
@@ -1521,10 +1390,6 @@ def update_datawrapper_chart(
     )
 
     response.raise_for_status()
-
-    # --------------------------------------------------------
-    # Publish chart
-    # --------------------------------------------------------
 
     publish_url = (
         f"{DATAWRAPPER_API_BASE}/charts/"
@@ -1573,12 +1438,15 @@ def update_datawrapper(
 ) -> None:
     """Update all three configured Datawrapper charts."""
     token = os.getenv("DATAWRAPPER_TOKEN")
+
     us_chart_id = os.getenv(
         "DATAWRAPPER_US_CHART_ID"
     )
+
     countries_chart_id = os.getenv(
         "DATAWRAPPER_COUNTRIES_CHART_ID"
     )
+
     historical_chart_id = os.getenv(
         "DATAWRAPPER_HISTORICAL_CHART_ID"
     )
@@ -1651,13 +1519,6 @@ def update_datawrapper(
             "annualized trailing 7 days"
         ),
     )
-
-    # --------------------------------------------------------
-    # Save current public chart URLs for the dashboard.
-    #
-    # The dashboard will read this file from GitHub Pages so
-    # it never needs hardcoded Datawrapper version URLs.
-    # --------------------------------------------------------
 
     if not us_url:
         raise RuntimeError(
@@ -1814,13 +1675,8 @@ def aggregate_window(
             },
         )
 
-        aggregate["endowments"] += (
-            row.endowments
-        )
-
-        aggregate["living"] += (
-            row.living
-        )
+        aggregate["endowments"] += row.endowments
+        aggregate["living"] += row.living
 
         aggregate["temple_names"].add(
             row.temple
@@ -1878,8 +1734,8 @@ def build_current_map_rows(
         key=lambda r: r["name"],
     ):
         abbreviation = next(
-            abbr
-            for name, abbr in STATES
+            abbreviation
+            for name, abbreviation in STATES
             if name == record["name"]
         )
 
@@ -1923,18 +1779,25 @@ def build_current_map_rows(
         if r["scope"] == "state"
     )
 
+    us_annualized = (
+        us_endowments
+        * 365
+        / records[0]["calendar_days"]
+        if records
+        else 0
+    )
+
+    us_rate = (
+        us_annualized / us_members
+        if us_members
+        else 0
+    )
+
     country_rows.append(
         {
             "id": "USA",
             "name": "United States",
-            "value": (
-                us_endowments
-                * 365
-                / records[0]["calendar_days"]
-            )
-            / us_members
-            if records
-            else 0,
+            "value": us_rate,
         }
     )
 
@@ -2083,14 +1946,27 @@ def build_dashboard_trends(
     last_date: date,
 ) -> list[dict[str, Any]]:
     """
-    Build daily trailing-7-day annualized endowment attendance rates
+    Build daily trailing-7-day annualized endowment attendance data
     for every state and country.
 
-    Each row represents one geography on one date.
+    IMPORTANT:
+    The output deliberately includes both membership and activity
+    totals, not merely the calculated rate.
 
-    A geography's history begins only after that geography has enough
-    source history to calculate a complete 7-day trailing window.
+    This allows the browser dashboard to combine any arbitrary
+    selection of geographies correctly.
+
+    For example:
+
+        Europe rate =
+            total annualized endowments in Europe
+            / total members in Europe
+
+    rather than:
+
+        average of the individual country rates.
     """
+
     # --------------------------------------------------------
     # Aggregate daily endowments by geography
     # --------------------------------------------------------
@@ -2221,9 +2097,13 @@ def build_dashboard_trends(
                     0,
                 )
 
-            annualized_rate = (
+            annualized_endowments = (
                 seven_day_total
                 * (365 / 7)
+            )
+
+            annualized_rate = (
+                annualized_endowments
                 / members
             )
 
@@ -2234,6 +2114,12 @@ def build_dashboard_trends(
                     "continent": continent,
                     "country": country,
                     "name": name,
+                    "members": members,
+                    "endowments_7d": seven_day_total,
+                    "annualized_endowments": round(
+                        annualized_endowments,
+                        6,
+                    ),
                     "rate": round(
                         annualized_rate,
                         6,
@@ -2369,6 +2255,8 @@ def main() -> int:
             temple_geographies
         )
 
+        # Include all 50 states so the U.S. denominator is complete,
+        # even when a state currently has no operating temple.
         for state_name, _ in STATES:
             all_geographies.add(
                 Geography(
@@ -2478,6 +2366,10 @@ def main() -> int:
             * annual_factor
             / eligible_members
         )
+
+        # ----------------------------------------------------
+        # Datawrapper current maps
+        # ----------------------------------------------------
 
         us_rows, country_rows = (
             build_current_map_rows(
