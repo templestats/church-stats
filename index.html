@@ -4,29 +4,36 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Explore historical temple endowment attendance rates by country and U.S. state.">
-  <title>Temple Endowment Attendance per member of record</title>
+  <meta
+    name="description"
+    content="Explore historical LDS temple endowment attendance rates by country and U.S. state, with interactive trends across selected geographies."
+  >
+  <meta name="theme-color" content="#ffffff">
+  <title>Temple Endowment Attendance Rates | LDS Temple Stats</title>
+
   <link rel="stylesheet" href="dashboard.css">
   <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
 </head>
+
 <body>
   <header class="site-header">
     <div class="wrap">
       <div class="eyebrow">LDS TEMPLE STATS</div>
-      <h1>Temple Endowment Attendance per member of record</h1>`
-    
-      <p id="freshness" class="freshness" aria-live="polite">Loading current data…</p>
+      <h1>Temple Endowment Attendance Rates</h1>
+      <p id="freshness" class="freshness" aria-live="polite">
+        Loading current data…
+      </p>
     </div>
   </header>
 
   <main class="wrap">
 
-    <!-- 1. CURRENT GEOGRAPHIC ACTIVITY: MAPS FIRST -->
+    <!-- 1. GEOGRAPHIC ATTENDANCE MAPS -->
     <section class="section">
       <div class="section-heading">
         <div>
-          <h2>LDS Temple attendance rates by geography</h2>
-          <p>Endowment sessions attended per member of record</p>
+          <h2>Attendance Rates by Geography</h2>
+          <p>Annualized endowment sessions per member of record</p>
         </div>
       </div>
 
@@ -35,14 +42,15 @@
           <h3>Worldwide</h3>
           <div class="datawrapper-frame country-frame">
             <iframe
-              title="Temple attendance rate by country"
-              aria-label="Choropleth map"
+              title="Temple endowment attendance rates by country"
+              aria-label="Choropleth map of temple attendance rates by country"
               src="https://datawrapper.dwcdn.net/ooUr3/52/"
               scrolling="no"
               height="550"
               frameborder="0"
               loading="lazy"
-              data-external="1"></iframe>
+              data-external="1"
+            ></iframe>
           </div>
         </article>
 
@@ -50,53 +58,61 @@
           <h3>United States</h3>
           <div class="datawrapper-frame state-frame">
             <iframe
-              title="Temple attendance rate by U.S. state"
-              aria-label="Choropleth map"
+              title="Temple endowment attendance rates by U.S. state"
+              aria-label="Choropleth map of temple attendance rates by U.S. state"
               src="https://datawrapper.dwcdn.net/LuaXr/55/"
               scrolling="no"
               height="499"
               frameborder="0"
               loading="lazy"
-              data-external="1"></iframe>
+              data-external="1"
+            ></iframe>
           </div>
         </article>
       </div>
     </section>
 
-    <!-- 2. DATAWRAPPER HISTORICAL TREND: SECOND -->
+    <!-- 2. HISTORICAL DATAWRAPPER TREND -->
     <section class="section">
       <div class="section-heading">
         <div>
-          <h2>Attendance trends</h2>
-          <p>Living endowment trend and dynamic dashboard for total endowment attendance trends.</p>
+          <h2>Attendance Trends</h2>
+          <p>
+            Historical living-endowment attendance, followed by an interactive
+            dashboard for exploring combined attendance trends.
+          </p>
         </div>
       </div>
 
       <article class="card embed-card">
         <div class="datawrapper-frame historical-frame">
           <iframe
-            title="Living Endowment Attendance Trend"
-            aria-label="Small multiple line chart"
+            title="Historical Living Endowment Attendance Trend"
+            aria-label="Small-multiple line chart of historical living-endowment attendance"
             src="https://datawrapper.dwcdn.net/CQis2/47/"
             scrolling="no"
             height="712"
             frameborder="0"
             loading="lazy"
-            data-external="1"></iframe>
+            data-external="1"
+          ></iframe>
         </div>
       </article>
     </section>
 
-    <!-- 3. EXPLORE TRENDS: DASHBOARD AGGREGATE CHART -->
+    <!-- 3. INTERACTIVE AGGREGATE TREND DASHBOARD -->
     <section class="section card explorer">
       <div class="section-heading">
         <div>
-          <h2>Temple Attendance Rates: Explore trends</h2>
+          <h2>Explore Attendance Trends</h2>
           <p>
             Select continents and/or countries, then use the geography picker
             to include or exclude individual states and countries. The chart
-            shows one combined, membership-weighted attendance trend for all
-            selected geographies. Calculated as the sum of all endowments (living and proxy) from the last 7 days, annualized, then divided by the prior year's member of record count.
+            displays one combined, membership-weighted attendance trend for
+            all selected geographies. The rate is calculated by summing living
+            and proxy endowment sessions over the trailing seven days,
+            annualizing that total, and dividing by the most recently reported
+            membership count.
           </p>
         </div>
       </div>
@@ -110,7 +126,8 @@
               type="button"
               class="picker-button"
               aria-expanded="false"
-              aria-controls="continent-menu">No continents selected</button>
+              aria-controls="continent-menu"
+            >No continents selected</button>
             <div id="continent-menu" class="picker-menu" hidden></div>
           </div>
         </div>
@@ -123,7 +140,8 @@
               type="button"
               class="picker-button"
               aria-expanded="false"
-              aria-controls="country-menu">No countries selected</button>
+              aria-controls="country-menu"
+            >No countries selected</button>
             <div id="country-menu" class="picker-menu" hidden></div>
           </div>
         </div>
@@ -136,29 +154,60 @@
               type="button"
               class="picker-button"
               aria-expanded="false"
-              aria-controls="geo-menu">No geographies available</button>
+              aria-controls="geo-menu"
+            >No geographies available</button>
             <div id="geo-menu" class="picker-menu" hidden></div>
           </div>
         </div>
       </div>
 
       <div class="selection-row">
-        <div id="selection-chips" class="chips" aria-live="polite"></div>
-        <button id="clear-selection" type="button" class="text-button">Clear all</button>
+        <div
+          id="selection-chips"
+          class="chips"
+          aria-live="polite"
+        ></div>
+        <button
+          id="clear-selection"
+          type="button"
+          class="text-button"
+        >Clear all</button>
       </div>
 
       <div class="range-row">
-        <span class="range-label">Show:</span>
+        <span class="range-label">Date range:</span>
         <div
           class="range-buttons"
           id="range-buttons"
           role="group"
-          aria-label="Trend date range">
-          <button type="button" data-range="all" class="active" aria-pressed="true">All time</button>
-          <button type="button" data-range="365" aria-pressed="false">1 year</button>
-          <button type="button" data-range="180" aria-pressed="false">6 months</button>
-          <button type="button" data-range="90" aria-pressed="false">90 days</button>
-          <button type="button" data-range="30" aria-pressed="false">30 days</button>
+          aria-label="Trend date range"
+        >
+          <button
+            type="button"
+            data-range="all"
+            class="active"
+            aria-pressed="true"
+          >All time</button>
+          <button
+            type="button"
+            data-range="365"
+            aria-pressed="false"
+          >1 year</button>
+          <button
+            type="button"
+            data-range="180"
+            aria-pressed="false"
+          >6 months</button>
+          <button
+            type="button"
+            data-range="90"
+            aria-pressed="false"
+          >90 days</button>
+          <button
+            type="button"
+            data-range="30"
+            aria-pressed="false"
+          >30 days</button>
         </div>
       </div>
 
@@ -166,20 +215,25 @@
         id="trend-chart"
         class="trend-chart"
         role="img"
-        aria-label="Aggregate attendance trend for selected geographies"></div>
+        aria-label="Aggregate temple attendance trend for the selected geographies"
+      ></div>
 
-      <p id="trend-status" class="status" aria-live="polite"></p>
+      <p
+        id="trend-status"
+        class="status"
+        aria-live="polite"
+      ></p>
     </section>
 
-    <!-- CURRENT COMPARISON TABLE -->
+    <!-- 4. CURRENT COMPARISON TABLE -->
     <section class="section card">
       <div class="section-heading">
         <div>
-          <h2>Current comparison</h2>
+          <h2>Current Comparison</h2>
           <p>
-            Latest available rates for the selected geographies. The
-            selected-group rate is weighted by membership, not averaged
-            across geography rates.
+            Latest available attendance rates for the selected geographies.
+            The combined rate is weighted by membership rather than calculated
+            as a simple average of geographic rates.
           </p>
         </div>
       </div>
@@ -188,86 +242,117 @@
         <table id="comparison-table">
           <thead>
             <tr>
-              <th>Geography</th>
-              <th>Type</th>
-              <th>Continent</th>
-              <th>Country</th>
-              <th>Annualized / member</th>
-              <th>Members</th>
-              <th>Data through</th>
+              <th scope="col">Geography</th>
+              <th scope="col">Type</th>
+              <th scope="col">Continent</th>
+              <th scope="col">Country</th>
+              <th scope="col">Annualized Sessions / Member</th>
+              <th scope="col">Members</th>
+              <th scope="col">Data Through</th>
             </tr>
           </thead>
           <tbody>
-            <tr><td colspan="7">Loading comparison…</td></tr>
+            <tr>
+              <td colspan="7">Loading comparison…</td>
+            </tr>
           </tbody>
         </table>
       </div>
     </section>
 
-    <!-- METHODOLOGY -->
+    <!-- 5. METHODOLOGY AND LIMITATIONS -->
     <section class="section methodology">
       <details>
-        <summary>Methodology and limitations</summary>
+        <summary>Methodology and Limitations</summary>
+
         <div class="method-body">
-          <h3>What this metric measures</h3>
+          <h3>What This Metric Measures</h3>
           <p>
-            The metric is annualized temple endowment sessions per member of
-            record. For each geography and date, the seven-day endowment total
-            is multiplied by 365/7 and divided by the geography's membership count.
-          </p>
-          <p><strong>Rate = (trailing 7-day endowment sessions × 365 ÷ 7) ÷ members of record.</strong></p>
-          <p>
-            This is a rate of recorded sessions relative to membership, not a
-            count or estimate of unique people attending. One person may attend
-            multiple sessions, and the source data does not identify unique attendees.
+            This metric estimates the annualized number of temple endowment
+            sessions per member of record. For each geography and date, the
+            trailing seven-day endowment total is multiplied by 365/7 and
+            divided by the membership count.
           </p>
 
-          <h3>Rolling window and annualization</h3>
+          <p>
+            <strong>
+              Rate = (Trailing 7-day endowment sessions × 365 ÷ 7)
+              ÷ Members of Record
+            </strong>
+          </p>
+
+          <p>
+            This is a rate of recorded sessions relative to membership, not
+            a count or estimate of unique people attending. An individual
+            may attend multiple sessions, and the source data does not
+            identify unique attendees.
+          </p>
+
+          <h3>Rolling Window and Annualization</h3>
           <p>
             The trailing seven-day window smooths day-to-day variation.
-            Annualization expresses the recent seven-day pace as a yearly rate;
-            it is not a forecast that activity will continue at that level for
-            a full year. The current date is excluded because its activity data
-            may be incomplete.
+            Annualization expresses the recent seven-day pace as a yearly
+            rate; it does not forecast that activity will continue at that
+            level for a full year. The current date is excluded because its
+            activity data may be incomplete.
           </p>
 
-          <h3>Comparing multiple geographies</h3>
+          <h3>Comparing Multiple Geographies</h3>
           <p>
-            For a selected group, the combined rate is calculated as the sum
-            of annualized endowment sessions divided by the sum of membership
-            counts. It is not the simple average of state or country rates.
-            The aggregate trend is shown only for dates when every selected
-            geography has data, so the group denominator remains consistent
-            over the plotted period.
+            For a selected group, the combined rate is calculated by summing
+            annualized endowment sessions across the selected geographies
+            and dividing by their combined membership count. It is not the
+            simple average of state or country rates.
           </p>
 
-          <h3>Sources and caveats</h3>
+          <p>
+            The aggregate trend is displayed only for dates when every
+            selected geography has data, keeping the group denominator
+            consistent across the plotted period.
+          </p>
+
+          <h3>Sources and Limitations</h3>
           <p>
             Temple activity counts are sourced from
-            <a href="https://fullerconsideration.com/TempleTracker/endowments.php"
-               target="_blank" rel="noopener noreferrer">Fuller Consideration's endowment history</a>.
+            <a
+              href="https://fullerconsideration.com/TempleTracker/endowments.php"
+              target="_blank"
+              rel="noopener noreferrer"
+            >Fuller Consideration's endowment history</a>.
             Membership denominators come from Church membership statistics
-            reported from the most recent year. Geography is based
-            on each temple's physical location.
+            for the most recently reported year. Geography is based on each
+            temple's physical location.
           </p>
+
           <p>
-            Geographic comparisons should be interpreted as approximate rates, not direct measures of
-            individual participation or religious commitment. Some geographies are likely affected by traveling members more than local populations. E.g. the rate of temple
-            attendance in Illinois is likely inflated due to non-Illinois residents attending the Nauvoo temple.
+            Geographic comparisons should be interpreted as approximate
+            rates, not direct measures of individual participation or
+            religious commitment. Rates may be affected by people traveling
+            from outside a geography to attend a temple. For example,
+            Illinois's rate may be inflated by non-Illinois residents
+            attending the Nauvoo temple.
           </p>
         </div>
       </details>
     </section>
+
   </main>
 
   <footer class="site-footer">
-    <div class="wrap">Temple Stats · Data updates automatically</div>
+    <div class="wrap">
+      Temple Stats · Data updates automatically
+    </div>
   </footer>
 
   <script>
     // Allow Datawrapper to resize its embedded charts.
     window.addEventListener("message", function (event) {
-      if (!event.data || event.data["datawrapper-height"] === undefined) return;
+      if (
+        !event.data ||
+        event.data["datawrapper-height"] === undefined
+      ) {
+        return;
+      }
 
       const frames = document.querySelectorAll("iframe");
       const heights = event.data["datawrapper-height"];
