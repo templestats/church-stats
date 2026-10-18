@@ -1464,7 +1464,7 @@ def build_datawrapper_title(
 ) -> str:
     """Build the current trailing-window chart title."""
     return (
-        "Annualized Temple Endowment sessions attended per member of record, "
+        "Temple Attendance Rate, "
         f"by {geography_label} "
         f"({window_start:%b %-d, %Y} to {window_end:%b %-d, %Y})"
     )
