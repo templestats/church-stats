@@ -72,11 +72,6 @@ function getCurrentRows() {
 
 /* =========================================================
    CASCADING FILTER LOGIC
-
-   Continents determine which countries are visible.
-   Country exclusions determine which geographies are visible.
-   Geography exclusions determine which rows enter the selected
-   aggregate. Exclusions persist when their items leave scope.
    ========================================================= */
 
 function availableContinents() {
@@ -255,25 +250,28 @@ function renderSelectors() {
 
 /* ---------- Aggregate trend calculation ---------- */
 
-// Calculate a membership-weighted rate for each date where every
-// requested geography has an observation.
+// Calculate a membership-weighted rate independently for each date.
+//
+// IMPORTANT: A missing observation for one geography does not remove
+// that date from the aggregate. Each date includes all selected
+// geographies that actually have data for that date.
 //
 // Aggregate rate = sum(annualized endowment sessions) / sum(members).
 function makeAggregateSeries(rows, keys) {
-  if (!keys.length) return [];
+  if (!keys.length || !rows.length) return [];
 
   const byKeyAndDate = new Map(
     rows.map(row => [`${rowKey(row)}|${row.date}`, row])
   );
 
-  const dates = uniqueSorted(rows.map(row => row.date)).filter(date =>
-    keys.every(key => byKeyAndDate.has(`${key}|${date}`))
-  );
+  const dates = uniqueSorted(rows.map(row => row.date));
 
   return dates.map(date => {
-    const matching = keys.map(key =>
-      byKeyAndDate.get(`${key}|${date}`)
-    );
+    const matching = keys
+      .map(key => byKeyAndDate.get(`${key}|${date}`))
+      .filter(Boolean);
+
+    if (!matching.length) return null;
 
     const annualizedSessions = matching.reduce(
       (sum, row) => sum + Number(row.annualized_endowments || 0),
@@ -289,12 +287,13 @@ function makeAggregateSeries(rows, keys) {
       date,
       rate: members > 0 ? annualizedSessions / members : null,
       members,
-      annualizedSessions
+      annualizedSessions,
+      geographyCount: matching.length
     };
-  }).filter(row => row.rate !== null);
+  }).filter(row => row && row.rate !== null);
 }
 
-/* ---------- Persistent reference trends ---------- */
+/* ---------- Reference trends ---------- */
 
 function normalizePlace(value) {
   return String(value ?? "")
@@ -315,16 +314,16 @@ function isUSCountry(value) {
 
 function makeReferenceSeries(kind, rows) {
   // Reference lines are independent of the active filters.
-  // Use the latest rows only to determine the geography keys.
+  // The latest rows identify the complete set of geographies.
   const currentRows = getCurrentRows();
 
   let referenceKeys;
 
   if (kind === "worldwide") {
-    // Same set of geographies as the initial all-selected view.
+    // Match the all-geographies selection at initial dashboard load.
     referenceKeys = currentRows.map(rowKey);
   } else if (kind === "usa") {
-    // Combine U.S. states into one weighted national rate.
+    // Combine U.S. state observations into one weighted national rate.
     referenceKeys = currentRows
       .filter(row =>
         normalizePlace(row.type) === "state" &&
@@ -338,7 +337,7 @@ function makeReferenceSeries(kind, rows) {
   return makeAggregateSeries(rows, referenceKeys);
 }
 
-/* ---------- Chart helpers ---------- */
+/* ---------- Empty chart ---------- */
 
 function showEmptyChart(message) {
   Plotly.newPlot("trend-chart", [], {
@@ -359,7 +358,7 @@ function showEmptyChart(message) {
   });
 }
 
-/* ---------- Three-line trend chart ---------- */
+/* ---------- Trend chart ---------- */
 
 function renderTrend() {
   const keys = selectedKeys();
@@ -484,8 +483,7 @@ function renderTrend() {
   if (latestAggregate) {
     status += ` Aggregate rate: ${formatRate(latestAggregate.rate)}.`;
   } else if (keys.length) {
-    status +=
-      " The latest date does not have complete data for every selected geography.";
+    status += " No selected-geography observations are available for the latest date.";
   } else {
     status += " No selected geographies.";
   }
@@ -519,11 +517,13 @@ function renderTable(rows) {
   );
 
   const totalMembers = sorted.reduce(
-    (sum, row) => sum + Number(row.members || 0), 0
+    (sum, row) => sum + Number(row.members || 0),
+    0
   );
 
   const totalSessions = sorted.reduce(
-    (sum, row) => sum + Number(row.annualized_endowments || 0), 0
+    (sum, row) => sum + Number(row.annualized_endowments || 0),
+    0
   );
 
   const totalRate = totalMembers ? totalSessions / totalMembers : 0;
@@ -532,7 +532,9 @@ function renderTable(rows) {
   const aggregateRow = `
     <tr class="aggregate-row">
       <td><strong>Selected group (weighted)</strong></td>
-      <td>aggregate</td><td>—</td><td>—</td>
+      <td>aggregate</td>
+      <td>—</td>
+      <td>—</td>
       <td class="rate">${formatRate(totalRate)}</td>
       <td>${formatInteger(totalMembers)}</td>
       <td>${escapeHtml(formatDate(date))}</td>
@@ -616,7 +618,7 @@ function selectNoGeographies() {
   refreshAll();
 }
 
-/* ---------- Events ---------- */
+/* ---------- Event handlers ---------- */
 
 function bindEvents() {
   $("continent-picker-button").addEventListener("click", () =>
@@ -642,8 +644,6 @@ function bindEvents() {
       }
     }
   });
-
-  /* Continent checkboxes */
 
   $("continent-menu").addEventListener("click", event => {
     const action = event.target.dataset.action;
@@ -673,8 +673,6 @@ function bindEvents() {
     refreshAll();
   });
 
-  /* Country checkboxes */
-
   $("country-menu").addEventListener("click", event => {
     const action = event.target.dataset.action;
 
@@ -702,8 +700,6 @@ function bindEvents() {
 
     refreshAll();
   });
-
-  /* Geography checkboxes */
 
   $("geo-menu").addEventListener("click", event => {
     const action = event.target.dataset.action;
@@ -733,8 +729,6 @@ function bindEvents() {
     refreshAll();
   });
 
-  /* Reset filters */
-
   $("clear-selection").textContent = "Reset filters";
 
   $("clear-selection").addEventListener("click", () => {
@@ -743,8 +737,6 @@ function bindEvents() {
     state.excludedGeographies.clear();
     refreshAll();
   });
-
-  /* Date range */
 
   $("range-buttons").addEventListener("click", event => {
     const button = event.target.closest("button[data-range]");
