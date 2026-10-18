@@ -2226,9 +2226,17 @@ def build_dashboard_trends(
                     0,
                 )
 
-            annualized_rate = (
+            # Keep the rate and its underlying numerator/denominator in
+            # the dashboard JSON. The frontend uses members and
+            # annualized_endowments to calculate a correctly
+            # membership-weighted aggregate across selected geographies.
+            annualized_endowments = (
                 seven_day_total
                 * (365 / 7)
+            )
+
+            annualized_rate = (
+                annualized_endowments
                 / members
             )
 
@@ -2241,6 +2249,11 @@ def build_dashboard_trends(
                     "name": name,
                     "rate": round(
                         annualized_rate,
+                        6,
+                    ),
+                    "members": members,
+                    "annualized_endowments": round(
+                        annualized_endowments,
                         6,
                     ),
                 }
