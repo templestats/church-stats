@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -19,20 +20,8 @@
   </header>
 
   <main class="wrap">
-    <section class="section">
-      <div class="section-heading">
-        <div>
-          <h2>Historical attendance trends</h2>
-          <p>Worldwide, U.S., and living endowment attendance trends, annualized from trailing seven-day activity.</p>
-        </div>
-      </div>
-      <article class="card embed-card">
-        <div class="datawrapper-frame historical-frame">
-          <iframe title="Temple Endowment Attendance Trends, annualized trailing 7 days" aria-label="Small multiple line chart" src="https://datawrapper.dwcdn.net/CQis2/47/" scrolling="no" height="712" frameborder="0" loading="lazy" data-external="1"></iframe>
-        </div>
-      </article>
-    </section>
 
+    <!-- 1. CURRENT GEOGRAPHIC ACTIVITY: MAPS FIRST -->
     <section class="section">
       <div class="section-heading">
         <div>
@@ -40,27 +29,75 @@
           <p>Annualized endowment sessions attended per member of record over the latest trailing window.</p>
         </div>
       </div>
+
       <div class="map-grid">
         <article class="card map-card">
           <h3>Worldwide</h3>
           <div class="datawrapper-frame country-frame">
-            <iframe title="Annualized temple endowment sessions per member by country" aria-label="Choropleth map" src="https://datawrapper.dwcdn.net/ooUr3/52/" scrolling="no" height="550" frameborder="0" loading="lazy" data-external="1"></iframe>
+            <iframe
+              title="Annualized temple endowment sessions per member by country"
+              aria-label="Choropleth map"
+              src="https://datawrapper.dwcdn.net/ooUr3/52/"
+              scrolling="no"
+              height="550"
+              frameborder="0"
+              loading="lazy"
+              data-external="1"></iframe>
           </div>
         </article>
+
         <article class="card map-card">
           <h3>United States</h3>
           <div class="datawrapper-frame state-frame">
-            <iframe title="Annualized temple endowment sessions per member by U.S. state" aria-label="Choropleth map" src="https://datawrapper.dwcdn.net/LuaXr/55/" scrolling="no" height="499" frameborder="0" loading="lazy" data-external="1"></iframe>
+            <iframe
+              title="Annualized temple endowment sessions per member by U.S. state"
+              aria-label="Choropleth map"
+              src="https://datawrapper.dwcdn.net/LuaXr/55/"
+              scrolling="no"
+              height="499"
+              frameborder="0"
+              loading="lazy"
+              data-external="1"></iframe>
           </div>
         </article>
       </div>
     </section>
 
+    <!-- 2. DATAWRAPPER HISTORICAL TREND: SECOND -->
+    <section class="section">
+      <div class="section-heading">
+        <div>
+          <h2>Historical attendance trends</h2>
+          <p>Worldwide, U.S., and living endowment attendance trends, annualized from trailing seven-day activity.</p>
+        </div>
+      </div>
+
+      <article class="card embed-card">
+        <div class="datawrapper-frame historical-frame">
+          <iframe
+            title="Temple Endowment Attendance Trends, annualized trailing 7 days"
+            aria-label="Small multiple line chart"
+            src="https://datawrapper.dwcdn.net/CQis2/47/"
+            scrolling="no"
+            height="712"
+            frameborder="0"
+            loading="lazy"
+            data-external="1"></iframe>
+        </div>
+      </article>
+    </section>
+
+    <!-- 3. EXPLORE TRENDS: DASHBOARD AGGREGATE CHART -->
     <section class="section card explorer">
       <div class="section-heading">
         <div>
           <h2>Explore trends</h2>
-          <p>Select continents or countries to include their geographies, then use the geography picker to include or exclude individual states and countries. Individual exclusions remain in effect when you change the broader selections.</p>
+          <p>
+            Select continents and/or countries, then use the geography picker
+            to include or exclude individual states and countries. The chart
+            shows one combined, membership-weighted attendance trend for all
+            selected geographies.
+          </p>
         </div>
       </div>
 
@@ -68,21 +105,38 @@
         <div class="filter">
           <label for="continent-picker-button">Continents</label>
           <div id="continent-picker" class="multi-picker">
-            <button id="continent-picker-button" type="button" class="picker-button" aria-expanded="false" aria-controls="continent-menu">Select continents</button>
+            <button
+              id="continent-picker-button"
+              type="button"
+              class="picker-button"
+              aria-expanded="false"
+              aria-controls="continent-menu">No continents selected</button>
             <div id="continent-menu" class="picker-menu" hidden></div>
           </div>
         </div>
+
         <div class="filter">
           <label for="country-picker-button">Countries</label>
           <div id="country-picker" class="multi-picker">
-            <button id="country-picker-button" type="button" class="picker-button" aria-expanded="false" aria-controls="country-menu">Select countries</button>
+            <button
+              id="country-picker-button"
+              type="button"
+              class="picker-button"
+              aria-expanded="false"
+              aria-controls="country-menu">No countries selected</button>
             <div id="country-menu" class="picker-menu" hidden></div>
           </div>
         </div>
+
         <div class="filter">
           <label for="geo-picker-button">Geographies</label>
           <div id="geo-picker" class="multi-picker">
-            <button id="geo-picker-button" type="button" class="picker-button" aria-expanded="false" aria-controls="geo-menu">Select geographies</button>
+            <button
+              id="geo-picker-button"
+              type="button"
+              class="picker-button"
+              aria-expanded="false"
+              aria-controls="geo-menu">No geographies available</button>
             <div id="geo-menu" class="picker-menu" hidden></div>
           </div>
         </div>
@@ -95,7 +149,11 @@
 
       <div class="range-row">
         <span class="range-label">Show:</span>
-        <div class="range-buttons" id="range-buttons" role="group" aria-label="Trend date range">
+        <div
+          class="range-buttons"
+          id="range-buttons"
+          role="group"
+          aria-label="Trend date range">
           <button type="button" data-range="all" class="active" aria-pressed="true">All time</button>
           <button type="button" data-range="365" aria-pressed="false">1 year</button>
           <button type="button" data-range="180" aria-pressed="false">6 months</button>
@@ -104,17 +162,28 @@
         </div>
       </div>
 
-      <div id="trend-chart" class="trend-chart" role="img" aria-label="Selected geography attendance trends"></div>
+      <div
+        id="trend-chart"
+        class="trend-chart"
+        role="img"
+        aria-label="Aggregate attendance trend for selected geographies"></div>
+
       <p id="trend-status" class="status" aria-live="polite"></p>
     </section>
 
+    <!-- CURRENT COMPARISON TABLE -->
     <section class="section card">
       <div class="section-heading">
         <div>
           <h2>Current comparison</h2>
-          <p>Latest available rates for the selected geographies. The selected-group rate is weighted by membership, not averaged across geography rates.</p>
+          <p>
+            Latest available rates for the selected geographies. The
+            selected-group rate is weighted by membership, not averaged
+            across geography rates.
+          </p>
         </div>
       </div>
+
       <div class="table-wrap">
         <table id="comparison-table">
           <thead>
@@ -128,26 +197,67 @@
               <th>Data through</th>
             </tr>
           </thead>
-          <tbody><tr><td colspan="7">Loading comparison…</td></tr></tbody>
+          <tbody>
+            <tr><td colspan="7">Loading comparison…</td></tr>
+          </tbody>
         </table>
       </div>
     </section>
 
+    <!-- METHODOLOGY -->
     <section class="section methodology">
       <details>
         <summary>Methodology and limitations</summary>
         <div class="method-body">
           <h3>What this metric measures</h3>
-          <p>The metric is annualized temple endowment sessions per member of record. For each geography and date, the seven-day endowment total is multiplied by 365/7 and divided by the geography's membership count.</p>
+          <p>
+            The metric is annualized temple endowment sessions per member of
+            record. For each geography and date, the seven-day endowment total
+            is multiplied by 365/7 and divided by the geography's membership count.
+          </p>
           <p><strong>Rate = (trailing 7-day endowment sessions × 365 ÷ 7) ÷ members of record.</strong></p>
-          <p>This is a rate of recorded sessions relative to membership, not a count or estimate of unique people attending. One person may attend multiple sessions, and the source data does not identify unique attendees.</p>
+          <p>
+            This is a rate of recorded sessions relative to membership, not a
+            count or estimate of unique people attending. One person may attend
+            multiple sessions, and the source data does not identify unique attendees.
+          </p>
+
           <h3>Rolling window and annualization</h3>
-          <p>The trailing seven-day window smooths day-to-day variation. Annualization expresses the recent seven-day pace as a yearly rate; it is not a forecast that activity will continue at that level for a full year. The current date is excluded because its activity data may be incomplete.</p>
+          <p>
+            The trailing seven-day window smooths day-to-day variation.
+            Annualization expresses the recent seven-day pace as a yearly rate;
+            it is not a forecast that activity will continue at that level for
+            a full year. The current date is excluded because its activity data
+            may be incomplete.
+          </p>
+
           <h3>Comparing multiple geographies</h3>
-          <p>For a selected group, the combined rate is calculated as the sum of annualized endowment sessions divided by the sum of membership counts. It is not the simple average of state or country rates. The aggregate trend is shown only for dates when every selected geography has data, so the group denominator remains consistent over the plotted period.</p>
+          <p>
+            For a selected group, the combined rate is calculated as the sum
+            of annualized endowment sessions divided by the sum of membership
+            counts. It is not the simple average of state or country rates.
+            The aggregate trend is shown only for dates when every selected
+            geography has data, so the group denominator remains consistent
+            over the plotted period.
+          </p>
+
           <h3>Sources and caveats</h3>
-          <p>Temple activity counts are sourced from <a href="https://fullerconsideration.com/TempleTracker/endowments.php" target="_blank" rel="noopener noreferrer">Fuller Consideration's endowment history</a>. Membership denominators come from Church membership statistics gathered by the Temple Stats Python pipeline. Geography is based on each temple's physical location, with documented location overrides where needed.</p>
-          <p>Membership figures are not necessarily synchronized to the daily activity data, and published membership counts may be rounded or updated on a different schedule. Geographic comparisons should be interpreted as approximate rates, not direct measures of individual participation or religious commitment.</p>
+          <p>
+            Temple activity counts are sourced from
+            <a href="https://fullerconsideration.com/TempleTracker/endowments.php"
+               target="_blank" rel="noopener noreferrer">Fuller Consideration's endowment history</a>.
+            Membership denominators come from Church membership statistics
+            gathered by the Temple Stats Python pipeline. Geography is based
+            on each temple's physical location, with documented location
+            overrides where needed.
+          </p>
+          <p>
+            Membership figures are not necessarily synchronized to the daily
+            activity data, and published membership counts may be rounded or
+            updated on a different schedule. Geographic comparisons should
+            be interpreted as approximate rates, not direct measures of
+            individual participation or religious commitment.
+          </p>
         </div>
       </details>
     </section>
@@ -158,21 +268,23 @@
   </footer>
 
   <script>
-    (function () {
-      window.addEventListener("message", function (event) {
-        if (!event.data || event.data["datawrapper-height"] === undefined) return;
-        var frames = document.querySelectorAll("iframe");
-        var heights = event.data["datawrapper-height"];
-        Object.keys(heights).forEach(function (key) {
-          for (var i = 0; i < frames.length; i++) {
-            if (frames[i].contentWindow === event.source) {
-              frames[i].style.height = heights[key] + "px";
-            }
+    // Allow Datawrapper to resize its embedded charts.
+    window.addEventListener("message", function (event) {
+      if (!event.data || event.data["datawrapper-height"] === undefined) return;
+
+      const frames = document.querySelectorAll("iframe");
+      const heights = event.data["datawrapper-height"];
+
+      Object.keys(heights).forEach(function (key) {
+        for (let i = 0; i < frames.length; i++) {
+          if (frames[i].contentWindow === event.source) {
+            frames[i].style.height = heights[key] + "px";
           }
-        });
+        }
       });
-    })();
+    });
   </script>
+
   <script src="dashboard.js"></script>
 </body>
 </html>
