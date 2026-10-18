@@ -72,19 +72,10 @@ function getCurrentRows() {
 
 /* =========================================================
    CASCADING FILTER LOGIC
-
-   Continents determine which countries are visible.
-   Country exclusions determine which geographies are visible.
-   Geography exclusions determine which rows enter the aggregate.
-
-   Exclusions persist when a country or geography moves out of
-   scope, so adding another continent does not reset prior choices.
    ========================================================= */
 
 function availableContinents() {
-  return uniqueSorted(
-    getCurrentRows().map(row => row.continent)
-  );
+  return uniqueSorted(getCurrentRows().map(row => row.continent));
 }
 
 function availableCountries() {
@@ -118,17 +109,13 @@ function selectedKeys() {
 function selectedHistoryRows() {
   const keys = new Set(selectedKeys());
 
-  return state.rows.filter(row =>
-    keys.has(rowKey(row))
-  );
+  return state.rows.filter(row => keys.has(rowKey(row)));
 }
 
 function currentSelectedRows() {
   const keys = new Set(selectedKeys());
 
-  return getCurrentRows().filter(row =>
-    keys.has(rowKey(row))
-  );
+  return getCurrentRows().filter(row => keys.has(rowKey(row)));
 }
 
 /* ---------- Picker button labels ---------- */
@@ -151,6 +138,9 @@ function updatePickerButton(buttonId, checkedCount, availableCount, label) {
 
 function renderContinentMenu() {
   const continents = availableContinents();
+  const checkedCount = continents.filter(continent =>
+    state.selectedContinents.has(continent)
+  ).length;
 
   $("continent-menu").innerHTML = `
     <div class="picker-actions">
@@ -171,7 +161,7 @@ function renderContinentMenu() {
 
   updatePickerButton(
     "continent-picker-button",
-    state.selectedContinents.size,
+    checkedCount,
     continents.length,
     "continents"
   );
@@ -179,8 +169,6 @@ function renderContinentMenu() {
 
 /* ---------- Countries ---------- */
 
-// Only countries belonging to selected continents are displayed.
-// A country remains unchecked if the user previously excluded it.
 function renderCountryMenu() {
   const countries = availableCountries();
 
@@ -215,8 +203,6 @@ function renderCountryMenu() {
 
 /* ---------- Geographies ---------- */
 
-// Only geographies belonging to checked countries are displayed.
-// Previously unchecked geographies remain unchecked when they return.
 function renderGeoMenu() {
   const rows = eligibleRows().sort((a, b) =>
     geographyLabel(a).localeCompare(geographyLabel(b))
@@ -262,45 +248,10 @@ function renderSelectors() {
   renderGeoMenu();
 }
 
-/* ---------- Selection chips ---------- */
-
-function renderChips() {
-  const container = $("selection-chips");
-  const rows = new Map(
-    getCurrentRows().map(row => [rowKey(row), row])
-  );
-
-  const keys = selectedKeys();
-
-  if (!keys.length) {
-    container.innerHTML = `
-      <span class="status">No geographies selected.</span>
-    `;
-    return;
-  }
-
-  container.innerHTML = keys.map(key => {
-    const row = rows.get(key);
-    const label = row ? geographyLabel(row) : key;
-
-    return `
-      <span class="chip">
-        ${escapeHtml(label)}
-        <button
-          type="button"
-          data-remove="${escapeHtml(key)}"
-          aria-label="Exclude ${escapeHtml(label)}">×</button>
-      </span>
-    `;
-  }).join("");
-}
-
 /* ---------- Aggregate trend calculation ---------- */
 
-// Return one combined rate for each date when every selected
-// geography has observations.
-//
-// Aggregate rate = sum(annualized sessions) / sum(members).
+// Aggregate rate = sum(annualized endowment sessions) / sum(members).
+// Return only dates when every requested geography has observations.
 function makeAggregateSeries(rows, keys) {
   if (!keys.length) return [];
 
@@ -336,9 +287,60 @@ function makeAggregateSeries(rows, keys) {
   }).filter(row => row.rate !== null);
 }
 
+/* ---------- Reference series ---------- */
+
+// Identify the persistent USA and worldwide rows using their metadata.
+// The selected geography keys are not used for these reference series.
+function findReferenceRows(kind) {
+  const rows = getCurrentRows();
+
+  if (kind === "worldwide") {
+    return rows.filter(row => {
+      const values = [
+        row.name,
+        row.country,
+        row.type,
+        row.continent
+      ].map(value => String(value ?? "").trim().toLowerCase());
+
+      return values.some(value =>
+        ["worldwide", "world", "global"].includes(value)
+      );
+    });
+  }
+
+  if (kind === "usa") {
+    return rows.filter(row => {
+      const name = String(row.name ?? "").trim().toLowerCase();
+      const country = String(row.country ?? "").trim().toLowerCase();
+      const type = String(row.type ?? "").trim().toLowerCase();
+
+      return (
+        ["united states", "united states of america", "usa", "u.s.", "us"].includes(name) ||
+        (
+          ["united states", "united states of america", "usa", "u.s.", "us"].includes(country) &&
+          ["country", "nation", "national"].includes(type)
+        )
+      );
+    });
+  }
+
+  return [];
+}
+
+function makeReferenceSeries(kind, allRows) {
+  const referenceRows = findReferenceRows(kind);
+
+  if (!referenceRows.length) return [];
+
+  const keys = referenceRows.map(rowKey);
+
+  return makeAggregateSeries(allRows, keys);
+}
+
 function showEmptyChart(message) {
   Plotly.newPlot("trend-chart", [], {
-    margin: { l: 60, r: 20, t: 25, b: 50 },
+    margin: { l: 65, r: 20, t: 25, b: 85 },
     xaxis: { visible: false },
     yaxis: { visible: false },
     annotations: [{
@@ -347,71 +349,117 @@ function showEmptyChart(message) {
       font: { size: 15, color: "#66717d" }
     }],
     paper_bgcolor: "white",
-    plot_bgcolor: "white"
+    plot_bgcolor: "white",
+    showlegend: true,
+    legend: {
+      orientation: "h",
+      x: 0.5,
+      xanchor: "center",
+      y: -0.25,
+      yanchor: "top"
+    }
   }, {
     responsive: true,
     displaylogo: false
   });
 }
 
-/* ---------- Single aggregate chart ---------- */
+/* ---------- Three-line trend chart ---------- */
 
 function renderTrend() {
   const keys = selectedKeys();
-  const historyRows = selectedHistoryRows();
+  const selectedRows = selectedHistoryRows();
   const latest = latestDate();
-
-  if (!keys.length) {
-    showEmptyChart(
-      "Select continents, countries, and geographies to display the aggregate trend."
-    );
-
-    $("trend-status").textContent =
-      latest
-        ? `Data through ${formatDate(latest)}. No geographies selected.`
-        : "No trend data available.";
-
-    renderTable([]);
-    return;
-  }
 
   let cutoff = null;
 
-  if (state.range !== "all") {
+  if (state.range !== "all" && latest) {
     const end = new Date(latest + "T00:00:00");
     end.setDate(end.getDate() - Number(state.range) + 1);
     cutoff = end.toISOString().slice(0, 10);
   }
 
-  const filteredRows = historyRows.filter(row =>
-    !cutoff || row.date >= cutoff
-  );
+  const inRange = row =>
+    !cutoff || row.date >= cutoff;
 
-  const aggregate = makeAggregateSeries(filteredRows, keys);
+  const filteredSelectedRows = selectedRows.filter(inRange);
+  const filteredAllRows = state.rows.filter(inRange);
 
-  if (!aggregate.length) {
-    showEmptyChart(
-      "No dates have complete data for every selected geography in this range."
-    );
-  } else {
-    // Exactly one plotted line, regardless of how many geographies are selected.
-    Plotly.newPlot("trend-chart", [{
+  const aggregate = makeAggregateSeries(filteredSelectedRows, keys);
+  const usa = makeReferenceSeries("usa", filteredAllRows);
+  const worldwide = makeReferenceSeries("worldwide", filteredAllRows);
+
+  const traces = [];
+
+  if (aggregate.length) {
+    traces.push({
       x: aggregate.map(row => row.date),
       y: aggregate.map(row => row.rate),
       type: "scatter",
       mode: "lines",
-      name: "Selected group",
+      name: "Selected geographies",
       line: { width: 3 },
+      opacity: 1,
       hovertemplate:
-        "Selected group<br>" +
+        "Selected geographies<br>" +
         "%{x|%b %-d, %Y}<br>" +
         "%{y:.3f} endowments/member<extra></extra>"
-    }], {
-      margin: { l: 65, r: 20, t: 25, b: 55 },
+    });
+  }
+
+  if (usa.length) {
+    traces.push({
+      x: usa.map(row => row.date),
+      y: usa.map(row => row.rate),
+      type: "scatter",
+      mode: "lines",
+      name: "United States (reference)",
+      line: { width: 2, dash: "dash" },
+      opacity: 0.38,
+      hovertemplate:
+        "United States (reference)<br>" +
+        "%{x|%b %-d, %Y}<br>" +
+        "%{y:.3f} endowments/member<extra></extra>"
+    });
+  }
+
+  if (worldwide.length) {
+    traces.push({
+      x: worldwide.map(row => row.date),
+      y: worldwide.map(row => row.rate),
+      type: "scatter",
+      mode: "lines",
+      name: "Worldwide (reference)",
+      line: { width: 2, dash: "dot" },
+      opacity: 0.38,
+      hovertemplate:
+        "Worldwide (reference)<br>" +
+        "%{x|%b %-d, %Y}<br>" +
+        "%{y:.3f} endowments/member<extra></extra>"
+    });
+  }
+
+  if (!traces.length) {
+    showEmptyChart(
+      keys.length
+        ? "No trend data available for the selected range."
+        : "Select geographies to display their aggregate trend. Reference trends appear when matching data is available."
+    );
+  } else {
+    Plotly.newPlot("trend-chart", traces, {
+      margin: { l: 65, r: 20, t: 25, b: 100 },
       paper_bgcolor: "white",
       plot_bgcolor: "white",
       hovermode: "x unified",
-      showlegend: false,
+      showlegend: true,
+      legend: {
+        orientation: "h",
+        x: 0.5,
+        xanchor: "center",
+        y: -0.28,
+        yanchor: "top",
+        font: { size: 12 }
+      },
       xaxis: {
         gridcolor: "#edf0f3",
         linecolor: "#dfe3e8"
@@ -441,9 +489,19 @@ function renderTrend() {
 
   if (latestAggregate) {
     status += ` Aggregate rate: ${formatRate(latestAggregate.rate)}.`;
-  } else {
+  } else if (keys.length) {
     status +=
       " The latest date does not have complete data for every selected geography.";
+  } else {
+    status += " No selected geographies.";
+  }
+
+  if (!usa.length) {
+    status += " USA reference data was not identified.";
+  }
+
+  if (!worldwide.length) {
+    status += " Worldwide reference data was not identified.";
   }
 
   $("trend-status").textContent = status;
@@ -517,7 +575,6 @@ function closeMenu(buttonId, menuId) {
 
 function refreshAll() {
   renderSelectors();
-  renderChips();
   renderTrend();
 }
 
@@ -535,8 +592,6 @@ function selectNoContinents() {
 
 /* ---------- Country selection ---------- */
 
-// Select all only within the currently visible country scope.
-// Exclusions in other countries are preserved.
 function selectAllCountries() {
   for (const country of availableCountries()) {
     state.excludedCountries.delete(country);
@@ -621,7 +676,6 @@ function bindEvents() {
       state.selectedContinents.delete(continent);
     }
 
-    // Do not reset country or geography exclusions when scope changes.
     refreshAll();
   });
 
@@ -652,8 +706,6 @@ function bindEvents() {
       state.excludedCountries.add(country);
     }
 
-    // Excluded countries disappear from the geography picker.
-    // Their exclusions remain saved if the country returns to scope.
     refreshAll();
   });
 
@@ -684,16 +736,6 @@ function bindEvents() {
       state.excludedGeographies.add(key);
     }
 
-    refreshAll();
-  });
-
-  /* Remove geography chip */
-
-  $("selection-chips").addEventListener("click", event => {
-    const key = event.target.dataset.remove;
-    if (!key) return;
-
-    state.excludedGeographies.add(key);
     refreshAll();
   });
 
@@ -744,8 +786,6 @@ async function load() {
       throw new Error("Trend data is empty or invalid.");
     }
 
-    // Start with all continents selected and no country/geography exclusions.
-    // Therefore all three pickers initially show everything checked.
     state.selectedContinents = new Set(availableContinents());
     state.excludedCountries.clear();
     state.excludedGeographies.clear();
