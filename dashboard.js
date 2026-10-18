@@ -72,6 +72,11 @@ function getCurrentRows() {
 
 /* =========================================================
    CASCADING FILTER LOGIC
+
+   Continents determine which countries are visible.
+   Country exclusions determine which geographies are visible.
+   Geography exclusions determine which rows enter the selected
+   aggregate. Exclusions persist when their items leave scope.
    ========================================================= */
 
 function availableContinents() {
@@ -250,8 +255,10 @@ function renderSelectors() {
 
 /* ---------- Aggregate trend calculation ---------- */
 
+// Calculate a membership-weighted rate for each date where every
+// requested geography has an observation.
+//
 // Aggregate rate = sum(annualized endowment sessions) / sum(members).
-// Return only dates when every requested geography has observations.
 function makeAggregateSeries(rows, keys) {
   if (!keys.length) return [];
 
@@ -287,60 +294,55 @@ function makeAggregateSeries(rows, keys) {
   }).filter(row => row.rate !== null);
 }
 
-/* ---------- Reference series ---------- */
+/* ---------- Persistent reference trends ---------- */
 
-// Identify the persistent USA and worldwide rows using their metadata.
-// The selected geography keys are not used for these reference series.
-function findReferenceRows(kind) {
-  const rows = getCurrentRows();
+function normalizePlace(value) {
+  return String(value ?? "")
+    .trim()
+    .toLowerCase()
+    .replace(/[.,]/g, "")
+    .replace(/\s+/g, " ");
+}
+
+function isUSCountry(value) {
+  return [
+    "united states",
+    "united states of america",
+    "usa",
+    "us"
+  ].includes(normalizePlace(value));
+}
+
+function makeReferenceSeries(kind, rows) {
+  // Reference lines are independent of the active filters.
+  // Use the latest rows only to determine the geography keys.
+  const currentRows = getCurrentRows();
+
+  let referenceKeys;
 
   if (kind === "worldwide") {
-    return rows.filter(row => {
-      const values = [
-        row.name,
-        row.country,
-        row.type,
-        row.continent
-      ].map(value => String(value ?? "").trim().toLowerCase());
-
-      return values.some(value =>
-        ["worldwide", "world", "global"].includes(value)
-      );
-    });
+    // Same set of geographies as the initial all-selected view.
+    referenceKeys = currentRows.map(rowKey);
+  } else if (kind === "usa") {
+    // Combine U.S. states into one weighted national rate.
+    referenceKeys = currentRows
+      .filter(row =>
+        normalizePlace(row.type) === "state" &&
+        isUSCountry(row.country)
+      )
+      .map(rowKey);
+  } else {
+    return [];
   }
 
-  if (kind === "usa") {
-    return rows.filter(row => {
-      const name = String(row.name ?? "").trim().toLowerCase();
-      const country = String(row.country ?? "").trim().toLowerCase();
-      const type = String(row.type ?? "").trim().toLowerCase();
-
-      return (
-        ["united states", "united states of america", "usa", "u.s.", "us"].includes(name) ||
-        (
-          ["united states", "united states of america", "usa", "u.s.", "us"].includes(country) &&
-          ["country", "nation", "national"].includes(type)
-        )
-      );
-    });
-  }
-
-  return [];
+  return makeAggregateSeries(rows, referenceKeys);
 }
 
-function makeReferenceSeries(kind, allRows) {
-  const referenceRows = findReferenceRows(kind);
-
-  if (!referenceRows.length) return [];
-
-  const keys = referenceRows.map(rowKey);
-
-  return makeAggregateSeries(allRows, keys);
-}
+/* ---------- Chart helpers ---------- */
 
 function showEmptyChart(message) {
   Plotly.newPlot("trend-chart", [], {
-    margin: { l: 65, r: 20, t: 25, b: 85 },
+    margin: { l: 65, r: 20, t: 25, b: 100 },
     xaxis: { visible: false },
     yaxis: { visible: false },
     annotations: [{
@@ -350,14 +352,7 @@ function showEmptyChart(message) {
     }],
     paper_bgcolor: "white",
     plot_bgcolor: "white",
-    showlegend: true,
-    legend: {
-      orientation: "h",
-      x: 0.5,
-      xanchor: "center",
-      y: -0.25,
-      yanchor: "top"
-    }
+    showlegend: false
   }, {
     responsive: true,
     displaylogo: false
@@ -379,8 +374,7 @@ function renderTrend() {
     cutoff = end.toISOString().slice(0, 10);
   }
 
-  const inRange = row =>
-    !cutoff || row.date >= cutoff;
+  const inRange = row => !cutoff || row.date >= cutoff;
 
   const filteredSelectedRows = selectedRows.filter(inRange);
   const filteredAllRows = state.rows.filter(inRange);
@@ -443,7 +437,7 @@ function renderTrend() {
     showEmptyChart(
       keys.length
         ? "No trend data available for the selected range."
-        : "Select geographies to display their aggregate trend. Reference trends appear when matching data is available."
+        : "Select geographies to display their aggregate trend."
     );
   } else {
     Plotly.newPlot("trend-chart", traces, {
@@ -497,11 +491,11 @@ function renderTrend() {
   }
 
   if (!usa.length) {
-    status += " USA reference data was not identified.";
+    status += " USA reference data could not be calculated from the available state rows.";
   }
 
   if (!worldwide.length) {
-    status += " Worldwide reference data was not identified.";
+    status += " Worldwide reference data could not be calculated.";
   }
 
   $("trend-status").textContent = status;
@@ -739,7 +733,7 @@ function bindEvents() {
     refreshAll();
   });
 
-  /* Reset all filters to their initial, fully selected state */
+  /* Reset filters */
 
   $("clear-selection").textContent = "Reset filters";
 
