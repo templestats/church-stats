@@ -1655,8 +1655,8 @@ def update_datawrapper(
         csv_path=output_dir / "historical_summary.csv",
         chart_name="historical",
         title=(
-            "Temple Endowment Attendance Trends, "
-            "annualized trailing 7 days"
+            "Living Endowment Rate"
+            
         ),
     )
 
