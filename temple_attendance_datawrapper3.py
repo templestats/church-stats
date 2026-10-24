@@ -1500,7 +1500,7 @@ def build_datawrapper_title(
     start_label = window_start.strftime("%b %d, %Y").replace(" 0", " ")
     end_label = window_end.strftime("%b %d, %Y").replace(" 0", " ")
     return (
-        "Annualized Temple Endowment sessions attended per member of record, "
+        "Temple Attendance Rate, "
         f"by {geography_label} "
         f"({start_label} to {end_label})"
     )
@@ -2317,7 +2317,7 @@ def build_dashboard_trends(
 def main() -> int:
     parser = argparse.ArgumentParser(
         description=(
-            "Calculate annualized temple endowment activity from "
+            "Calculate Temple attendance activity from "
             "Fuller Consideration's complete dated history."
         )
     )
