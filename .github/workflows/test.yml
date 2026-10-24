@@ -1,0 +1,45 @@
+name: Validate Church Stats Code
+
+on:
+  push:
+    paths:
+      - "temple_attendance_datawrapper3.py"
+      - "requirements.txt"
+      - "tests/**"
+      - ".github/workflows/**"
+  pull_request:
+    paths:
+      - "temple_attendance_datawrapper3.py"
+      - "requirements.txt"
+      - "tests/**"
+      - ".github/workflows/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up pinned Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12.10"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install pinned dependencies
+        run: |
+          python -m pip install --upgrade "pip==25.1.1"
+          python -m pip install -r requirements.txt
+
+      - name: Compile Python script
+        run: python -m py_compile temple_attendance_datawrapper3.py
+
+      - name: Run regression tests
+        run: python -m unittest discover -s tests -v
