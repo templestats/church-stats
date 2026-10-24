@@ -623,11 +623,18 @@ def continent_for_country(name: str) -> str:
         continent = CONTINENT_OVERRIDES_BY_ISO3[iso3]
     else:
         try:
+            # country_converter expects `not_found` to be a string pattern.
+            # Passing None can raise TypeError inside its regex-based lookup
+            # even for valid ISO-3 codes (for example ARG / Argentina).
             continent = coco.convert(
                 names=iso3,
                 to="continent_7",
-                not_found=None,
+                not_found="not found",
             )
+            # Some library versions may return a non-string sentinel or a
+            # list-like result. Normalize the scalar result before validation.
+            if isinstance(continent, (list, tuple)):
+                continent = continent[0] if continent else "not found"
         except Exception as error:
             raise ValueError(
                 f"Continent lookup failed for {name!r} (ISO-3 {iso3}): "
@@ -1318,9 +1325,12 @@ def write_csv(
     path: Path,
     rows: list[dict[str, Any]],
 ) -> None:
-    """Write dictionaries to CSV."""
+    """Write dictionaries to CSV, refusing to leave a stale file behind."""
     if not rows:
-        return
+        raise ValueError(
+            f"Refusing to write empty CSV output to {path}; "
+            "this would otherwise leave a stale prior-run file in place."
+        )
 
     path.parent.mkdir(
         parents=True,
@@ -1463,10 +1473,13 @@ def build_datawrapper_title(
     window_end: date,
 ) -> str:
     """Build the current trailing-window chart title."""
+    # Avoid %-d, which is not supported by every platform's strftime.
+    start_label = window_start.strftime("%b %d, %Y").replace(" 0", " ")
+    end_label = window_end.strftime("%b %d, %Y").replace(" 0", " ")
     return (
-        "Temple Attendance Rate, "
+        "Annualized Temple Endowment sessions attended per member of record, "
         f"by {geography_label} "
-        f"({window_start:%b %-d, %Y} to {window_end:%b %-d, %Y})"
+        f"({start_label} to {end_label})"
     )
 
 
@@ -1552,13 +1565,28 @@ def update_datawrapper_chart(
     try:
         payload = response.json()
 
-        public_url = (
-            payload.get("data", {})
-            .get("publicUrl", "")
-        )
+        data = payload.get("data", payload)
+        public_url = data.get("publicUrl", "")
 
-    except ValueError:
+    except (ValueError, AttributeError):
         pass
+
+    if not public_url:
+        # Some API responses omit the URL from the publish response.
+        # Read the chart metadata as a fallback rather than failing later
+        # despite a successful publish.
+        metadata_response = session.get(
+            metadata_url,
+            headers=datawrapper_headers(token),
+            timeout=40,
+        )
+        metadata_response.raise_for_status()
+        try:
+            metadata_payload = metadata_response.json()
+            metadata_data = metadata_payload.get("data", metadata_payload)
+            public_url = metadata_data.get("publicUrl", "")
+        except (ValueError, AttributeError):
+            public_url = ""
 
     print(
         f"✓ Datawrapper {chart_name} chart updated "
@@ -1654,10 +1682,7 @@ def update_datawrapper(
         chart_id=historical_chart_id,
         csv_path=output_dir / "historical_summary.csv",
         chart_name="historical",
-        title=(
-            "Living Endowment Rate"
-            
-        ),
+        title="Living Endowment Rate",
     )
 
     # --------------------------------------------------------
