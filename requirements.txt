@@ -1,4 +1,4 @@
 # Exact versions: update intentionally after CI tests pass.
-beautifulsoup4==4.13.4
+beautifulsoup4==4.15.0
 pycountry==24.6.1
 requests==2.32.4
