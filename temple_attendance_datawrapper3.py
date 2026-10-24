@@ -13,7 +13,6 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import urljoin, urlparse
 
-import country_converter as coco
 import pycountry
 import requests
 from bs4 import BeautifulSoup
@@ -209,13 +208,60 @@ COUNTRY_OVERRIDES = {
 # CONTINENT CLASSIFICATION
 # ============================================================
 
-# country_converter provides a maintained country/territory dataset and
-# maps ISO-3 codes to continents. Keep only deliberate exceptions here,
-# keyed by ISO-3 code rather than by display name. These cover territories
-# and transcontinental cases where a stable dashboard convention is useful.
-#
-# If a new location cannot be resolved, continent_for_country() raises an
-# informative error instead of silently classifying it as "Other".
+# Deliberately local, version-controlled ISO-3 mapping. This is intentionally
+# independent of country_converter so a dependency or regex-library change
+# cannot prevent the daily job from classifying countries. Update this mapping
+# deliberately if the dashboard starts including a newly recognized country.
+# Russia is consistently assigned to Europe for this dashboard.
+CONTINENT_BY_ISO3 = {
+    # Africa
+    **dict.fromkeys("""
+    AGO BDI BEN BFA BWA CAF CIV CMR COD COG COM CPV DJI DZA EGY ERI ESH ETH
+    GAB GHA GIN GMB GNB GNQ KEN LBR LBY LSO MAR MDG MLI MOZ MRT MUS MWI NAM
+    NER NGA RWA SDN SEN SLE SOM SSD STP SWZ TCD TGO TUN TZA UGA ZAF ZMB ZWE
+    SYC
+    """.split(), "Africa"),
+    # Additional African territory
+    **dict.fromkeys("MYT REU SHN".split(), "Africa"),
+    # Asia
+    **dict.fromkeys("""
+    AFG ARE ARM AZE BGD BHR BRN BTN CHN CYP GEO HKG IDN IND IRN IRQ ISR JOR
+    JPN KAZ KGZ KHM KOR KWT LAO LBN LKA MDV MMR MNG MYS NPL OMN PAK PHL PRK
+    PSE QAT SAU SGP SYR THA TJK TKM TLS TUR TWN UZB VNM YEM
+    """.split(), "Asia"),
+    # Additional Asian territories
+    **dict.fromkeys("MAC CCK CXR IOT".split(), "Asia"),
+    # Europe
+    **dict.fromkeys("""
+    ALB AND AUT BEL BGR BIH BLR CHE CZE DEU DNK ESP EST FIN FRA GBR GRC HRV
+    HUN IRL ISL ITA LIE LTU LUX LVA MCO MDA MKD MLT MNE NLD NOR POL PRT ROU
+    RUS SMR SRB SVK SVN SWE UKR VAT XKX
+    """.split(), "Europe"),
+    # Additional European territories
+    **dict.fromkeys("ALA FRO GGY GIB IMN JEY SJM".split(), "Europe"),
+    # North America, Central America and the Caribbean
+    **dict.fromkeys("""
+    ATG BHS BLZ BRB CAN CRI CUB DMA DOM GRD GTM HND HTI JAM KNA LCA MEX NIC
+    PAN SLV TTO USA VCT
+    """.split(), "North America"),
+    # Additional North American and Caribbean territories
+    **dict.fromkeys("ABW AIA BES BLM BMU CUW CYM GLP GRL GUF MAF MNP MSR MTQ SPM SXM TCA VGB VIR".split(), "North America"),
+    # Oceania
+    **dict.fromkeys("""
+    AUS FJI FSM KIR MHL NRU NZL PLW PNG SLB TON TUV VUT WSM
+    """.split(), "Oceania"),
+    # Additional Pacific territories
+    **dict.fromkeys("COK NCL NFK NIU PCN TKL WLF".split(), "Oceania"),
+    # South America
+    **dict.fromkeys("""
+    ARG BOL BRA CHL COL ECU FLK GUY PER PRY SUR URY VEN
+    """.split(), "South America"),
+    # Antarctic and remote territories
+    **dict.fromkeys("ATA ATF BVT HMD SGS UMI".split(), "Antarctica"),
+}
+
+# Explicit conventions for territories or disputed/alternate entries that can
+# appear in the temple source but are not consistently represented as countries.
 CONTINENT_OVERRIDES_BY_ISO3 = {
     "ASM": "Oceania",       # American Samoa
     "CPV": "Africa",        # Cabo Verde / Cape Verde
@@ -231,6 +277,7 @@ CONTINENT_OVERRIDES_BY_ISO3 = {
 
 VALID_CONTINENTS = {
     "Africa",
+    "Antarctica",
     "Asia",
     "Europe",
     "North America",
@@ -602,14 +649,7 @@ def country_iso3(name: str) -> str:
 
 
 def continent_for_country(name: str) -> str:
-    """Return a validated continent using a canonical ISO-3 country code.
-
-    Country names are first normalized through the existing country/ISO
-    overrides and pycountry lookup. The maintained country_converter data
-    supplies the general classification; explicit ISO-3 overrides make
-    territorial and transcontinental conventions deterministic. Unknown or
-    invalid mappings fail loudly rather than silently becoming "Other".
-    """
+    """Return a deterministic continent for a known ISO-3 country code."""
     iso3 = country_iso3(name)
 
     if not iso3:
@@ -619,45 +659,16 @@ def continent_for_country(name: str) -> str:
             "territory or alternate name."
         )
 
-    if iso3 in CONTINENT_OVERRIDES_BY_ISO3:
-        continent = CONTINENT_OVERRIDES_BY_ISO3[iso3]
-    else:
-        # Try the explicit sentinel first. Some country_converter releases
-        # have inconsistent handling of the `not_found` argument, so retry
-        # using the library default if the explicit form itself raises.
-        # This avoids making a valid country such as Argentina fail solely
-        # because of a version-specific regex/sentinel issue.
-        first_error: Exception | None = None
-        try:
-            continent = coco.convert(
-                names=iso3,
-                to="continent_7",
-                not_found="not found",
-            )
-        except Exception as error:
-            first_error = error
-            try:
-                continent = coco.convert(
-                    names=iso3,
-                    to="continent_7",
-                )
-            except Exception as retry_error:
-                raise ValueError(
-                    f"Continent lookup failed for {name!r} "
-                    f"(ISO-3 {iso3}). Explicit-sentinel attempt: "
-                    f"{first_error!r}; default-sentinel retry: "
-                    f"{retry_error!r}"
-                ) from retry_error
+    continent = CONTINENT_OVERRIDES_BY_ISO3.get(
+        iso3,
+        CONTINENT_BY_ISO3.get(iso3),
+    )
 
-        # Some library versions may return a list-like result.
-        if isinstance(continent, (list, tuple)):
-            continent = continent[0] if continent else "not found"
-
-    if not isinstance(continent, str) or continent not in VALID_CONTINENTS:
+    if continent not in VALID_CONTINENTS:
         raise ValueError(
-            f"Unrecognized continent for {name!r} (ISO-3 {iso3}): "
-            f"{continent!r}. Update country_converter or add an explicit "
-            "ISO-3 override in CONTINENT_OVERRIDES_BY_ISO3."
+            f"No continent mapping exists for {name!r} (ISO-3 {iso3}). "
+            "Add the ISO-3 code to CONTINENT_BY_ISO3 or "
+            "CONTINENT_OVERRIDES_BY_ISO3 and add a test."
         )
 
     return continent
