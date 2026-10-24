@@ -622,24 +622,36 @@ def continent_for_country(name: str) -> str:
     if iso3 in CONTINENT_OVERRIDES_BY_ISO3:
         continent = CONTINENT_OVERRIDES_BY_ISO3[iso3]
     else:
+        # Try the explicit sentinel first. Some country_converter releases
+        # have inconsistent handling of the `not_found` argument, so retry
+        # using the library default if the explicit form itself raises.
+        # This avoids making a valid country such as Argentina fail solely
+        # because of a version-specific regex/sentinel issue.
+        first_error: Exception | None = None
         try:
-            # country_converter expects `not_found` to be a string pattern.
-            # Passing None can raise TypeError inside its regex-based lookup
-            # even for valid ISO-3 codes (for example ARG / Argentina).
             continent = coco.convert(
                 names=iso3,
                 to="continent_7",
                 not_found="not found",
             )
-            # Some library versions may return a non-string sentinel or a
-            # list-like result. Normalize the scalar result before validation.
-            if isinstance(continent, (list, tuple)):
-                continent = continent[0] if continent else "not found"
         except Exception as error:
-            raise ValueError(
-                f"Continent lookup failed for {name!r} (ISO-3 {iso3}): "
-                f"{error}"
-            ) from error
+            first_error = error
+            try:
+                continent = coco.convert(
+                    names=iso3,
+                    to="continent_7",
+                )
+            except Exception as retry_error:
+                raise ValueError(
+                    f"Continent lookup failed for {name!r} "
+                    f"(ISO-3 {iso3}). Explicit-sentinel attempt: "
+                    f"{first_error!r}; default-sentinel retry: "
+                    f"{retry_error!r}"
+                ) from retry_error
+
+        # Some library versions may return a list-like result.
+        if isinstance(continent, (list, tuple)):
+            continent = continent[0] if continent else "not found"
 
     if not isinstance(continent, str) or continent not in VALID_CONTINENTS:
         raise ValueError(
