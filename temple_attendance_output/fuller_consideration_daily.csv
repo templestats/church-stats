@@ -9850,106 +9850,334 @@ date,temple,endowments,living,scope,geography
 2026-10-29,Willamette Valley Oregon Temple,140,0,state,Oregon
 2026-10-29,Yorba Linda California Temple,144,0,state,California
 2026-10-30,Aba Nigeria Temple,45,15,country,Nigeria
-2026-10-30,Abidjan Ivory Coast Temple,25,3,country,Ivory Coast
-2026-10-30,Accra Ghana Temple,141,11,country,Ghana
+2026-10-30,Abidjan Ivory Coast Temple,45,3,country,Ivory Coast
+2026-10-30,Accra Ghana Temple,156,12,country,Ghana
 2026-10-30,Alabang Philippines Temple,281,21,country,Philippines
-2026-10-30,Antofagasta Chile Temple,21,0,country,Chile
+2026-10-30,Anchorage Alaska Temple,119,1,state,Alaska
+2026-10-30,Antofagasta Chile Temple,54,0,country,Chile
 2026-10-30,Apia Samoa Temple,415,14,country,Samoa
-2026-10-30,Arequipa Peru Temple,1,0,country,Peru
+2026-10-30,Arequipa Peru Temple,43,1,country,Peru
 2026-10-30,Auckland New Zealand Temple,349,0,country,New Zealand
 2026-10-30,Bacolod Philippines Temple,176,8,country,Philippines
-2026-10-30,Bahía Blanca Argentina Temple,15,2,country,Argentina
+2026-10-30,Bahía Blanca Argentina Temple,43,2,country,Argentina
 2026-10-30,Bangkok Thailand Temple,22,0,country,Thailand
-2026-10-30,Belo Horizonte Brazil Temple,44,0,country,Brazil
-2026-10-30,Belém Brazil Temple,1,0,country,Brazil
-2026-10-30,Bentonville Arkansas Temple,20,0,state,Arkansas
-2026-10-30,Bern Switzerland Temple,46,0,country,Switzerland
-2026-10-30,Boise Idaho Temple,35,0,state,Idaho
-2026-10-30,Boston Massachusetts Temple,17,0,state,Massachusetts
-2026-10-30,Bountiful Utah Temple,32,0,state,Utah
-2026-10-30,Brasília Brazil Temple,33,1,country,Brazil
-2026-10-30,Brigham City Utah Temple,40,0,state,Utah
+2026-10-30,Barranquilla Colombia Temple,26,2,country,Colombia
+2026-10-30,Baton Rouge Louisiana Temple,84,2,state,Louisiana
+2026-10-30,Belo Horizonte Brazil Temple,151,0,country,Brazil
+2026-10-30,Belém Brazil Temple,12,0,country,Brazil
+2026-10-30,Bentonville Arkansas Temple,223,0,state,Arkansas
+2026-10-30,Bern Switzerland Temple,114,0,country,Switzerland
+2026-10-30,Billings Montana Temple,57,1,state,Montana
+2026-10-30,Birmingham Alabama Temple,49,0,state,Alabama
+2026-10-30,Bogotá Colombia Temple,172,4,country,Colombia
+2026-10-30,Boise Idaho Temple,406,1,state,Idaho
+2026-10-30,Boston Massachusetts Temple,109,1,state,Massachusetts
+2026-10-30,Bountiful Utah Temple,659,2,state,Utah
+2026-10-30,Brasília Brazil Temple,76,3,country,Brazil
+2026-10-30,Brigham City Utah Temple,373,2,state,Utah
 2026-10-30,Brisbane Australia Temple,284,1,country,Australia
-2026-10-30,Caracas Venezuela Temple,36,9,country,Venezuela
+2026-10-30,Burley Idaho Temple,427,2,state,Idaho
+2026-10-30,Calgary Alberta Temple,201,0,country,Canada
+2026-10-30,Caracas Venezuela Temple,125,11,country,Venezuela
+2026-10-30,Casper Wyoming Temple,32,0,state,Wyoming
 2026-10-30,Cebu City Philippines Temple,194,3,country,Philippines
-2026-10-30,Cleveland Ohio Temple,24,0,state,Ohio
-2026-10-30,Cochabamba Bolivia Temple,22,0,country,Bolivia
-2026-10-30,Columbia River Washington Temple,11,0,state,Washington
-2026-10-30,Concepción Chile Temple,26,0,country,Chile
-2026-10-30,Córdoba Argentina Temple,4,0,country,Argentina
+2026-10-30,Cedar City Utah Temple,294,2,state,Utah
+2026-10-30,Ciudad Juárez Mexico Temple,109,0,country,Mexico
+2026-10-30,Cleveland Ohio Temple,98,0,state,Ohio
+2026-10-30,Cobán Guatemala Temple,36,0,country,Guatemala
+2026-10-30,Cochabamba Bolivia Temple,149,3,country,Bolivia
+2026-10-30,Cody Wyoming Temple,138,0,state,Wyoming
+2026-10-30,Colonia Juárez Chihuahua Mexico Temple,3,0,country,Mexico
+2026-10-30,Columbia River Washington Temple,281,0,state,Washington
+2026-10-30,Columbia South Carolina Temple,77,0,state,South Carolina
+2026-10-30,Columbus Ohio Temple,117,1,state,Ohio
+2026-10-30,Concepción Chile Temple,180,4,country,Chile
+2026-10-30,Copenhagen Denmark Temple,39,1,country,Denmark
+2026-10-30,Curitiba Brazil Temple,175,6,country,Brazil
+2026-10-30,Córdoba Argentina Temple,23,0,country,Argentina
 2026-10-30,Davao Philippines Temple,170,10,country,Philippines
-2026-10-30,Deseret Peak Utah Temple,19,0,state,Utah
-2026-10-30,Detroit Michigan Temple,29,0,state,Michigan
-2026-10-30,Draper Utah Temple,56,0,state,Utah
-2026-10-30,Ephraim Utah Temple,11,0,state,Utah
-2026-10-30,Fortaleza Brazil Temple,44,0,country,Brazil
-2026-10-30,Frankfurt Germany Temple,112,0,country,Germany
-2026-10-30,Freiberg Germany Temple,50,0,country,Germany
+2026-10-30,Denver Colorado Temple,375,3,state,Colorado
+2026-10-30,Deseret Peak Utah Temple,321,0,state,Utah
+2026-10-30,Detroit Michigan Temple,134,0,state,Michigan
+2026-10-30,Draper Utah Temple,787,3,state,Utah
+2026-10-30,Durban South Africa Temple,21,1,country,South Africa
+2026-10-30,Edmonton Alberta Temple,139,0,country,Canada
+2026-10-30,Elko Nevada Temple,110,1,state,Nevada
+2026-10-30,Ephraim Utah Temple,274,0,state,Utah
+2026-10-30,Farmington New Mexico Temple,132,0,state,New Mexico
+2026-10-30,Feather River California Temple,91,2,state,California
+2026-10-30,Fort Collins Colorado Temple,109,0,state,Colorado
+2026-10-30,Fortaleza Brazil Temple,150,2,country,Brazil
+2026-10-30,Frankfurt Germany Temple,263,2,country,Germany
+2026-10-30,Freiberg Germany Temple,54,0,country,Germany
+2026-10-30,Fresno California Temple,214,2,state,California
 2026-10-30,Fukuoka Japan Temple,57,0,country,Japan
-2026-10-30,Gilbert Arizona Temple,27,0,state,Arizona
-2026-10-30,Halifax Nova Scotia Temple,7,0,country,Canada
+2026-10-30,Gilbert Arizona Temple,573,4,state,Arizona
+2026-10-30,Grand Junction Colorado Temple,91,1,state,Colorado
+2026-10-30,Guadalajara Mexico Temple,70,2,country,Mexico
+2026-10-30,Guatemala City Guatemala Temple,122,0,country,Guatemala
+2026-10-30,Guayaquil Ecuador Temple,156,3,country,Ecuador
+2026-10-30,Halifax Nova Scotia Temple,13,0,country,Canada
 2026-10-30,Hamilton New Zealand Temple,196,1,country,New Zealand
 2026-10-30,Harare Zimbabwe Temple,92,13,country,Zimbabwe
-2026-10-30,Helsinki Finland Temple,16,0,country,Finland
+2026-10-30,Hartford Connecticut Temple,110,0,state,Connecticut
+2026-10-30,Helsinki Finland Temple,62,1,country,Finland
+2026-10-30,Hermosillo Sonora Mexico Temple,31,2,country,Mexico
 2026-10-30,Hong Kong China Temple,151,0,country,Hong Kong
-2026-10-30,Houston Texas Temple,27,0,state,Texas
-2026-10-30,Idaho Falls Idaho Temple,60,0,state,Idaho
-2026-10-30,Johannesburg South Africa Temple,89,1,country,South Africa
-2026-10-30,Kansas City Missouri Temple,34,0,state,Missouri
-2026-10-30,Kinshasa Democratic Republic of the Congo Temple,19,0,country,Democratic Republic of the Congo
+2026-10-30,Houston Texas Temple,252,0,state,Texas
+2026-10-30,Idaho Falls Idaho Temple,797,5,state,Idaho
+2026-10-30,Indianapolis Indiana Temple,142,1,state,Indiana
+2026-10-30,Johannesburg South Africa Temple,118,1,country,South Africa
+2026-10-30,Kansas City Missouri Temple,322,0,state,Missouri
+2026-10-30,Kinshasa Democratic Republic of the Congo Temple,23,2,country,Democratic Republic of the Congo
 2026-10-30,Kyiv Ukraine Temple,0,0,country,Ukraine
-2026-10-30,Layton Utah Temple,55,0,state,Utah
-2026-10-30,Lima Peru Los Olivos Temple,5,0,country,Peru
-2026-10-30,Logan Utah Temple,53,0,state,Utah
-2026-10-30,London England Temple,50,0,country,United Kingdom
-2026-10-30,Louisville Kentucky Temple,44,0,state,Kentucky
-2026-10-30,Madrid Spain Temple,49,0,country,Spain
+2026-10-30,Laie Hawaii Temple,246,1,state,Hawaii
+2026-10-30,Las Vegas Nevada Temple,296,0,state,Nevada
+2026-10-30,Layton Utah Temple,764,1,state,Utah
+2026-10-30,Lima Peru Los Olivos Temple,113,4,country,Peru
+2026-10-30,Lisbon Portugal Temple,88,0,country,Portugal
+2026-10-30,Logan Utah Temple,930,3,state,Utah
+2026-10-30,London England Temple,145,2,country,United Kingdom
+2026-10-30,Los Angeles California Temple,91,0,state,California
+2026-10-30,Louisville Kentucky Temple,114,0,state,Kentucky
+2026-10-30,Lubbock Texas Temple,78,0,state,Texas
+2026-10-30,Madrid Spain Temple,63,0,country,Spain
+2026-10-30,Managua Nicaragua Temple,176,11,country,Nicaragua
 2026-10-30,Manila Philippines Temple,133,3,country,Philippines
-2026-10-30,Manti Utah Temple,14,0,state,Utah
+2026-10-30,Manti Utah Temple,248,2,state,Utah
+2026-10-30,McAllen Texas Temple,36,0,state,Texas
+2026-10-30,Medford Oregon Temple,96,1,state,Oregon
 2026-10-30,Melbourne Australia Temple,180,1,country,Australia
-2026-10-30,Mendoza Argentina Temple,18,0,country,Argentina
-2026-10-30,Meridian Idaho Temple,35,0,state,Idaho
-2026-10-30,Montevideo Uruguay Temple,7,0,country,Uruguay
-2026-10-30,Montpelier Idaho Temple,37,0,state,Idaho
-2026-10-30,Mount Timpanogos Utah Temple,154,0,state,Utah
-2026-10-30,Mérida Mexico Temple,4,0,country,Mexico
+2026-10-30,Memphis Tennessee Temple,30,0,state,Tennessee
+2026-10-30,Mendoza Argentina Temple,68,0,country,Argentina
+2026-10-30,Meridian Idaho Temple,421,3,state,Idaho
+2026-10-30,Mesa Arizona Temple,525,2,state,Arizona
+2026-10-30,Mexico City Mexico Temple,412,6,country,Mexico
+2026-10-30,Miraflores Guatemala City Guatemala Temple,114,0,country,Guatemala
+2026-10-30,Monterrey Mexico Temple,113,1,country,Mexico
+2026-10-30,Montevideo Uruguay Temple,142,1,country,Uruguay
+2026-10-30,Monticello Utah Temple,37,0,state,Utah
+2026-10-30,Montpelier Idaho Temple,282,2,state,Idaho
+2026-10-30,Montreal Quebec Temple,111,0,country,Canada
+2026-10-30,Mount Timpanogos Utah Temple,1429,3,state,Utah
+2026-10-30,Mérida Mexico Temple,46,5,country,Mexico
 2026-10-30,Nairobi Kenya Temple,16,2,country,Kenya
+2026-10-30,Newport Beach California Temple,153,0,state,California
 2026-10-30,Nuku'alofa Tonga Temple,40,0,country,Tonga
-2026-10-30,Ogden Utah Temple,60,0,state,Utah
-2026-10-30,Oquirrh Mountain Utah Temple,80,0,state,Utah
-2026-10-30,Orem Utah Temple,152,0,state,Utah
-2026-10-30,Paris France Temple,116,1,country,France
-2026-10-30,Payson Utah Temple,86,0,state,Utah
+2026-10-30,Oakland California Temple,115,0,state,California
+2026-10-30,Oaxaca Mexico Temple,30,0,country,Mexico
+2026-10-30,Ogden Utah Temple,675,2,state,Utah
+2026-10-30,Oklahoma City Oklahoma Temple,115,1,state,Oklahoma
+2026-10-30,Oquirrh Mountain Utah Temple,1132,8,state,Utah
+2026-10-30,Orem Utah Temple,1056,6,state,Utah
+2026-10-30,Palmyra New York Temple,55,0,state,New York
+2026-10-30,Panama City Panama Temple,4,1,country,Panama
+2026-10-30,Papeete Tahiti Temple,313,0,country,French Polynesia
+2026-10-30,Paris France Temple,139,1,country,France
+2026-10-30,Payson Utah Temple,897,1,state,Utah
 2026-10-30,Perth Australia Temple,115,0,country,Australia
+2026-10-30,Philadelphia Pennsylvania Temple,101,0,state,Pennsylvania
 2026-10-30,Phnom Penh Cambodia Temple,32,2,country,Cambodia
-2026-10-30,Pocatello Idaho Temple,28,0,state,Idaho
+2026-10-30,Pittsburgh Pennsylvania Temple,69,0,state,Pennsylvania
+2026-10-30,Pocatello Idaho Temple,382,0,state,Idaho
 2026-10-30,Port-au-Prince Haiti Temple,3,1,country,Haiti
-2026-10-30,Preston England Temple,108,0,country,United Kingdom
-2026-10-30,Provo City Center Temple,167,0,state,Utah
-2026-10-30,Raleigh North Carolina Temple,66,0,state,North Carolina
-2026-10-30,Recife Brazil Temple,18,0,country,Brazil
-2026-10-30,Red Cliffs Utah Temple,43,0,state,Utah
-2026-10-30,Rexburg Idaho Temple,150,0,state,Idaho
-2026-10-30,Richmond Virginia Temple,30,0,state,Virginia
-2026-10-30,Rome Italy Temple,109,0,country,Italy
-2026-10-30,Salta Argentina Temple,0,0,country,Argentina
-2026-10-30,Salvador Brazil Temple,88,0,country,Brazil
-2026-10-30,San Juan Puerto Rico Temple,23,0,country,Puerto Rico
-2026-10-30,Santiago Chile Temple,38,0,country,Chile
-2026-10-30,Santo Domingo Dominican Republic Temple,0,0,country,Dominican Republic
+2026-10-30,Portland Oregon Temple,179,0,state,Oregon
+2026-10-30,Porto Alegre Brazil Temple,175,7,country,Brazil
+2026-10-30,Praia Cape Verde Temple,7,0,country,Cape Verde
+2026-10-30,Preston England Temple,227,0,country,United Kingdom
+2026-10-30,Provo City Center Temple,1376,12,state,Utah
+2026-10-30,Puebla Mexico Temple,187,5,country,Mexico
+2026-10-30,Quetzaltenango Guatemala Temple,41,1,country,Guatemala
+2026-10-30,Quito Ecuador Temple,81,9,country,Ecuador
+2026-10-30,Raleigh North Carolina Temple,171,0,state,North Carolina
+2026-10-30,Recife Brazil Temple,82,1,country,Brazil
+2026-10-30,Red Cliffs Utah Temple,539,3,state,Utah
+2026-10-30,Redlands California Temple,244,3,state,California
+2026-10-30,Reno Nevada Temple,182,1,state,Nevada
+2026-10-30,Rexburg Idaho Temple,1118,4,state,Idaho
+2026-10-30,Richmond Virginia Temple,194,0,state,Virginia
+2026-10-30,Rio de Janeiro Brazil Temple,60,0,country,Brazil
+2026-10-30,Rome Italy Temple,127,0,country,Italy
+2026-10-30,Sacramento California Temple,190,2,state,California
+2026-10-30,Salta Argentina Temple,1,0,country,Argentina
+2026-10-30,Salvador Brazil Temple,125,0,country,Brazil
+2026-10-30,San Antonio Texas Temple,290,2,state,Texas
+2026-10-30,San Diego California Temple,320,0,state,California
+2026-10-30,San José Costa Rica Temple,39,0,country,Costa Rica
+2026-10-30,San Juan Puerto Rico Temple,64,0,country,Puerto Rico
+2026-10-30,San Pedro Sula Honduras Temple,17,1,country,Honduras
+2026-10-30,San Salvador El Salvador Temple,82,4,country,El Salvador
+2026-10-30,Santiago Chile Temple,257,2,country,Chile
+2026-10-30,Santo Domingo Dominican Republic Temple,34,5,country,Dominican Republic
 2026-10-30,Sapporo Japan Temple,116,0,country,Japan
-2026-10-30,Saratoga Springs Utah Temple,55,0,state,Utah
+2026-10-30,Saratoga Springs Utah Temple,546,4,state,Utah
+2026-10-30,Seattle Washington Temple,128,2,state,Washington
 2026-10-30,Seoul Korea Temple,74,0,country,South Korea
-2026-10-30,Spokane Washington Temple,18,0,state,Washington
-2026-10-30,St. George Utah Temple,15,0,state,Utah
+2026-10-30,Spokane Washington Temple,359,0,state,Washington
+2026-10-30,St. George Utah Temple,611,4,state,Utah
+2026-10-30,St. Paul Minnesota Temple,101,0,state,Minnesota
+2026-10-30,Star Valley Wyoming Temple,152,1,state,Wyoming
 2026-10-30,Sydney Australia Temple,193,4,country,Australia
-2026-10-30,São Paulo Brazil Temple,204,0,country,Brazil
+2026-10-30,São Paulo Brazil Temple,500,3,country,Brazil
 2026-10-30,Taipei Taiwan Temple,102,0,country,Taiwan
-2026-10-30,Taylorsville Utah Temple,154,0,state,Utah
-2026-10-30,The Hague Netherlands Temple,27,0,country,Netherlands
+2026-10-30,Tallahassee Florida Temple,105,0,state,Florida
+2026-10-30,Tampico Mexico Temple,44,1,country,Mexico
+2026-10-30,Taylorsville Utah Temple,1288,3,state,Utah
+2026-10-30,The Gila Valley Arizona Temple,173,2,state,Arizona
+2026-10-30,The Hague Netherlands Temple,48,0,country,Netherlands
+2026-10-30,Tijuana Mexico Temple,35,0,country,Mexico
 2026-10-30,Tokyo Japan Temple,190,0,country,Japan
-2026-10-30,Trujillo Peru Temple,26,0,country,Peru
-2026-10-30,Twin Falls Idaho Temple,10,0,state,Idaho
+2026-10-30,Toronto Ontario Temple,174,2,country,Canada
+2026-10-30,Trujillo Peru Temple,120,3,country,Peru
+2026-10-30,Tucson Arizona Temple,175,0,state,Arizona
+2026-10-30,Tuxtla Gutiérrez Mexico Temple,8,1,country,Mexico
+2026-10-30,Twin Falls Idaho Temple,215,2,state,Idaho
 2026-10-30,Urdaneta Philippines Temple,324,25,country,Philippines
-2026-10-30,Vernal Utah Temple,26,0,state,Utah
-2026-10-30,Washington D.C. Temple,49,0,state,Maryland
+2026-10-30,Vancouver British Columbia Temple,60,0,country,Canada
+2026-10-30,Veracruz Mexico Temple,60,0,country,Mexico
+2026-10-30,Vernal Utah Temple,327,2,state,Utah
+2026-10-30,Villahermosa Mexico Temple,32,0,country,Mexico
+2026-10-30,Washington D.C. Temple,310,4,state,Maryland
+2026-10-30,Willamette Valley Oregon Temple,146,0,state,Oregon
+2026-10-30,Yorba Linda California Temple,129,0,state,California
+2026-10-31,Aba Nigeria Temple,31,8,country,Nigeria
+2026-10-31,Abidjan Ivory Coast Temple,177,6,country,Ivory Coast
+2026-10-31,Accra Ghana Temple,108,20,country,Ghana
+2026-10-31,Alabang Philippines Temple,208,7,country,Philippines
+2026-10-31,Antofagasta Chile Temple,88,4,country,Chile
+2026-10-31,Apia Samoa Temple,208,8,country,Samoa
+2026-10-31,Arequipa Peru Temple,34,0,country,Peru
+2026-10-31,Auckland New Zealand Temple,434,4,country,New Zealand
+2026-10-31,Bacolod Philippines Temple,220,28,country,Philippines
+2026-10-31,Bahía Blanca Argentina Temple,30,1,country,Argentina
+2026-10-31,Bangkok Thailand Temple,125,4,country,Thailand
+2026-10-31,Barranquilla Colombia Temple,10,0,country,Colombia
+2026-10-31,Belo Horizonte Brazil Temple,88,1,country,Brazil
+2026-10-31,Belém Brazil Temple,27,0,country,Brazil
+2026-10-31,Bentonville Arkansas Temple,52,0,state,Arkansas
+2026-10-31,Bern Switzerland Temple,108,1,country,Switzerland
+2026-10-31,Billings Montana Temple,16,0,state,Montana
+2026-10-31,Bogotá Colombia Temple,39,0,country,Colombia
+2026-10-31,Boise Idaho Temple,41,0,state,Idaho
+2026-10-31,Boston Massachusetts Temple,55,0,state,Massachusetts
+2026-10-31,Bountiful Utah Temple,82,0,state,Utah
+2026-10-31,Brasília Brazil Temple,38,3,country,Brazil
+2026-10-31,Brigham City Utah Temple,27,0,state,Utah
+2026-10-31,Brisbane Australia Temple,343,6,country,Australia
+2026-10-31,Caracas Venezuela Temple,73,6,country,Venezuela
+2026-10-31,Cebu City Philippines Temple,262,7,country,Philippines
+2026-10-31,Cleveland Ohio Temple,14,0,state,Ohio
+2026-10-31,Cobán Guatemala Temple,4,0,country,Guatemala
+2026-10-31,Cochabamba Bolivia Temple,85,0,country,Bolivia
+2026-10-31,Columbia River Washington Temple,12,0,state,Washington
+2026-10-31,Columbia South Carolina Temple,72,0,state,South Carolina
+2026-10-31,Columbus Ohio Temple,31,0,state,Ohio
+2026-10-31,Concepción Chile Temple,153,2,country,Chile
+2026-10-31,Copenhagen Denmark Temple,117,1,country,Denmark
+2026-10-31,Córdoba Argentina Temple,27,2,country,Argentina
+2026-10-31,Davao Philippines Temple,170,6,country,Philippines
+2026-10-31,Denver Colorado Temple,32,0,state,Colorado
+2026-10-31,Deseret Peak Utah Temple,62,0,state,Utah
+2026-10-31,Detroit Michigan Temple,40,0,state,Michigan
+2026-10-31,Draper Utah Temple,130,0,state,Utah
+2026-10-31,Durban South Africa Temple,81,2,country,South Africa
+2026-10-31,Ephraim Utah Temple,13,0,state,Utah
+2026-10-31,Fortaleza Brazil Temple,132,4,country,Brazil
+2026-10-31,Frankfurt Germany Temple,205,2,country,Germany
+2026-10-31,Freiberg Germany Temple,64,1,country,Germany
+2026-10-31,Fukuoka Japan Temple,115,1,country,Japan
+2026-10-31,Gilbert Arizona Temple,35,0,state,Arizona
+2026-10-31,Guatemala City Guatemala Temple,62,0,country,Guatemala
+2026-10-31,Guayaquil Ecuador Temple,50,0,country,Ecuador
+2026-10-31,Halifax Nova Scotia Temple,8,0,country,Canada
+2026-10-31,Hamilton New Zealand Temple,161,2,country,New Zealand
+2026-10-31,Harare Zimbabwe Temple,29,9,country,Zimbabwe
+2026-10-31,Hartford Connecticut Temple,83,0,state,Connecticut
+2026-10-31,Helsinki Finland Temple,101,1,country,Finland
+2026-10-31,Hong Kong China Temple,158,0,country,Hong Kong
+2026-10-31,Houston Texas Temple,79,0,state,Texas
+2026-10-31,Idaho Falls Idaho Temple,92,0,state,Idaho
+2026-10-31,Indianapolis Indiana Temple,79,1,state,Indiana
+2026-10-31,Johannesburg South Africa Temple,141,9,country,South Africa
+2026-10-31,Kansas City Missouri Temple,37,0,state,Missouri
+2026-10-31,Kinshasa Democratic Republic of the Congo Temple,88,4,country,Democratic Republic of the Congo
+2026-10-31,Kyiv Ukraine Temple,0,0,country,Ukraine
+2026-10-31,Layton Utah Temple,113,0,state,Utah
+2026-10-31,Lima Peru Los Olivos Temple,40,0,country,Peru
+2026-10-31,Lisbon Portugal Temple,216,3,country,Portugal
+2026-10-31,Logan Utah Temple,157,0,state,Utah
+2026-10-31,London England Temple,250,7,country,United Kingdom
+2026-10-31,Los Angeles California Temple,29,0,state,California
+2026-10-31,Louisville Kentucky Temple,44,0,state,Kentucky
+2026-10-31,Madrid Spain Temple,230,5,country,Spain
+2026-10-31,Managua Nicaragua Temple,18,0,country,Nicaragua
+2026-10-31,Manila Philippines Temple,174,5,country,Philippines
+2026-10-31,Manti Utah Temple,10,0,state,Utah
+2026-10-31,McAllen Texas Temple,6,0,state,Texas
+2026-10-31,Melbourne Australia Temple,263,6,country,Australia
+2026-10-31,Mendoza Argentina Temple,68,0,country,Argentina
+2026-10-31,Meridian Idaho Temple,49,0,state,Idaho
+2026-10-31,Mexico City Mexico Temple,72,0,country,Mexico
+2026-10-31,Miraflores Guatemala City Guatemala Temple,44,0,country,Guatemala
+2026-10-31,Montevideo Uruguay Temple,84,0,country,Uruguay
+2026-10-31,Montpelier Idaho Temple,34,0,state,Idaho
+2026-10-31,Montreal Quebec Temple,41,0,country,Canada
+2026-10-31,Mount Timpanogos Utah Temple,178,0,state,Utah
+2026-10-31,Nairobi Kenya Temple,29,2,country,Kenya
+2026-10-31,Oaxaca Mexico Temple,40,1,country,Mexico
+2026-10-31,Ogden Utah Temple,70,0,state,Utah
+2026-10-31,Oklahoma City Oklahoma Temple,27,0,state,Oklahoma
+2026-10-31,Oquirrh Mountain Utah Temple,108,0,state,Utah
+2026-10-31,Orem Utah Temple,162,0,state,Utah
+2026-10-31,Palmyra New York Temple,29,0,state,New York
+2026-10-31,Panama City Panama Temple,4,1,country,Panama
+2026-10-31,Paris France Temple,152,2,country,France
+2026-10-31,Payson Utah Temple,156,0,state,Utah
+2026-10-31,Perth Australia Temple,76,1,country,Australia
+2026-10-31,Philadelphia Pennsylvania Temple,64,0,state,Pennsylvania
+2026-10-31,Phnom Penh Cambodia Temple,71,7,country,Cambodia
+2026-10-31,Pittsburgh Pennsylvania Temple,16,0,state,Pennsylvania
+2026-10-31,Pocatello Idaho Temple,35,0,state,Idaho
+2026-10-31,Port-au-Prince Haiti Temple,9,1,country,Haiti
+2026-10-31,Porto Alegre Brazil Temple,132,4,country,Brazil
+2026-10-31,Praia Cape Verde Temple,1,0,country,Cape Verde
+2026-10-31,Preston England Temple,146,4,country,United Kingdom
+2026-10-31,Provo City Center Temple,200,0,state,Utah
+2026-10-31,Puebla Mexico Temple,67,0,country,Mexico
+2026-10-31,Quetzaltenango Guatemala Temple,26,0,country,Guatemala
+2026-10-31,Quito Ecuador Temple,40,0,country,Ecuador
+2026-10-31,Raleigh North Carolina Temple,63,0,state,North Carolina
+2026-10-31,Recife Brazil Temple,146,6,country,Brazil
+2026-10-31,Red Cliffs Utah Temple,26,0,state,Utah
+2026-10-31,Rexburg Idaho Temple,108,0,state,Idaho
+2026-10-31,Richmond Virginia Temple,63,0,state,Virginia
+2026-10-31,Rio de Janeiro Brazil Temple,103,0,country,Brazil
+2026-10-31,Rome Italy Temple,85,0,country,Italy
+2026-10-31,Salta Argentina Temple,6,0,country,Argentina
+2026-10-31,Salvador Brazil Temple,130,0,country,Brazil
+2026-10-31,San Antonio Texas Temple,44,0,state,Texas
+2026-10-31,San Juan Puerto Rico Temple,13,0,country,Puerto Rico
+2026-10-31,San Salvador El Salvador Temple,30,0,country,El Salvador
+2026-10-31,Santiago Chile Temple,179,0,country,Chile
+2026-10-31,Santo Domingo Dominican Republic Temple,52,0,country,Dominican Republic
+2026-10-31,Sapporo Japan Temple,116,0,country,Japan
+2026-10-31,Saratoga Springs Utah Temple,95,0,state,Utah
+2026-10-31,Seattle Washington Temple,13,0,state,Washington
+2026-10-31,Seoul Korea Temple,374,1,country,South Korea
+2026-10-31,Spokane Washington Temple,27,0,state,Washington
+2026-10-31,St. George Utah Temple,33,0,state,Utah
+2026-10-31,St. Paul Minnesota Temple,27,0,state,Minnesota
+2026-10-31,Sydney Australia Temple,208,4,country,Australia
+2026-10-31,São Paulo Brazil Temple,312,2,country,Brazil
+2026-10-31,Taipei Taiwan Temple,257,7,country,Taiwan
+2026-10-31,Tallahassee Florida Temple,56,0,state,Florida
+2026-10-31,Taylorsville Utah Temple,162,0,state,Utah
+2026-10-31,The Hague Netherlands Temple,80,0,country,Netherlands
+2026-10-31,Tokyo Japan Temple,370,2,country,Japan
+2026-10-31,Toronto Ontario Temple,63,0,country,Canada
+2026-10-31,Trujillo Peru Temple,25,0,country,Peru
+2026-10-31,Tuxtla Gutiérrez Mexico Temple,0,0,country,Mexico
+2026-10-31,Urdaneta Philippines Temple,270,14,country,Philippines
+2026-10-31,Vernal Utah Temple,15,0,state,Utah
+2026-10-31,Washington D.C. Temple,204,1,state,Maryland
+2026-10-31,Yorba Linda California Temple,44,0,state,California
