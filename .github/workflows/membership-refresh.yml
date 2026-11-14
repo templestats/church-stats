@@ -1,0 +1,138 @@
+name: Church Stats - Annual membership refresh
+
+on:
+  # One-time installation: expands 2024/2025 to every country with reliable
+  # published membership counts. This runs when the workflow first lands.
+  push:
+    paths:
+      - 'membership_automation.py'
+      - '.github/workflows/membership-refresh.yml'
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'bootstrap expands 2024/2025, annual imports most recent year'
+        required: true
+        type: choice
+        options:
+          - bootstrap
+          - annual
+        default: bootstrap
+  # GitHub runs this schedule each April 9–21, but the guard makes exactly
+  # the second Monday the first attempt and the following six days retries.
+  # (Cron alone cannot express the second Monday of a month.)
+  schedule:
+    - cron: '23 9 9-21 4 *'
+      timezone: 'America/Los_Angeles'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: church-stats-membership-snapshots
+  cancel-in-progress: false
+
+jobs:
+  bootstrap:
+    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.mode == 'bootstrap')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: python -m pip install requests beautifulsoup4 pycountry
+      - name: Expand historical membership snapshots
+        run: python membership_automation.py bootstrap
+      - name: Validate model and offline attendance pipeline
+        run: python -m unittest discover -s tests -v
+      - name: Commit validated expanded snapshots
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add membership_data/2024.csv membership_data/2025.csv
+          if git diff --cached --quiet; then
+            echo 'Already bootstrapped; no changes.'
+            exit 0
+          fi
+          git commit -m 'Expand historical Church membership to all published countries'
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
+      - name: Save internal audit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: membership-bootstrap-audit
+          path: membership_update_reports/
+          if-no-files-found: ignore
+          retention-days: 90
+
+  annual:
+    if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.mode == 'annual')
+    runs-on: ubuntu-latest
+    env:
+      TZ: America/Los_Angeles
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: python -m pip install requests beautifulsoup4 pycountry
+      - name: Determine scheduled attempt
+        id: due
+        shell: bash
+        run: |
+          python - <<'PY' >> "$GITHUB_OUTPUT"
+          import datetime
+          from membership_automation import retry_day
+          day=retry_day(datetime.date.today())
+          print('due=' + ('true' if day is not None else 'false'))
+          print('day=' + (str(day) if day is not None else '-1'))
+          PY
+      - name: Collect and validate annual membership privately
+        id: refresh
+        if: steps.due.outputs.due == 'true' || github.event_name == 'workflow_dispatch'
+        continue-on-error: true
+        shell: bash
+        run: |
+          if [[ "${{ github.event_name }}" == 'workflow_dispatch' ]]; then
+            python membership_automation.py annual --force
+          else
+            python membership_automation.py annual
+          fi
+      - name: Commit only a fully validated annual snapshot
+        if: steps.refresh.outcome == 'success'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add 'membership_data/[0-9][0-9][0-9][0-9].csv'
+          if git diff --cached --quiet; then
+            echo 'Annual membership snapshot already exists; nothing to publish.'
+            exit 0
+          fi
+          git commit -m 'Import validated annual Church membership statistics'
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
+      - name: Preserve attempted private audit for investigation
+        if: steps.refresh.outcome == 'failure'
+        uses: actions/upload-artifact@v4
+        with:
+          name: membership-refresh-diagnostics-${{ github.run_id }}
+          path: membership_update_reports/
+          if-no-files-found: warn
+          retention-days: 90
+      - name: Alert through failed GitHub Actions run after final retry
+        if: steps.refresh.outcome == 'failure' && (steps.due.outputs.day == '6' || github.event_name == 'workflow_dispatch')
+        shell: bash
+        run: |
+          echo '::error::Annual membership refresh failed after the final scheduled attempt. Existing snapshots and public website were not changed. See Actions artifact.'
+          exit 1
