@@ -1,11 +1,13 @@
 name: Church Stats - Annual membership refresh
 
 on:
-  # One-time installation: expands 2024/2025 to every country with reliable
+  # Expands 2024/2025 to every country with reliable
   # published membership counts. This runs when the workflow first lands.
   push:
     paths:
       - 'membership_automation.py'
+      - 'living_eligibility.py'
+      - 'annual_statistics/**'
       - '.github/workflows/membership-refresh.yml'
   workflow_dispatch:
     inputs:
@@ -107,19 +109,22 @@ jobs:
           else
             python membership_automation.py annual
           fi
-      - name: Commit only a fully validated annual snapshot
+      - name: Test both membership and eligibility models before committing
+        if: steps.refresh.outcome == 'success'
+        run: python -m unittest discover -s tests -v
+      - name: Commit only fully validated annual snapshots and statistical reports
         if: steps.refresh.outcome == 'success'
         shell: bash
         run: |
           set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add 'membership_data/[0-9][0-9][0-9][0-9].csv'
+          git add 'membership_data/[0-9][0-9][0-9][0-9].csv' 'annual_statistics/[0-9][0-9][0-9][0-9].csv'
           if git diff --cached --quiet; then
             echo 'Annual membership snapshot already exists; nothing to publish.'
             exit 0
           fi
-          git commit -m 'Import validated annual Church membership statistics'
+          git commit -m 'Import validated annual Church membership and statistical reports'
           git pull --rebase origin "${GITHUB_REF_NAME}"
           git push origin "HEAD:${GITHUB_REF_NAME}"
       - name: Preserve attempted private audit for investigation
