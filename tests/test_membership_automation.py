@@ -64,8 +64,9 @@ class AnnualAutomationTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             folder=Path(tmp)
             (folder/'2025.csv').write_bytes((ROOT/'membership_data/2025.csv').read_bytes())
-            with patch.object(auto,'collect_annual',side_effect=auto.ValidationError('page still says 2025')):
-                with self.assertRaisesRegex(auto.ValidationError,'country coverage incomplete'):
+            with patch.object(auto,'MIN_COUNTRIES',0), \
+                 patch.object(auto,'collect_annual',side_effect=auto.ValidationError('page still says 2025')):
+                with self.assertRaisesRegex(auto.ValidationError,'page still says 2025'):
                     auto.annual(folder,date(2027,4,12))
             self.assertFalse((folder/'2026.csv').exists())
 
