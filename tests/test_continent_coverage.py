@@ -52,11 +52,21 @@ class ContinentCoverageTests(unittest.TestCase):
         self.assertAlmostEqual(us['members'],self.model.us_average(date(2026,11,4),date(2026,11,10)),places=3)
 
     def test_single_anchor_country_included_without_faked_rate(self):
+        # Simulate a NEWLY PUBLISHED country.  Angola already exists in the
+        # complete 2024 and 2025 snapshots, so merely overwriting its 2025
+        # value does not produce a one-anchor country.  Temporarily hide all
+        # historical anchors for this country, without modifying any CSV.
         model=self.model
         key=('country','Angola')
-        prior=model.data[model.latest_year].get(key)
+        previous={year: model.data[year].get(key) for year in model.years}
         try:
+            for year in model.years:
+                model.data[year].pop(key,None)
             model.data[model.latest_year][key]=8779
+            model.estimate.cache_clear()
+            model.average.cache_clear()
+            self.assertFalse(model.has_two_anchors(key))
+
             d=date(2026,11,1)
             rows=m.build_dashboard_trends([],model,d,d+timedelta(days=6))
             row=next(r for r in rows if (r['type'],r['name'])==key)
@@ -64,8 +74,13 @@ class ContinentCoverageTests(unittest.TestCase):
             self.assertIsNone(row['rate'])
             self.assertEqual(row['membership_status'],'single_published_anchor')
         finally:
-            if prior is None: del model.data[model.latest_year][key]
-            else: model.data[model.latest_year][key]=prior
+            for year, count in previous.items():
+                if count is None:
+                    model.data[year].pop(key,None)
+                else:
+                    model.data[year][key]=count
+            model.estimate.cache_clear()
+            model.average.cache_clear()
 
     def test_all_157_published_2025_countries_classified(self):
         # Exact country names from the current expanded 2025 membership
