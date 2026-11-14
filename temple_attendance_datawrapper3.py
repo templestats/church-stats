@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+from functools import lru_cache
 import json
 import os
 import re
@@ -167,6 +168,14 @@ TEMPLE_LOCATION_OVERRIDES = {
 # ============================================================
 
 COUNTRY_OVERRIDES = {
+    # Historical Church country names vs modern/alternate temple suffixes.
+    "Eswatini": ("Swaziland", "SWZ"),
+    "Swaziland": ("Swaziland", "SWZ"),
+    "Cabo Verde": ("Cape Verde", "CPV"),
+    "Czechia": ("Czech Republic", "CZE"),
+    "Türkiye": ("Turkey", "TUR"),
+    "Turkey": ("Turkey", "TUR"),
+    "Côte d'Ivoire": ("Ivory Coast", "CIV"),
     "Korea": ("South Korea", "KOR"),
     "South Korea": ("South Korea", "KOR"),
     "Taiwan": ("Taiwan", "TWN"),
@@ -817,7 +826,9 @@ def locate_temple(
 
 
 # ============================================================
-# MEMBERSHIP PAGE DISCOVERY
+# LEGACY MEMBERSHIP SCRAPING HELPERS (NOT USED BY DAILY MAIN)
+# Annual snapshots are maintained separately. The main pipeline never calls
+# these functions; retaining them avoids breaking older import-based users.
 # ============================================================
 
 def discover_state_membership_pages(
@@ -1316,6 +1327,270 @@ def update_membership_cache(
         )
 
     return result
+
+
+# ============================================================
+# FIXED ANNUAL MEMBERSHIP SNAPSHOTS AND DAILY ESTIMATES
+# ============================================================
+
+class MembershipModel:
+    """Annual Dec 31 anchors, daily linear interpolation / extrapolation.
+
+    Published annual membership counts are immutable input files, not daily
+    scrapes. Dates between published anchors interpolate; dates after the
+    latest anchor extrapolate the latest one-year absolute change. Once a new
+    annual CSV is reviewed and added, the same code automatically recasts
+    historical estimated days between the now-known year-end anchors.
+    """
+
+    WORLD_KEY = ("world", "Worldwide")
+
+    def __init__(self, directory: Path) -> None:
+        paths = sorted(
+            directory.glob("[0-9][0-9][0-9][0-9].csv")
+        )
+        if len(paths) < 2:
+            raise ValueError(
+                f"Membership snapshots missing from {directory}. "
+                "Provide at least two annual CSV files (e.g. 2024.csv "
+                "and 2025.csv). No live membership scrape will be used."
+            )
+
+        self.data: dict[int, dict[tuple[str, str], int]] = {}
+        self.sources: dict[int, dict[tuple[str, str], str]] = {}
+
+        for path in paths:
+            year = int(path.stem)
+            with path.open(newline="", encoding="utf-8-sig") as handle:
+                reader = csv.DictReader(handle)
+                if not reader.fieldnames or not {
+                    "scope", "name", "members", "source_url"
+                }.issubset(reader.fieldnames):
+                    raise ValueError(
+                        f"Bad membership snapshot schema: {path}. "
+                        "Required: scope,name,members,source_url"
+                    )
+                rows: dict[tuple[str, str], int] = {}
+                urls: dict[tuple[str, str], str] = {}
+                for line_number, row in enumerate(reader, 2):
+                    key = (row["scope"].strip(), row["name"].strip())
+                    if key in rows:
+                        raise ValueError(
+                            f"Duplicate membership geography {key!r} "
+                            f"in {path}, line {line_number}"
+                        )
+                    if key[0] not in {"state", "country", "world"} or not key[1]:
+                        raise ValueError(
+                            f"Invalid geography {key!r} in {path}"
+                        )
+                    try:
+                        members = int(row["members"])
+                    except (ValueError, TypeError) as exc:
+                        raise ValueError(
+                            f"Invalid membership count for {key!r} in {path}"
+                        ) from exc
+                    if members <= 0:
+                        raise ValueError(
+                            f"Nonpositive membership count for {key!r} in {path}"
+                        )
+                    source = (row["source_url"] or "").strip()
+                    if not source.startswith("https://"):
+                        raise ValueError(
+                            f"Missing HTTPS provenance URL for {key!r} in {path}"
+                        )
+                    rows[key] = members
+                    urls[key] = source
+                self.data[year] = rows
+                self.sources[year] = urls
+
+        self.years = sorted(self.data)
+        for left, right in zip(self.years, self.years[1:]):
+            if right != left + 1:
+                raise ValueError(
+                    f"Missing annual membership snapshot between {left} "
+                    f"and {right}; don't interpolate across missing years."
+                )
+
+        required_states = {("state", name) for name, _ in STATES}
+        # Annual country directories can legitimately add previously unpublished
+        # geographies. Keep annual membership history per geography; do not require
+        # every country's keys to exist in every year. The 50 states and worldwide
+        # ARE mandatory in every annual snapshot.
+        for year in self.years:
+            rows = self.data[year]
+            if not required_states.issubset(rows):
+                missing = sorted(required_states - set(rows))
+                raise ValueError(
+                    f"Membership snapshot {year} lacks US states: {missing}"
+                )
+            if self.WORLD_KEY not in rows:
+                raise ValueError(f"Membership snapshot {year} lacks worldwide membership")
+            us_total = sum(rows[key] for key in required_states)
+            if not 4_000_000 <= us_total <= 10_000_000:
+                raise ValueError(
+                    f"Implausible US state membership sum in {year}: "
+                    f"{us_total:,}. Refusing to publish."
+                )
+            for key in required_states:
+                if rows[key] > 3_000_000:
+                    raise ValueError(
+                        f"Implausible state membership in {year}: "
+                        f"{key[1]}={rows[key]:,}"
+                    )
+            if not 10_000_000 <= rows[self.WORLD_KEY] <= 30_000_000:
+                raise ValueError(
+                    f"Implausible worldwide membership in {year}: "
+                    f"{rows[self.WORLD_KEY]:,}"
+                )
+
+    @property
+    def latest_year(self) -> int:
+        return self.years[-1]
+
+    def require_geographies(self, geographies: list[Geography]) -> None:
+        # New countries with only one published anchor can have activity
+        # counts but cannot support a defensible per-member rate. Skip their
+        # per-member map/trend series until a second published anchor exists.
+        missing = sorted({
+            (g.scope, g.name) for g in geographies
+            if not self.has_two_anchors((g.scope, g.name))
+        })
+        if any(scope == "state" for scope, _ in missing):
+            raise ValueError(f"Missing mandatory state history: {missing}")
+        if missing:
+            print("WARNING: No reliable membership trend for "
+                  f"{missing}. Their per-member rates will be omitted; "
+                  "their endowments remain in the worldwide total.")
+
+    def has_two_anchors(self, key: tuple[str, str]) -> bool:
+        return sum(key in self.data[year] for year in self.years) >= 2
+
+    @lru_cache(maxsize=150000)
+    def estimate(self, key: tuple[str, str], when: date) -> float:
+        """Estimated count on a date. Published year-end values are exact."""
+        years = [year for year in self.years if key in self.data[year]]
+        if len(years) < 2:
+            raise KeyError(f"Fewer than two published annual membership counts for {key!r}")
+        if when <= date(years[0], 12, 31):
+            start_year, end_year = years[0], years[1]
+        elif when >= date(years[-1], 12, 31):
+            start_year, end_year = years[-2], years[-1]
+        else:
+            start_year, end_year = years[0], years[1]
+            for y1, y2 in zip(years, years[1:]):
+                if date(y1, 12, 31) <= when <= date(y2, 12, 31):
+                    start_year, end_year = y1, y2
+                    break
+
+        d1 = date(start_year, 12, 31)
+        d2 = date(end_year, 12, 31)
+        fraction = (when - d1).days / (d2 - d1).days
+        a = self.data[start_year][key]
+        b = self.data[end_year][key]
+        estimate = a + (b - a) * fraction
+        if estimate <= 0:
+            raise ValueError(
+                f"Extrapolation produces nonpositive membership for "
+                f"{key!r} on {when}. Add a verified annual anchor."
+            )
+        return estimate
+
+    @lru_cache(maxsize=100000)
+    def average(self, key: tuple[str, str], start: date, end: date) -> float:
+        """Average of inclusive daily membership estimates for a window."""
+        if end < start:
+            raise ValueError(f"Negative membership window {start}..{end}")
+        days = (end - start).days + 1
+        return sum(
+            self.estimate(key, start + timedelta(days=i))
+            for i in range(days)
+        ) / days
+
+    def us_average(self, start: date, end: date) -> float:
+        return sum(
+            self.average(("state", name), start, end)
+            for name, _ in STATES
+        )
+
+    def us_on(self, when: date) -> float:
+        return sum(
+            self.estimate(("state", name), when)
+            for name, _ in STATES
+        )
+
+    def status(self, when: date) -> str:
+        if when > date(self.latest_year, 12, 31):
+            return "projected"
+        if when < date(self.years[0], 12, 31):
+            return "extrapolated_backward"
+        if when.year in self.data and when == date(when.year, 12, 31):
+            return "published_year_end"
+        return "interpolated"
+
+
+def write_membership_model_audit(
+    output_dir: Path,
+    model: MembershipModel,
+    first_date: date,
+    last_date: date,
+    window_start: date,
+) -> None:
+    """Persist reproducible membership anchors and daily US/world curves."""
+    latest = model.latest_year
+    rows = [
+        {
+            "state": name,
+            "members": model.data[latest][("state", name)],
+            "source_url": model.sources[latest][("state", name)],
+        }
+        for name, _ in sorted(STATES)
+    ]
+    write_csv(output_dir / "us_membership_audit.csv", rows)
+
+    daily = []
+    for i in range((last_date - first_date).days + 1):
+        when = first_date + timedelta(days=i)
+        daily.append({
+            "date": when.isoformat(),
+            "membership_status": model.status(when),
+            "usa_50_states_estimated_members": round(model.us_on(when), 3),
+            "worldwide_estimated_members": round(
+                model.estimate(MembershipModel.WORLD_KEY, when), 3
+            ),
+        })
+    write_csv(output_dir / "membership_daily_estimates.csv", daily)
+
+    write_json(output_dir / "membership_model_metadata.json", {
+        "method": "linear_daily_membership",
+        "annual_anchor_date": "December 31",
+        "latest_published_membership_year": latest,
+        "denominator_policy": (
+            "Daily linear interpolation between published year-end anchors; "
+            "linear projection beyond latest anchor using latest annual "
+            "absolute change; average daily membership over the same "
+            "period as the annualized endowment numerator."
+        ),
+        "snapshots": [
+            {
+                "year": year,
+                "usa_50_states_members": sum(
+                    model.data[year][("state", name)] for name, _ in STATES
+                ),
+                "worldwide_members": model.data[year][MembershipModel.WORLD_KEY],
+            }
+            for year in model.years
+        ],
+        "current_window": {
+            "start": window_start.isoformat(),
+            "end": last_date.isoformat(),
+            "usa_average_estimated_members": round(
+                model.us_average(window_start, last_date), 3
+            ),
+            "world_average_estimated_members": round(
+                model.average(MembershipModel.WORLD_KEY, window_start, last_date), 3
+            ),
+        },
+    })
 
 
 # ============================================================
@@ -1863,7 +2138,7 @@ def aggregate_window(
                 "name": geography.name,
                 "slug": geography.slug,
                 "iso3": geography.iso3,
-                "members": memberships[key],
+                "members": memberships.get(key),
                 "endowments": 0,
                 "living": 0,
                 "temple_names": set(),
@@ -1898,8 +2173,8 @@ def aggregate_window(
         )
 
         record["annualized_per_member"] = (
-            record["annualized_endowments"]
-            / record["members"]
+            record["annualized_endowments"] / record["members"]
+            if record["members"] is not None else None
         )
 
         record["temple_count"] = len(
@@ -1917,19 +2192,19 @@ def aggregate_window(
 
 def build_current_map_rows(
     records: list[dict[str, Any]],
-    all_state_memberships: dict[str, int],
+    us_members: float,
 ) -> tuple[
     list[dict[str, Any]],
     list[dict[str, Any]],
 ]:
-    """Build U.S. and country Datawrapper map CSV rows."""
+    """Build map data, using period-average US members for the USA row."""
     us_rows = []
 
     for record in sorted(
         (
             r
             for r in records
-            if r["scope"] == "state"
+            if r["scope"] == "state" and r["members"] is not None
         ),
         key=lambda r: r["name"],
     ):
@@ -1955,7 +2230,7 @@ def build_current_map_rows(
         (
             r
             for r in records
-            if r["scope"] == "country"
+            if r["scope"] == "country" and r["members"] is not None
         ),
         key=lambda r: r["name"],
     ):
@@ -1968,10 +2243,6 @@ def build_current_map_rows(
                 ],
             }
         )
-
-    us_members = sum(
-        all_state_memberships.values()
-    )
 
     us_endowments = sum(
         r["endowments"]
@@ -2008,8 +2279,7 @@ def build_daily_trend(
     located_rows: list[
         tuple[DailyActivity, Geography]
     ],
-    us_members: int,
-    world_members: int,
+    membership_model: MembershipModel,
     eligible_members: int,
     first_date: date,
     last_date: date,
@@ -2097,6 +2367,10 @@ def build_daily_trend(
         )
 
         annual_factor = 365 / 7
+        us_members = membership_model.us_average(start, current)
+        world_members = membership_model.average(
+            MembershipModel.WORLD_KEY, start, current
+        )
 
         rows.append(
             {
@@ -2131,10 +2405,7 @@ def build_dashboard_trends(
     located_rows: list[
         tuple[DailyActivity, Geography]
     ],
-    memberships: dict[
-        tuple[str, str],
-        int,
-    ],
+    membership_model: MembershipModel,
     first_date: date,
     last_date: date,
 ) -> list[dict[str, Any]]:
@@ -2216,14 +2487,9 @@ def build_dashboard_trends(
             item[0][1],
         ),
     ):
-        scope, name = geography_key
-
-        members = memberships.get(
-            geography_key
-        )
-
-        if not members:
+        if not membership_model.has_two_anchors(geography_key):
             continue
+        scope, name = geography_key
 
         geography_start = (
             geography_first_date[
@@ -2283,6 +2549,9 @@ def build_dashboard_trends(
                 * (365 / 7)
             )
 
+            members = membership_model.average(
+                geography_key, start, current
+            )
             annualized_rate = (
                 annualized_endowments
                 / members
@@ -2299,7 +2568,8 @@ def build_dashboard_trends(
                         annualized_rate,
                         6,
                     ),
-                    "members": members,
+                    "members": round(members, 6),
+                    "membership_status": membership_model.status(current),
                     "annualized_endowments": round(
                         annualized_endowments,
                         6,
@@ -2323,14 +2593,16 @@ def main() -> int:
     )
 
     parser.add_argument(
-        "--membership-year",
-        default=MEMBERSHIP_YEAR,
+        "--membership-dir",
+        type=Path,
+        default=(Path(__file__).resolve().parent / "membership_data"),
+        help="Directory containing immutable year-end membership CSVs.",
     )
 
-    parser.add_argument(
-        "--refresh-membership",
-        action="store_true",
-    )
+    # Retain these old CLI options only for compatibility with workflows.
+    # Neither option can trigger membership scraping or override the model.
+    parser.add_argument("--membership-year", default=None)
+    parser.add_argument("--refresh-membership", action="store_true")
 
     parser.add_argument(
         "--skip-datawrapper",
@@ -2347,11 +2619,6 @@ def main() -> int:
     )
 
     args = parser.parse_args()
-
-    cache_path = (
-        Path(__file__).resolve().parent
-        / "membership_counts.csv"
-    )
 
     session = requests.Session()
 
@@ -2452,90 +2719,64 @@ def main() -> int:
             ),
         )
 
-        print(
-            "Building Church membership source pages..."
-        )
-
-        membership_pages = (
-            build_membership_page_map(
-                session,
-                geographies,
+        print("Loading verified annual membership snapshots...")
+        membership_model = MembershipModel(args.membership_dir)
+        membership_model.require_geographies(geographies)
+        if args.membership_year or args.refresh_membership:
+            print(
+                "Note: legacy --membership-year and --refresh-membership "
+                "options are ignored. Annual snapshots are immutable."
             )
-        )
 
+        latest = membership_model.latest_year
+        print(f"Latest published membership year: {latest}")
+        print("Annual membership anchors:")
+        for year in membership_model.years:
+            state_total = sum(
+                membership_model.data[year][("state", name)]
+                for name, _ in STATES
+            )
+            world_total = membership_model.data[year][MembershipModel.WORLD_KEY]
+            print(
+                f"  {year}-12-31: US (50 states)={state_total:,}; "
+                f"worldwide={world_total:,}"
+            )
+
+        us_members = membership_model.us_average(window_start, window_end)
+        world_members = membership_model.average(
+            MembershipModel.WORLD_KEY, window_start, window_end
+        )
         print(
-            "Reading membership counts..."
+            f"Current window average estimated US members: {us_members:,.1f}"
+        )
+        print(
+            f"Current window average estimated world members: "
+            f"{world_members:,.1f}"
+        )
+        print(
+            f"Membership status on {window_end}: "
+            f"{membership_model.status(window_end)}"
+        )
+        write_membership_model_audit(
+            args.output_dir, membership_model,
+            first_date, window_end, window_start,
         )
 
-        memberships = update_membership_cache(
-            session,
-            geographies,
-            membership_pages,
-            cache_path,
-            args.membership_year,
-            args.refresh_membership,
-        )
-
-        all_state_memberships = {
-            state_name: memberships[
-                (
-                    "state",
-                    state_name,
-                )
-            ]
-            for state_name, _ in STATES
+        # Each geography uses estimated membership averaged across the
+        # exact current attendance observation window.
+        average_memberships = {
+            (g.scope, g.name): membership_model.average(
+                (g.scope, g.name), window_start, window_end
+            )
+            for g in geographies
+            if membership_model.has_two_anchors((g.scope, g.name))
         }
-
-        # Audit the exact denominator used for the U.S. aggregate.
-        # Persist it with the other published outputs for easy inspection.
-        state_membership_rows = [
-            {
-                "state": state,
-                "members": count,
-                "source_url": membership_pages[("state", state)].url,
-            }
-            for state, count in sorted(all_state_memberships.items())
-        ]
-        write_csv(
-            args.output_dir / "us_membership_audit.csv",
-            state_membership_rows,
-        )
-
-        us_members = sum(all_state_memberships.values())
-        print(f"U.S. membership denominator (50 states): {us_members:,}")
-        print("State membership audit:")
-        for item in state_membership_rows:
-            print(f"  {item['state']}: {item['members']:,}")
-
-        # Guard against the silent, approximately twofold U.S. rate
-        # regression. These deliberately broad plausibility limits are
-        # safeguards, NOT substitutes for verifying the official figures.
-        suspicious_states = [
-            item for item in state_membership_rows
-            if item["members"] > 3_000_000
-        ]
-        if suspicious_states or not 4_000_000 <= us_members <= 10_000_000:
-            details = ", ".join(
-                f"{item['state']}={item['members']:,}"
-                for item in suspicious_states
-            ) or "none over 3,000,000"
-            raise RuntimeError(
-                "U.S. membership values failed plausibility checks. "
-                f"Total={us_members:,}; suspicious states: {details}. "
-                "Review temple_attendance_output/us_membership_audit.csv "
-                "and the Church source pages. Datawrapper was NOT updated."
-            )
-
         records = aggregate_window(
             located,
-            memberships,
+            average_memberships,
             window_start,
             window_end,
             window_days,
-        )
-
-        world_members = scrape_world_membership(
-            session
         )
 
         eligible_members = (
@@ -2584,7 +2825,7 @@ def main() -> int:
         us_rows, country_rows = (
             build_current_map_rows(
                 records,
-                all_state_memberships,
+                us_members,
             )
         )
 
@@ -2606,8 +2847,7 @@ def main() -> int:
 
         trend_rows = build_daily_trend(
             located,
-            us_members,
-            world_members,
+            membership_model,
             eligible_members,
             first_date,
             window_end,
@@ -2625,7 +2865,7 @@ def main() -> int:
 
         dashboard_rows = build_dashboard_trends(
             located,
-            memberships,
+            membership_model,
             first_date,
             window_end,
         )
