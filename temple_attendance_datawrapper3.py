@@ -17,6 +17,7 @@ from urllib.parse import urljoin, urlparse
 import pycountry
 import requests
 from bs4 import BeautifulSoup
+from living_eligibility import LivingEligibilityModel
 
 
 # ============================================================
@@ -61,8 +62,7 @@ MEMBERSHIP_YEAR = "2025"
 # Increment whenever the cache format or source logic changes.
 MEMBERSHIP_CACHE_VERSION = "4"
 
-ELIGIBLE_CHILDREN_OF_RECORD = 94_006
-ELIGIBLE_CONVERTS = 385_490
+# Living-endowment denominator now comes from verified, lagged annual statistical reports.
 
 
 # ============================================================
@@ -2280,7 +2280,7 @@ def build_daily_trend(
         tuple[DailyActivity, Geography]
     ],
     membership_model: MembershipModel,
-    eligible_members: int,
+    eligibility_model: LivingEligibilityModel,
     first_date: date,
     last_date: date,
 ) -> list[dict[str, Any]]:
@@ -2388,7 +2388,7 @@ def build_daily_trend(
                 "living_ordinance_rate": (
                     world_living
                     * annual_factor
-                    / eligible_members
+                    / eligibility_model.average(start, current)
                     * 100
                 ),
             }
@@ -2593,6 +2593,13 @@ def main() -> int:
     )
 
     parser.add_argument(
+        "--statistics-dir",
+        type=Path,
+        default=(Path(__file__).resolve().parent / "annual_statistics"),
+        help="Immutable official annual statistical reports for living endowment eligibility.",
+    )
+
+    parser.add_argument(
         "--membership-dir",
         type=Path,
         default=(Path(__file__).resolve().parent / "membership_data"),
@@ -2721,6 +2728,9 @@ def main() -> int:
 
         print("Loading verified annual membership snapshots...")
         membership_model = MembershipModel(args.membership_dir)
+        eligibility_model = LivingEligibilityModel(args.statistics_dir)
+        print(f"Living eligibility anchors through {eligibility_model.latest_year}; "
+              "children lag 18 years, converts lag 1 year.")
         membership_model.require_geographies(geographies)
         if args.membership_year or args.refresh_membership:
             print(
@@ -2779,10 +2789,33 @@ def main() -> int:
             window_days,
         )
 
-        eligible_members = (
-            ELIGIBLE_CHILDREN_OF_RECORD
-            + ELIGIBLE_CONVERTS
-        )
+        eligible_members = eligibility_model.average(window_start, window_end)
+        print(f"Average modeled living eligibility proxy: {eligible_members:,.1f} "
+              f"({eligibility_model.status(window_end)})")
+        write_csv(args.output_dir / "living_eligibility_annual_anchors.csv", [
+            dict(eligibility_year=year, **eligibility_model.anchors[year])
+            for year in eligibility_model.years
+        ])
+        write_csv(args.output_dir / "living_eligibility_daily_estimates.csv", [
+            {
+                "date": day.isoformat(),
+                "estimated_annual_new_eligibility_cohort": round(eligibility_model.on(day), 6),
+                "status": eligibility_model.status(day),
+            }
+            for day in (first_date + timedelta(days=i)
+                        for i in range((window_end - first_date).days + 1))
+        ])
+        write_json(args.output_dir / "living_eligibility_model_metadata.json", {
+            "children_of_record_lag_years": 18,
+            "convert_baptisms_lag_years": 1,
+            "latest_known_eligibility_year": eligibility_model.latest_year,
+            "window_start": window_start.isoformat(),
+            "window_end": window_end.isoformat(),
+            "window_average_eligibility_proxy": eligible_members,
+            "status": eligibility_model.status(window_end),
+            "method": "daily linear interpolation of lagged reported annual counts; forward projection beyond last fully known year",
+            "note": "Annual intake proxy, not unique eligible-person count",
+        })
 
         us_endowments = sum(
             r["endowments"]
@@ -2848,7 +2881,7 @@ def main() -> int:
         trend_rows = build_daily_trend(
             located,
             membership_model,
-            eligible_members,
+            eligibility_model,
             first_date,
             window_end,
         )

@@ -24,7 +24,7 @@ class MembershipModelTests(unittest.TestCase):
         cls.model = module.MembershipModel(ROOT/'membership_data')
 
     def test_snapshot_completeness(self):
-        self.assertEqual(self.model.years, [2024,2025])
+        self.assertTrue({2024,2025}.issubset(set(self.model.years)))
         for year in self.model.years:
             self.assertEqual(len([k for k in self.model.data[year] if k[0]=='state']), 50)
             self.assertGreaterEqual(len([k for k in self.model.data[year] if k[0]=='country']), 44)
@@ -41,9 +41,16 @@ class MembershipModelTests(unittest.TestCase):
         a=self.model.data[2024][k]
         b=self.model.data[2025][k]
         self.assertAlmostEqual(self.model.estimate(k,one_quarter), a+(b-a)*91/365)
-        self.assertEqual(self.model.estimate(k,date(2026,12,31)),b+(b-a))
+        # Forecast behavior must be tested against *fixed 2024/25 inputs*,
+        # not whatever newly published years the production repo contains.
+        with tempfile.TemporaryDirectory() as tmp:
+            folder=Path(tmp)
+            for year in (2024,2025):
+                (folder/f'{year}.csv').write_bytes((ROOT/'membership_data'/f'{year}.csv').read_bytes())
+            baseline=module.MembershipModel(folder)
+            self.assertEqual(baseline.estimate(k,date(2026,12,31)),b+(b-a))
+            self.assertEqual(baseline.status(date(2026,11,13)),'projected')
         self.assertEqual(self.model.status(date(2025,12,31)),'published_year_end')
-        self.assertEqual(self.model.status(date(2026,11,13)),'projected')
         self.assertEqual(self.model.status(date(2025,9,1)),'interpolated')
 
     def test_window_average_is_daily_average(self):
@@ -60,7 +67,7 @@ class MembershipModelTests(unittest.TestCase):
     def test_yearly_update_recasts_2026_and_projects_2027(self):
         with tempfile.TemporaryDirectory() as tmp:
             folder=Path(tmp)
-            for year in self.model.years:
+            for year in (2024,2025):
                 (folder/f'{year}.csv').write_bytes((ROOT/'membership_data'/f'{year}.csv').read_bytes())
             with (folder/'2025.csv').open(newline='') as source:
                 template=list(csv.DictReader(source))
@@ -76,14 +83,17 @@ class MembershipModelTests(unittest.TestCase):
             self.assertEqual(updated.estimate(key,date(2025,12,31)),self.model.data[2025][key])
             self.assertEqual(updated.estimate(key,date(2026,12,31)),self.model.data[2025][key]+20_000)
             self.assertEqual(updated.estimate(key,date(2027,12,31)),self.model.data[2025][key]+40_000)
-            self.assertNotEqual(updated.estimate(key,date(2026,6,30)),self.model.estimate(key,date(2026,6,30)))
+            baseline_value = (self.model.data[2024][key] +
+                              (self.model.data[2025][key]-self.model.data[2024][key]) *
+                              ((date(2026,6,30)-date(2024,12,31)).days/365))
+            self.assertNotEqual(updated.estimate(key,date(2026,6,30)),baseline_value)
             self.assertEqual(updated.status(date(2026,6,30)),'interpolated')
             self.assertEqual(updated.status(date(2027,6,30)),'projected')
 
     def test_duplicate_membership_geography_rejected(self):
         with tempfile.TemporaryDirectory() as tmp:
             folder=Path(tmp)
-            for year in self.model.years:
+            for year in (2024,2025):
                 (folder/f'{year}.csv').write_bytes((ROOT/'membership_data'/f'{year}.csv').read_bytes())
             with (folder/'2025.csv').open('a') as f:
                 f.write('state,Utah,3000000,https://example.com/\n')
@@ -116,7 +126,10 @@ class MembershipModelTests(unittest.TestCase):
             for file in ('datawrapper_countries.csv','datawrapper_us.csv',
                          'historical_summary.csv','trend_dashboard.json',
                          'membership_daily_estimates.csv','membership_model_metadata.json',
-                         'us_membership_audit.csv'):
+                         'us_membership_audit.csv',
+                         'living_eligibility_daily_estimates.csv',
+                         'living_eligibility_annual_anchors.csv',
+                         'living_eligibility_model_metadata.json'):
                 self.assertTrue((out/file).exists(),file)
             with (out/'datawrapper_countries.csv').open(newline='') as source:
                 us=[r for r in csv.DictReader(source) if r['id']=='USA']
@@ -133,7 +146,7 @@ class MembershipModelTests(unittest.TestCase):
             for item in trend:
                 self.assertAlmostEqual(item['rate'],item['annualized_endowments']/item['members'],places=5)
             meta=json.loads((out/'membership_model_metadata.json').read_text())
-            self.assertEqual(meta['latest_published_membership_year'],2025)
+            self.assertEqual(meta['latest_published_membership_year'],self.model.latest_year)
 
 if __name__=='__main__':
     unittest.main()

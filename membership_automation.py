@@ -21,10 +21,12 @@ from urllib.parse import urljoin, urlparse
 
 import requests
 from bs4 import BeautifulSoup
+from living_eligibility import LivingEligibilityModel, read_reports, STAT_FIELDS
 
 ROOT = Path(__file__).resolve().parent
 SNAPSHOTS = ROOT / 'membership_data'
 REPORTS = ROOT / 'membership_update_reports'
+STATISTICS = ROOT / 'annual_statistics'
 HISTORY_ROOT = 'https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/'
 COUNTRY_NAV = 'https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/brazil'
 COUNTRY_PREFIX = 'https://newsroom.churchofjesuschrist.org/facts-and-statistics/country/'
@@ -326,28 +328,175 @@ def collect_annual(year:int, previous: dict) -> tuple[dict, dict]:
     checks['unpublished_or_unavailable_countries']=failures
     return candidate,checks
 
-def annual(directory: Path=SNAPSHOTS,today:date|None=None,force:bool=False) -> dict:
+
+# ---------------------------------------------------------------------------
+# Official *annual* statistical report (not geography membership pages).
+# 2026 report data published in April 2027 supplies 2027's eligibility proxy:
+#   children of record from 2009 (18-year lag) + 2026 converts (1-year lag).
+# Earlier years are immutable CSVs. No report is scraped by the daily pipeline.
+# ---------------------------------------------------------------------------
+
+def statistical_report_urls(year: int) -> list[str]:
+    return [
+        f'https://newsroom.churchofjesuschrist.org/article/{year}-statistical-report',
+        f'https://www.churchofjesuschrist.org/study/general-conference/{year+1}/04/statistical-report-{year}?lang=eng',
+        f'https://www.churchofjesuschrist.org/study/liahona/{year+1}/05/statistical-report-{year}?lang=eng',
+        f'https://www.churchofjesuschrist.org/study/ensign/{year+1}/05/statistical-report-{year}?lang=eng',
+    ]
+
+
+def parse_statistical_report(html: str, year: int, source_url: str) -> dict:
+    soup = BeautifulSoup(html, 'html.parser')
+    for node in soup(['script','style','noscript']):
+        node.decompose()
+    h1 = ' '.join(h.get_text(' ', strip=True) for h in soup.find_all('h1'))
+    # Reject search snippets, generic topic pages and reports for another year.
+    if not re.search(rf'(?i)\b(?:statistical\s+report\s*,?\s*{year}|{year}\s+statistical\s+report)\b',h1):
+        raise ValidationError(f'Not the {year} statistical report (h1={h1[:130]!r})')
+    raw = re.sub(r'\s+', ' ', soup.get_text(' ', strip=True).replace('\xa0',' '))
+    if not re.search(rf'(?i)\b(?:December\s+31|31\s+December|31\s+Dec)\s*,?\s*{year}\b', raw):
+        raise ValidationError(f'Statistical report does not certify December 31, {year}')
+    # Bound all searches to the Church Membership section to avoid sidebar
+    # numbers and historical comparisons in the footer.
+    sections = re.split(r'(?<!Total )\bChurch\s+Membership\b', raw, maxsplit=1, flags=re.I)
+    if len(sections)<2:
+        raise ValidationError('Statistical report missing Church Membership heading')
+    section = re.split(r'\bMissionaries\b', sections[1], maxsplit=1, flags=re.I)[0]
+    patterns = {
+        'new_children_of_record': r'(?:New\s+Children\s+of\s+Record|Increase\s+in\s+Children\s+of\s+Record)(?:\s+during\s+\d{4})?\s*[-–:]?\s*([\d,]+)',
+        'convert_baptisms': r'Converts?\s+Baptized(?:\s+during\s+\d{4})?\s*[-–:]?\s*([\d,]+)',
+        'world_membership': r'Total\s+(?:Church\s+)?Membership\s*[-–:]?\s*([\d,]+)',
+    }
+    counts={}
+    for field, pattern in patterns.items():
+        m=re.search(pattern,section,re.I)
+        if not m:
+            raise ValidationError(f'{year} statistical report missing {field}')
+        counts[field]=int(m.group(1).replace(',',''))
+    if not 30_000<=counts['new_children_of_record']<=200_000:
+        raise ValidationError(f'{year} children of record implausible: {counts["new_children_of_record"]:,}')
+    if not 100_000<=counts['convert_baptisms']<=650_000:
+        raise ValidationError(f'{year} converts implausible: {counts["convert_baptisms"]:,}')
+    if not 10_000_000<=counts['world_membership']<=30_000_000:
+        raise ValidationError(f'{year} report worldwide members implausible: {counts["world_membership"]:,}')
+    return dict(report_year=year, new_children_of_record=counts['new_children_of_record'],
+                convert_baptisms=counts['convert_baptisms'],
+                world_membership=counts['world_membership'], source_url=source_url)
+
+
+def fetch_statistical_report(year: int) -> dict:
+    errors=[]
+    for url in statistical_report_urls(year):
+        try:
+            return parse_statistical_report(get(url),year,url)
+        except (requests.RequestException, ValidationError, ValueError) as exc:
+            errors.append(f'{url}: {exc}')
+    raise ValidationError(f'Could not verify official {year} statistical report: ' + '; '.join(errors))
+
+
+def validate_statistical_candidate(candidate: dict, previous: dict|None, world_count: int|None):
+    if world_count is not None and abs(candidate['world_membership']/world_count-1)>.01:
+        raise ValidationError('Statistical report membership differs >1% from annual worldwide membership snapshot')
+    if previous:
+        for newfield, oldfield, max_change in (
+                ('new_children_of_record','children',.60),
+                ('convert_baptisms','converts',.75)):
+            a,b=candidate[newfield],previous[oldfield]
+            if abs(a/b-1)>max_change:
+                raise ValidationError(f'Annual statistical report {newfield} changed suspiciously: {b:,} to {a:,}')
+
+
+def write_statistical_snapshot(path: Path, candidate:dict) -> None:
+    if path.exists():
+        raise ValidationError(f'Refusing to overwrite published statistical report {path}')
+    # Atomic one-file write. GitHub Actions commits both snapshot sets together.
+    path.parent.mkdir(parents=True,exist_ok=True)
+    with io.StringIO(newline='') as buf:
+        writer=csv.DictWriter(buf,fieldnames=STAT_FIELDS,lineterminator='\n')
+        writer.writeheader()
+        writer.writerow({k:candidate[k] for k in STAT_FIELDS})
+        tmp=path.with_suffix('.csv.tmp')
+        tmp.write_text(buf.getvalue(),encoding='utf-8')
+    tmp.replace(path)
+
+
+def prepare_statistical_snapshots(report_year:int, statistics_dir:Path,
+                                  world_count:int|None) -> list[tuple[Path,dict]]:
+    """Download report(s), validate, but DO NOT publish files yet."""
+    existing=read_reports(statistics_dir)
+    required_years=[report_year, report_year - 17]
+    candidates=[]
+    for year in required_years:
+        if year in existing:
+            continue
+        row=fetch_statistical_report(year)
+        previous=existing.get(year-1)
+        validate_statistical_candidate(row,previous,world_count if year==report_year else None)
+        candidates.append((statistics_dir/f'{year}.csv', row))
+    # An eligibility anchor for the year following the new report must be
+    # computable, even when the 18-year-ago report was not bundled initially.
+    pending={int(p.stem):r for p,r in candidates}
+    if not all(y in existing or y in pending for y in required_years):
+        raise ValidationError('New eligibility year missing a source-year statistic')
+    return candidates
+
+def annual(directory: Path=SNAPSHOTS,today:date|None=None,force:bool=False,
+           statistics_dir:Path=STATISTICS) -> dict:
     today=today or date.today()
     year=today.year-1
     path=directory/f'{year}.csv'
-    if path.exists():
+    if (path.exists() and (statistics_dir/f'{year}.csv').exists()
+            and (statistics_dir/f'{year-17}.csv').exists()):
+        # Both series already verified and published: idempotent re-run.
         return {'status':'already_published','year':year}
     if not force and retry_day(today) is None:
         return {'status':'not_scheduled','date':today.isoformat()}
     previous_file=directory/f'{year-1}.csv'
     if not previous_file.exists():
-        raise ValidationError(f'Missing previous snapshot {previous_file}')
+        raise ValidationError(f'Missing previous membership snapshot {previous_file}')
     previous=read_csv(previous_file)
     if len([k for k in previous if k[0]=='country'])<MIN_COUNTRIES:
         raise ValidationError('Baseline country coverage incomplete: run bootstrap workflow')
-    candidate,checks=collect_annual(year,previous)
-    # Ensure all previously published country membership remains present.
-    # New countries can appear in this year even if older years lack them.
-    validate_snapshot(candidate,year)
+
+    # First validate membership; if already published, use its verified value.
     if path.exists():
-        raise ValidationError(f'Refusing to overwrite existing snapshot {path}')
-    write_snapshot_atomic(path,candidate)
-    return {'status':'published','year':year,'checks':checks}
+        candidate=read_csv(path)
+        validate_snapshot(candidate,year)
+        checks={'membership':'already_published'}
+    else:
+        candidate,checks=collect_annual(year,previous)
+        validate_snapshot(candidate,year)
+    world_count=candidate[('world','Worldwide')]['members']
+
+    # Crucial: collect and validate *all* required statistical reports before
+    # publishing a new membership snapshot. An invalid or stale 2026 report
+    # must never publish half of the 2027 update.
+    pending=prepare_statistical_snapshots(year,statistics_dir,world_count)
+    existing=read_reports(statistics_dir)
+    all_reports=dict(existing)
+    for p,row in pending:
+        all_reports[int(p.stem)]={'children':row['new_children_of_record'],
+                                  'converts':row['convert_baptisms'],
+                                  'source_url':row['source_url']}
+    if (year not in all_reports or (year-17) not in all_reports
+            or (year-1) not in all_reports):
+        raise ValidationError('Unable to form next-year living eligibility anchor')
+    eligible=all_reports[year-17]['children'] + all_reports[year]['converts']
+    if eligible<=0:
+        raise ValidationError('Nonpositive next-year living eligibility proxy')
+
+    if not path.exists():
+        write_snapshot_atomic(path,candidate)
+    for p,row in pending:
+        write_statistical_snapshot(p,row)
+    # Validate the complete local model; GitHub commits only after exit 0.
+    check_model=LivingEligibilityModel(statistics_dir)
+    if check_model.latest_year < year+1:
+        raise ValidationError('Updated report did not form the intended eligibility year')
+    return {'status':'published','membership_year':year,
+            'eligibility_year':year+1,'eligibility_proxy':eligible,
+            'statistical_reports_added':[int(p.stem) for p,_ in pending],
+            'checks':checks}
 
 def report(payload:dict, folder:Path=REPORTS):
     folder.mkdir(exist_ok=True,parents=True)
@@ -358,6 +507,7 @@ def main(argv=None):
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('command',choices=['bootstrap','annual','due'])
     parser.add_argument('--membership-dir',type=Path,default=SNAPSHOTS)
+    parser.add_argument('--statistics-dir',type=Path,default=STATISTICS)
     parser.add_argument('--today',type=date.fromisoformat,default=date.today())
     parser.add_argument('--force',action='store_true')
     args=parser.parse_args(argv)
@@ -369,7 +519,7 @@ def main(argv=None):
             result={'date':args.today.isoformat(),'retry_day':index,'due':index is not None,
                     'second_monday':second_monday(args.today.year).isoformat()}
         else:
-            result=annual(args.membership_dir,args.today,args.force)
+            result=annual(args.membership_dir,args.today,args.force,args.statistics_dir)
         report(result)
         return 0
     except Exception as exc:

@@ -95,7 +95,11 @@ class AnnualAutomationTests(unittest.TestCase):
 
     def test_validated_annual_snapshot_is_written_once_and_never_overwritten(self):
         with tempfile.TemporaryDirectory() as tmp:
-            folder=Path(tmp)
+            folder=Path(tmp)/'membership_data'; folder.mkdir()
+            statistics=Path(tmp)/'annual_statistics'; statistics.mkdir()
+            for yr in (2006,2007,2008,2009,2023,2024,2025):
+                src=ROOT/'annual_statistics'/f'{yr}.csv'
+                (statistics/src.name).write_bytes(src.read_bytes())
             previous=auto.read_csv(ROOT/'membership_data/2025.csv')
             for i in range(110):
                 name=f'Extra Country {i}'
@@ -105,12 +109,19 @@ class AnnualAutomationTests(unittest.TestCase):
             candidate={key:dict(value) for key,value in previous.items()}
             candidate[('world','Worldwide')]['members']+=300_000
             candidate[('state','California')]['members']+=10_000
-            with patch.object(auto,'collect_annual',return_value=(candidate,{'checked':True})) as collect:
-                result=auto.annual(folder,date(2027,4,12))
+            report=dict(report_year=2026,new_children_of_record=93_000,
+                        convert_baptisms=390_000,source_url='https://example.com/report',
+                        world_membership=candidate[('world','Worldwide')]['members'])
+            pending=[(statistics/'2026.csv', report)]
+            with patch.object(auto,'collect_annual',return_value=(candidate,{'checked':True})) as collect, \
+                 patch.object(auto,'prepare_statistical_snapshots',return_value=pending):
+                result=auto.annual(folder,date(2027,4,12),statistics_dir=statistics)
             self.assertEqual(result['status'],'published')
+            self.assertEqual(result['eligibility_year'],2027)
+            self.assertEqual(result['eligibility_proxy'],119_722+390_000)
             self.assertEqual(auto.read_csv(folder/'2026.csv')[('world','Worldwide')]['members'],
                              previous[('world','Worldwide')]['members']+300000)
-            self.assertEqual(auto.annual(folder,date(2027,4,13))['status'],'already_published')
+            self.assertEqual(auto.annual(folder,date(2027,4,13),statistics_dir=statistics)['status'],'already_published')
             self.assertEqual(collect.call_count,1)
 
     def test_candidate_validation_catches_wrong_denominator(self):

@@ -1,98 +1,104 @@
-# Church Stats — Automated Country Membership + Annual Refresh
+# Church Stats — 18-year/1-year living-endowment model + automatic annual statistical reports
 
-## Overview
+## What changed
 
-This is a complete, ready-to-commit update to the existing Church Stats project.
-The daily `temple_attendance_datawrapper3.py` continues to scrape **only temple attendance**; no membership website requests are made by the daily job. Membership is read from version-controlled year-end CSV snapshots. Every US state, country/territory with published positive membership in two years, and worldwide membership get independent **daily** interpolated/projected denominators. The US denominator remains the sum of the 50 state estimates.
+- **Geographic rates remain as previously implemented.** Annual country, territory, US state and worldwide membership snapshots are linearly interpolated to daily estimates. Each 7-day or longer window uses the matching daily-average denominator. Verified 2024/2025 `membership_data/*.csv` remain untouched.
+- **Living-endowment rates now use a time-aligned annual new-eligibility proxy:** year Y children of record **from report Y−18** plus convert baptisms **from report Y−1**. Each year's known annual proxy is linearly interpolated to daily values; after the newest known year, the latest annual absolute change is projected forward.
+- **Corrects the 2026 child cohort:** the old `94,006` constant came from **2006**. The correct 2008 count for the 2026 cohort is **123,502**. With the 2025 convert baptisms of **385,490**, the 2026 year-end proxy is **508,992**.
+- **Adds official historical sources** as immutable per-reporting-year CSV snapshots in `annual_statistics/`. Base reports are from 2006, 2007, 2008, 2009, 2023, 2024, 2025. Their official citations are preserved in the files.
+- **Changes your existing annual GitHub Actions workflow** to collect the Church statistical report (children of record, converts, worldwide members) alongside the annual geographic membership snapshot. Before publishing either, it verifies source year and plausible data, cross-checks worldwide totals, and ensures the future eligibility anchor can be formed. It automatically fetches the needed 18-year-old historical report if not already archived.
+- **Rebuilds `index.html`**, preserving the existing three Datawrapper embed IDs/URLs and interactive explorer element IDs, explaining the new denominator and cohort assumptions, and displaying estimated membership rounded to whole persons (full-precision calculations remain in JSON/Python).
+- **Adds diagnostic outputs** (`living_eligibility_daily_estimates.csv`, `living_eligibility_annual_anchors.csv`, `living_eligibility_model_metadata.json`) into your usual `temple_attendance_output/` folder.
+- **Includes updated offline regression tests** that will continue to work after future annual snapshots are added. Do not delete your repository's existing `test_continent_mapping.py` or other tests.
 
-## Files to add or replace (one commit)
+## Installation: upload these files to the matching GitHub paths
+
+Extract the ZIP; **upload its contents over the corresponding files in your existing repository**, preserving the folder hierarchy:
 
 ```text
 church-stats/
-├── temple_attendance_datawrapper3.py          REPLACE existing
-├── membership_automation.py                   NEW
-├── membership_data/
-│   ├── 2024.csv                               REPLACE existing
-│   ├── 2025.csv                               REPLACE existing
-│   └── README.md                              NEW / REPLACE
-├── .github/workflows/
-│   └── membership-refresh.yml                 NEW (keep all other workflows)
-└── tests/
-    ├── test_membership_model.py               NEW / REPLACE
-    └── test_membership_automation.py          NEW
+  index.html                                    REPLACE
+  temple_attendance_datawrapper3.py            REPLACE
+  membership_automation.py                     REPLACE
+  living_eligibility.py                        NEW
+  .github/workflows/membership-refresh.yml    REPLACE (hidden .github folder)
+  annual_statistics/                            NEW FOLDER
+    2006.csv
+    2007.csv
+    2008.csv
+    2009.csv
+    2023.csv
+    2024.csv
+    2025.csv
+    README.md
+  tests/
+    test_membership_model.py                   REPLACE
+    test_membership_automation.py              REPLACE (corrected failing test included)
+    test_living_eligibility.py                 NEW
+  README_INSTALL.md                             REPLACE
 ```
 
-Keep the **same names and folders**. Copy all files in one commit to the default branch. Do not replace or delete your existing attendance workflow. Do not commit `membership_update_reports/` or `temple_attendance_output/` manually.
+**VERY IMPORTANT: The ZIP deliberately does NOT contain `membership_data/2024.csv` or `membership_data/2025.csv`. DO NOT overwrite or delete your existing `membership_data/` folder.** The previous country-expansion bootstrap may have added countries to those CSVs; restoring older bundled copies could silently lose those additions. Keep all your current `membership_data/YYYY.csv` files.
 
-### Simplest Git installation (Mac)
+Also keep your existing `dashboard.js`, `dashboard.css`, daily update workflow, secrets and other repository files. This update does not change them.
 
-If you already have a local clone of the repository, extract the ZIP, copy these files into that clone while preserving paths, then run:
+On macOS the `.github` directory is hidden in Finder. In GitHub's browser editor, navigate to `.github` → `workflows` and replace `membership-refresh.yml` there explicitly. Never place that YAML at the repository root.
+
+If using a local repository clone, copy the extracted files into the clone (preserve paths) and then run:
 
 ```bash
-git add temple_attendance_datawrapper3.py membership_automation.py membership_data/ .github/workflows/membership-refresh.yml tests/
-git commit -m "Automate annual membership snapshots and full-country coverage"
+git add index.html temple_attendance_datawrapper3.py membership_automation.py living_eligibility.py \
+  annual_statistics/ .github/workflows/membership-refresh.yml tests/ README_INSTALL.md
+git commit -m 'Model lagged living eligibility and automate statistical reports'
 git push
 ```
 
-If you prefer GitHub's web interface, upload each file to the corresponding path, including the hidden `.github/workflows` directory, and commit **all files before** running the workflow. A partial install can temporarily break the daily job.
+### Verify after installing
 
-## What happens automatically at installation
+1. GitHub → **Actions** → `Church Stats - Annual membership refresh`. A push to `membership_automation.py` triggers the existing bootstrap, which still expands historic countries and now tests the living model too. It may attempt the external archival scrape; if it fails, it won't change snapshots.
+2. Go to **Actions** → your regular daily `Update Church Stats` workflow → **Run workflow**, or allow the next daily run to execute.
+3. Check that `temple_attendance_output/living_eligibility_model_metadata.json` says `latest_known_eligibility_year: 2026`, and `living_eligibility_annual_anchors.csv` includes a 2026 total of `508992`.
+4. Check the updated `index.html` methodology on the site and confirm comparison-table memberships are rounded to whole people.
+5. If a workflow fails, the existing site's last successful outputs should remain; inspect its Actions log for validation errors.
 
-A push that includes `membership_automation.py` or `.github/workflows/membership-refresh.yml` triggers the **bootstrap** job:
+## Annual schedule and what happens in April 2027
 
-1. Download preserved April 2025 / April 2026 country statistics (for year-end 2024 / 2025) from `acbass49/scrape_lds_stats` (a *third-party archive of Church-published data*).
-2. Add every country with a **positive published figure in each individual year** to its corresponding snapshot. A country needs two annual anchors to receive a modeled per-member rate. Preserve all your existing 50-state counts, 44 validated country counts, and worldwide totals unchanged.
-3. Run offline regression tests. If they pass, commit expanded 2024 and 2025 CSVs with GitHub Actions credentials.
-4. On the next scheduled daily attendance update, those countries become available as denominators with no additional edits.
+No extra annual workflow or manual registration is required. The existing annual workflow runs **the Monday after the second Sunday of April**, first on **Monday, April 12, 2027**, at 9:23 a.m. Pacific. On that date it will collect **2026 year-end membership by state/country/world** plus the Church's **2026 annual statistical report**. It also requires the **2009 children-of-record figure**, which is already saved in this ZIP.
 
-**No 2026 membership values are invented.** Countries for which the historical archive has 0 or no published membership are not given fake denominators. A new temple in a country with only one annual count contributes to worldwide endowments, but has no country-specific per-member rate until the Church publishes a second annual count.
-
-If the bootstrap job fails validation, the old 2024/2025 files remain unchanged. Look in GitHub → Actions → `Church Stats - Annual membership refresh` → `bootstrap`.
-
-## Annual schedule and retries
-
-GitHub Actions schedules the workflow at **9:23 a.m. America/Los_Angeles** on April 9–21. The Python guard performs the full download only on **the Monday after the second Sunday in April** and, if needed, during the following six days. **Next: Monday April 12, 2027** for 2026 year-end figures. Dates outside the seven-day window exit immediately with no data request.
-
-- The updater retrieves the Church's current official worldwide, 50-state, and full country/territory pages.
-- Official worldwide and country pages must report `Last Updated On 31 Dec YYYY` matching the intended year; the importer does **not** accept a fresh page with a stale reporting year.
-- Validation includes: at least 140 positive published-country counts, preservation of previously reported countries, complete 50-state coverage, plausible US/world totals, a cross-check against the published US country total, and individual/geographic year-over-year change thresholds.
-- Pass: atomically write `membership_data/YYYY.csv`, commit via GitHub Actions, and leave prior annual snapshots unchanged. The **next daily attendance run** automatically recasts last year's rates and projects the new year from the latest net changes.
-- Fail: **do not create/commit the new annual CSV**; the public website and last-good membership snapshots remain unchanged. Retry the next day. If the seventh attempt fails, the job is marked **failed** for a GitHub Actions notification.
-
-Note: A first failure may be a genuinely large membership change that the conservative safeguards flag. The workflow will then reject the data and notify you rather than silently publish it; that is intentional.
-
-## Private (not published on website) error reports
-
-Failures appear in GitHub Actions logs, with the candidate audit in `membership-refresh-diagnostics-<run>` artifacts (90-day retention). These are **not** copied to GitHub Pages or Datawrapper. **If your GitHub repository is public, workflow logs/artifacts are not strictly confidential**; they contain only public statistics and error messages, not passwords.
-
-To receive a private email notification, in GitHub:
-
-1. Open **Settings → Notifications**.
-2. Under **System → Actions**, choose **Email** and **Only notify for failed workflows**.
-3. Ensure you are the user who adds/owns the scheduled workflow. GitHub sends scheduled-workflow notifications to the user associated with the schedule.
-
-If you don't opt in, GitHub cannot guarantee that you receive a private email. The workflow **does not** send emails directly and requires no email service credentials.
-
-## GitHub repository permissions
-
-The workflow requests `contents: write` so GitHub Actions can commit the validated snapshots. If the `git push` step reports an HTTP 403 or permission-denied error, check **Repository → Settings → Actions → General → Workflow permissions**. Repository or organization policies may restrict the token; the update cannot auto-commit until permission is granted.
+- When both collections pass validation, GitHub Actions commits `membership_data/2026.csv` **and** `annual_statistics/2026.csv` together. The next daily run automatically recasts geographic membership projections for 2026 and the eligibility projection for **2027**.
+- **2026 living eligibility values are not recast**: the 2026 endpoint was already known from the 2008 and 2025 reports. Thus reporting year 2026 statistics affect the **2027** living eligibility denominator.
+- In April 2028 the updater will also fetch the 2010 historical children's report if needed for the 2028 living eligibility endpoint. It continues indefinitely with the same code so long as the official historical and new report pages remain available in recognized format.
+- On failure, no newly scraped annual data is committed. Daily website updates keep using the last verified membership/eligibility snapshots. The workflow retries on the next six days, then fails with a GitHub notification (subject to your account's Actions notification settings).
+- Workflow run artifacts and logs are *not* published to your GitHub Pages website, although logs may be publicly accessible in a public GitHub repository.
 
 ## Testing
 
-From the repo root, after installing `requests`, `beautifulsoup4`, `pycountry`:
+After copying into your **existing repo** (with `membership_data/` still present):
 
 ```bash
-python -m py_compile temple_attendance_datawrapper3.py membership_automation.py
+python -m pip install requests beautifulsoup4 pycountry
+python -m py_compile temple_attendance_datawrapper3.py membership_automation.py living_eligibility.py
 python -m unittest discover -s tests -v
 python membership_automation.py due --today 2027-04-12
 ```
 
-Expected for `due`: `"retry_day": 0`. For an immediate one-time bootstrap, use **Actions → Church Stats - Annual membership refresh → Run workflow → bootstrap**. No manual intervention is required if the installation push runs successfully. To manually retry the annual fetch once 2026 values are live, choose `annual`; the scraper still validates before committing anything.
+The release's **22 offline tests pass**, including a mocked daily pipeline and simulated annual publication with data rejected on incomplete or incorrect source-year statistics. The repository may have additional tests. Tests were also run against a simulated future repository containing 2026 membership and 2026 statistical-report snapshots.
 
-## Limits and exceptions
+## Accuracy and operating limits
 
-- Online source parsing and automatic Git pushes cannot be exercised by the offline tests. **Review the first bootstrap Action log** and the first live April refresh in 2027 to confirm the Church's HTML has not changed.
-- If the church stops publishing a previously available country value, the updater refuses to replace it silently and will alert after retries.
-- New temple names must still be recognized by the existing `locate_temple()` function (mostly country and state suffix matching plus overrides). Unusual new naming conventions can still require manual correction.
-- No new model-year values go public until they have passed validation; even a successful annual job doesn't itself update Datawrapper. The next daily attendance job does.
-- Historical archived country data should be described as derived from **archived scrapes of published Church statistics**, not as independently audited original Church filings.
+- The annual cohort proxy is an analytical assumption, **not** an actual count of eligible adults or the proportion receiving a living endowment. Children of record can include people who never join, and converts can be children; this is explained on the website.
+- **Live Church report scraping and GitHub publication cannot be verified offline.** The 2026 statistical report does not exist as of November 2026. The annual source validator accepts only a report explicitly marked with the expected reporting year and year-end date, with reasonable values. If Church pages change layout, the updater will fail and notify rather than publish an incorrect denominator. The first 2027 run remains the end-to-end live test.
+- Geographic membership data is separate from the annual child/convert report and remains version controlled. No day-to-day membership scraping is reintroduced.
+- If the Church stops publishing a value or published figures are anomalous, automatic publication is withheld rather than silently correcting them.
+
+## Official historical reports included
+
+- 2006 children of record: 94,006 — source linked in `annual_statistics/2006.csv`
+- 2007 children of record: 93,698 — `2007.csv`
+- 2008 children of record: 123,502 — `2008.csv`
+- 2009 children of record: 119,722 — `2009.csv`
+- 2023 converts: 251,763 — `2023.csv`
+- 2024 converts: 308,682 — `2024.csv`
+- 2025 converts: 385,490 — `2025.csv`
+
+These published figures have been confirmed against the Church's official statistical reports. Each CSV preserves its individual source URL.
