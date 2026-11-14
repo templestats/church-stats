@@ -210,6 +210,12 @@ COUNTRY_OVERRIDES = {
     "United Kingdom": ("United Kingdom", "GBR"),
     "Peru": ("Peru", "PER"),
     "Cape Verde": ("Cape Verde", "CPV"),
+    # Names used by the Church's all-country historical membership CSVs.
+    "Macau": ("Macau", "MAC"),
+    "Micronesia": ("Micronesia", "FSM"),
+    "Saint Vincent": ("Saint Vincent", "VCT"),
+    "Sint Maarten": ("Sint Maarten", "SXM"),
+    "Virgin Islands": ("Virgin Islands", "VIR"),
 }
 
 
@@ -254,7 +260,7 @@ CONTINENT_BY_ISO3 = {
     PAN SLV TTO USA VCT
     """.split(), "North America"),
     # Additional North American and Caribbean territories
-    **dict.fromkeys("ABW AIA BES BLM BMU CUW CYM GLP GRL GUF MAF MNP MSR MTQ SPM SXM TCA VGB VIR".split(), "North America"),
+    **dict.fromkeys("ABW AIA BES BLM BMU CUW CYM GLP GRL MAF MNP MSR MTQ SPM SXM TCA VGB VIR".split(), "North America"),
     # Oceania
     **dict.fromkeys("""
     AUS FJI FSM KIR MHL NRU NZL PLW PNG SLB TON TUV VUT WSM
@@ -263,7 +269,7 @@ CONTINENT_BY_ISO3 = {
     **dict.fromkeys("COK NCL NFK NIU PCN TKL WLF".split(), "Oceania"),
     # South America
     **dict.fromkeys("""
-    ARG BOL BRA CHL COL ECU FLK GUY PER PRY SUR URY VEN
+    ARG BOL BRA CHL COL ECU FLK GUF GUY PER PRY SUR URY VEN
     """.split(), "South America"),
     # Antarctic and remote territories
     **dict.fromkeys("ATA ATF BVT HMD SGS UMI".split(), "Antarctica"),
@@ -2401,182 +2407,149 @@ def build_daily_trend(
 # GEOGRAPHIC DASHBOARD TREND DATA
 # ============================================================
 
+def _aggregate_membership_average(
+    membership_model: MembershipModel,
+    key: tuple[str, str],
+    start: date,
+    end: date,
+) -> float:
+    """Use daily membership where possible; one-year-only new countries use
+    their single published count temporarily to avoid silently excluding their
+    members from continent totals. Individual rates remain unavailable until
+    a second annual count exists.
+    """
+    if membership_model.has_two_anchors(key):
+        return membership_model.average(key, start, end)
+    anchors = [membership_model.data[y][key] for y in membership_model.years
+               if key in membership_model.data[y]]
+    if len(anchors) != 1:
+        raise ValueError(f"No published membership for {key!r}")
+    return float(anchors[0])
+
+
 def build_dashboard_trends(
-    located_rows: list[
-        tuple[DailyActivity, Geography]
-    ],
+    located_rows: list[tuple[DailyActivity, Geography]],
     membership_model: MembershipModel,
     first_date: date,
     last_date: date,
 ) -> list[dict[str, Any]]:
+    """All published-member geographies, including countries without temples.
+
+    Each geography contributes its membership denominator on EVERY valid
+    trailing-seven-day date. If no temple activity is recorded there, its
+    numerator is zero. This prevents artificial jumps when a new temple opens.
+    US coverage uses exactly 50 states, never a second US country record.
     """
-    Build daily trailing-7-day annualized endowment attendance rates
-    for every state and country.
+    latest = membership_model.data[membership_model.latest_year]
+    geo_keys = {('state', name) for name, _ in STATES}
+    geo_keys.update(key for key in latest if key[0] == 'country'
+                    and key[1].casefold() not in {
+                        'united states', 'united states of america', 'usa', 'us'
+                    })
 
-    Each row represents one geography on one date.
+    # Keep activity countries even if they are absent from the latest snapshot;
+    # a missing membership value must be surfaced, not silently discarded.
+    active_keys = {(g.scope, g.name) for r, g in located_rows
+                   if r.activity_date <= last_date}
+    missing = sorted(key for key in active_keys if key not in geo_keys)
+    if missing:
+        raise ValueError(
+            'Temple activity is present but no published country/state '
+            f'membership is available: {missing}. Refusing an incomplete '
+            'geographic aggregate.'
+        )
 
-    A geography's history begins only after that geography has enough
-    source history to calculate a complete 7-day trailing window.
-    """
-    # --------------------------------------------------------
-    # Aggregate daily endowments by geography
-    # --------------------------------------------------------
+    # Classify BEFORE publishing any output: unknown countries fail safely
+    # with an actionable error rather than being omitted from the denominator.
+    geo_info = {}
+    for scope, name in sorted(geo_keys):
+        if scope == 'state':
+            geo_info[(scope, name)] = ('North America', 'United States')
+        else:
+            geo_info[(scope, name)] = (continent_for_country(name), name)
 
-    daily: dict[
-        tuple[date, str, str],
-        int,
-    ] = {}
-
-    geography_info: dict[
-        tuple[str, str],
-        Geography,
-    ] = {}
-
-    geography_first_date: dict[
-        tuple[str, str],
-        date,
-    ] = {}
-
+    daily: dict[tuple[date, str, str], int] = {}
     for row, geography in located_rows:
         if row.activity_date > last_date:
             continue
+        key = (row.activity_date, geography.scope, geography.name)
+        daily[key] = daily.get(key, 0) + row.endowments
 
-        key = (
-            geography.scope,
-            geography.name,
-        )
-
-        geography_info[key] = geography
-
-        prior_first = geography_first_date.get(
-            key
-        )
-
-        if (
-            prior_first is None
-            or row.activity_date < prior_first
-        ):
-            geography_first_date[key] = (
-                row.activity_date
-            )
-
-        daily_key = (
-            row.activity_date,
-            geography.scope,
-            geography.name,
-        )
-
-        daily[daily_key] = (
-            daily.get(
-                daily_key,
-                0,
-            )
-            + row.endowments
-        )
-
-    # --------------------------------------------------------
-    # Build complete 7-day trailing history
-    # --------------------------------------------------------
-
-    output: list[dict[str, Any]] = []
-
-    for geography_key, geography in sorted(
-        geography_info.items(),
-        key=lambda item: (
-            item[0][0],
-            item[0][1],
-        ),
-    ):
-        if not membership_model.has_two_anchors(geography_key):
-            continue
-        scope, name = geography_key
-
-        geography_start = (
-            geography_first_date[
-                geography_key
-            ]
-        )
-
-        trend_start = max(
-            first_date,
-            geography_start,
-        ) + timedelta(days=6)
-
-        if trend_start > last_date:
-            continue
-
-        if scope == "state":
-            continent = "North America"
-            country = "United States"
-            geography_type = "state"
-        else:
-            continent = continent_for_country(name)
-            country = name
-            geography_type = "country"
-
-        for current in (
-            trend_start
-            + timedelta(days=i)
-            for i in range(
-                (last_date - trend_start).days + 1
-            )
-        ):
+    start_date = first_date + timedelta(days=6)
+    if start_date > last_date:
+        return []
+    days = (last_date - start_date).days + 1
+    output = []
+    activity_geographies = {(scope, name) for _, scope, name in daily}
+    for (scope, name), (continent, country) in geo_info.items():
+        key = (scope, name)
+        reliable_trend = membership_model.has_two_anchors(key)
+        for offset in range(days):
+            current = start_date + timedelta(days=offset)
             start = current - timedelta(days=6)
+            sessions = sum(daily.get((start + timedelta(days=j), scope, name), 0)
+                           for j in range(7))
+            annualized_sessions = sessions * (365 / 7)
+            members = _aggregate_membership_average(membership_model, key,
+                                                    start, current)
+            output.append({
+                'date': current.isoformat(),
+                'type': scope,
+                'continent': continent,
+                'country': country,
+                'name': name,
+                # Do not invent a country-specific trend from one annual value.
+                'rate': round(annualized_sessions / members, 6)
+                        if reliable_trend else None,
+                'members': round(members, 6),
+                'membership_status': membership_model.status(current)
+                        if reliable_trend else 'single_published_anchor',
+                'annualized_endowments': round(annualized_sessions, 6),
+                'membership_only': key not in activity_geographies,
+            })
+    return output
 
-            seven_day_total = 0
 
-            for offset in range(7):
-                current_day = (
-                    start
-                    + timedelta(days=offset)
-                )
+def build_dashboard_references(
+    located_rows: list[tuple[DailyActivity, Geography]],
+    membership_model: MembershipModel,
+    first_date: date,
+    last_date: date,
+) -> dict[str, list[dict[str, Any]]]:
+    """World and USA reference lines with TRUE full-population denominators.
 
-                seven_day_total += daily.get(
-                    (
-                        current_day,
-                        scope,
-                        name,
-                    ),
-                    0,
-                )
-
-            # Keep the rate and its underlying numerator/denominator in
-            # the dashboard JSON. The frontend uses members and
-            # annualized_endowments to calculate a correctly
-            # membership-weighted aggregate across selected geographies.
-            annualized_endowments = (
-                seven_day_total
-                * (365 / 7)
-            )
-
-            members = membership_model.average(
-                geography_key, start, current
-            )
-            annualized_rate = (
-                annualized_endowments
-                / members
-            )
-
-            output.append(
-                {
-                    "date": current.isoformat(),
-                    "type": geography_type,
-                    "continent": continent,
-                    "country": country,
-                    "name": name,
-                    "rate": round(
-                        annualized_rate,
-                        6,
-                    ),
-                    "members": round(members, 6),
-                    "membership_status": membership_model.status(current),
-                    "annualized_endowments": round(
-                        annualized_endowments,
-                        6,
-                    ),
-                }
-            )
-
+    Worldwide membership comes from the published worldwide count, NOT the
+    sum of published country pages. All global temple observations contribute
+    to its numerator, including countries with no membership page.
+    """
+    totals: dict[date, int] = {}
+    us_totals: dict[date, int] = {}
+    for row, geo in located_rows:
+        if row.activity_date > last_date:
+            continue
+        d = row.activity_date
+        totals[d] = totals.get(d, 0) + row.endowments
+        if geo.scope == 'state':
+            us_totals[d] = us_totals.get(d, 0) + row.endowments
+    output: dict[str, list[dict[str, Any]]] = {'worldwide': [], 'usa': []}
+    for j in range(max(0, (last_date - first_date).days - 5)):
+        current = first_date + timedelta(days=6+j)
+        start = current - timedelta(days=6)
+        world_sessions = sum(totals.get(start+timedelta(days=k), 0)
+                             for k in range(7)) * (365/7)
+        us_sessions = sum(us_totals.get(start+timedelta(days=k), 0)
+                          for k in range(7)) * (365/7)
+        for scope, sessions, members in (
+            ('worldwide', world_sessions,
+             membership_model.average(MembershipModel.WORLD_KEY, start, current)),
+            ('usa', us_sessions, membership_model.us_average(start, current)),
+        ):
+            output[scope].append({
+                'date': current.isoformat(),
+                'members': round(members, 6),
+                'annualizedSessions': round(sessions, 6),
+                'rate': round(sessions / members, 9),
+            })
     return output
 
 
@@ -2907,6 +2880,12 @@ def main() -> int:
             args.output_dir
             / "trend_dashboard.json",
             dashboard_rows,
+        )
+        write_json(
+            args.output_dir / "trend_references.json",
+            build_dashboard_references(
+                located, membership_model, first_date, window_end
+            ),
         )
 
         print(

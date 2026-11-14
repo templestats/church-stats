@@ -124,7 +124,7 @@ class MembershipModelTests(unittest.TestCase):
                 rc=module.main()
             self.assertEqual(rc,0)
             for file in ('datawrapper_countries.csv','datawrapper_us.csv',
-                         'historical_summary.csv','trend_dashboard.json',
+                         'historical_summary.csv','trend_dashboard.json','trend_references.json',
                          'membership_daily_estimates.csv','membership_model_metadata.json',
                          'us_membership_audit.csv',
                          'living_eligibility_daily_estimates.csv',
@@ -142,9 +142,23 @@ class MembershipModelTests(unittest.TestCase):
             self.assertGreaterEqual(len(history),1)
             self.assertGreater(float(history[-1]['usa_rate']),0)
             trend=json.loads((out/'trend_dashboard.json').read_text())
-            self.assertEqual({x['name'] for x in trend},{'Utah','France'})
+            self.assertTrue({'Utah','France','Nigeria','Iowa'}.issubset({x['name'] for x in trend}))
+            # Full geographic denominator, including members without temples.
+            latest = max(x['date'] for x in trend)
+            nigeria = next(x for x in trend if x['name']=='Nigeria' and x['date']==latest)
+            self.assertEqual(nigeria['annualized_endowments'],0)
+            self.assertGreater(nigeria['members'],0)
+            references = json.loads((out/'trend_references.json').read_text())
+            us_ref = references['usa'][-1]
+            world_ref = references['worldwide'][-1]
+            d=date.fromisoformat(latest)
+            self.assertAlmostEqual(us_ref['members'],self.model.us_average(d-timedelta(days=6),d),places=4)
+            self.assertAlmostEqual(world_ref['members'],self.model.average(
+                module.MembershipModel.WORLD_KEY,d-timedelta(days=6),d),places=4)
+            self.assertGreater(world_ref['members'],sum(x['members'] for x in trend if x['date']==latest))
             for item in trend:
-                self.assertAlmostEqual(item['rate'],item['annualized_endowments']/item['members'],places=5)
+                if item['rate'] is not None:
+                    self.assertAlmostEqual(item['rate'],item['annualized_endowments']/item['members'],places=5)
             meta=json.loads((out/'membership_model_metadata.json').read_text())
             self.assertEqual(meta['latest_published_membership_year'],self.model.latest_year)
 
