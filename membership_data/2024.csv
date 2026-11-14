@@ -1,4 +1,161 @@
 scope,name,members,source_url
+country,Albania,3317,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,American Samoa,16900,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Angola,7321,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Antigua and Barbuda,342,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Argentina,491160,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Armenia,3625,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Aruba,661,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Australia,158969,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Austria,4678,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Bahamas,1095,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Bahrain,276,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Barbados,1205,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Belgium,6713,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Belize,5688,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Benin,7071,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Bolivia,229006,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Bosnia and Herzegovina,86,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Botswana,4841,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Brazil,1525436,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Bulgaria,2412,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Burundi,1807,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Cambodia,17365,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Cameroon,3327,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Canada,205907,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Cape Verde,17471,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Cayman Islands,255,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Central African Republic,281,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Chile,613054,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Colombia,217514,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Cook Islands,1912,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Costa Rica,55678,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Croatia,656,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Curacao,602,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Cyprus,634,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Czech Republic,2719,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Democratic Republic of the Congo,134067,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Denmark,4393,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Dominica,173,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Dominican Republic,153000,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Ecuador,269200,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,El Salvador,131016,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Estonia,1122,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Ethiopia,2423,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Fiji,24358,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Finland,4940,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,France,39797,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,French Guiana,508,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,French Polynesia,30022,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Georgia,313,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Germany,40398,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Ghana,113470,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Greece,807,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Grenada,406,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Guadeloupe,585,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Guam,2642,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Guatemala,292639,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Guernsey,61,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Guyana,7033,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Haiti,25793,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Honduras,190310,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Hong Kong,24496,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Hungary,5255,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Iceland,404,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,India,15454,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Indonesia,7702,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Ireland,4212,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Isle of Man,294,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Israel,310,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Italy,29154,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Ivory Coast,66399,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Jamaica,6871,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Japan,129622,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Jersey,270,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Kazakhstan,242,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Kenya,21204,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Kiribati,23046,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Kuwait,361,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Latvia,1274,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Lesotho,1890,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Liberia,23217,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Lithuania,952,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Luxembourg,522,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Macau,1445,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Madagascar,17331,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Malawi,5937,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Malaysia,11341,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Malta,263,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Marshall Islands,6660,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Martinique,273,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Mauritius,585,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Mexico,1534058,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Micronesia,5915,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Moldova,457,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Mongolia,12624,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Montenegro,34,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Mozambique,31633,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Namibia,1297,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Nauru,131,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Netherlands,9117,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,New Caledonia,2531,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,New Zealand,118209,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Nicaragua,103732,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Nigeria,250341,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Niue,323,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Northern Mariana Islands,911,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Norway,4521,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Palau,421,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Panama,62946,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Papua New Guinea,41268,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Paraguay,102395,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Peru,648045,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Philippines,882461,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Poland,2249,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Portugal,48840,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Puerto Rico,23454,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Republic of the Congo,13691,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Reunion,859,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Romania,3029,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Russia,18132,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Rwanda,2489,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Saint Kitts and Nevis,244,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Saint Lucia,420,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Saint Vincent,728,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Samoa,89662,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Serbia,374,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Sierra Leone,34617,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Singapore,3227,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Sint Maarten,289,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Slovakia,332,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Slovenia,456,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Solomon Islands,1627,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,South Africa,74455,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,South Korea,88576,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Spain,68486,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Sri Lanka,1709,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Suriname,1887,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Swaziland,2348,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Sweden,9489,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Switzerland,9237,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Taiwan,62772,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Tanzania,5022,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Thailand,24301,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Togo,7684,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Tonga,68609,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Trinidad and Tobago,3497,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Turkey,698,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Tuvalu,366,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Uganda,25210,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Ukraine,9903,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,United Arab Emirates,1810,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,United Kingdom,186418,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Uruguay,109905,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Vanuatu,12820,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Venezuela,177309,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Virgin Islands,633,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Zambia,7072,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
+country,Zimbabwe,46071,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
 state,Alabama,41239,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/state-2025-04-27.csv
 state,Alaska,33987,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/state-2025-04-27.csv
 state,Arizona,444789,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/state-2025-04-27.csv
@@ -49,48 +206,4 @@ state,Washington,282266,https://raw.githubusercontent.com/acbass49/scrape_lds_st
 state,West Virginia,17762,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/state-2025-04-27.csv
 state,Wisconsin,28741,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/state-2025-04-27.csv
 state,Wyoming,67518,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/state-2025-04-27.csv
-country,Argentina,491160,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
-country,Australia,158969,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
-country,Bolivia,229006,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
-country,Brazil,1525436,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
-country,Cambodia,17365,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
-country,Canada,205907,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
-country,Cape Verde,17471,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
-country,Chile,613054,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
-country,Colombia,217514,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
-country,Denmark,4393,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
-country,Dominican Republic,153000,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
-country,Ecuador,269200,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
-country,El Salvador,131016,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
-country,Fiji,24358,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
-country,France,39797,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
-country,French Polynesia,30022,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
-country,Germany,40398,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
-country,Guatemala,292639,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
-country,Haiti,25793,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
-country,Honduras,190310,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
-country,Hong Kong,24496,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
-country,Ivory Coast,66399,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
-country,Japan,129622,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
-country,Kenya,21204,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
-country,Mexico,1534058,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
-country,Netherlands,9117,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
-country,New Zealand,118209,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
-country,Nigeria,250341,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
-country,Panama,62946,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
-country,Paraguay,102395,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
-country,Peru,648045,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
-country,Philippines,882461,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
-country,Portugal,48840,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
-country,Puerto Rico,23454,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
-country,Samoa,89662,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
-country,South Africa,74455,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
-country,South Korea,88576,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
-country,Switzerland,9237,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
-country,Taiwan,62772,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
-country,Tonga,68609,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
-country,Ukraine,9903,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
-country,United Kingdom,186418,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
-country,Uruguay,109905,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
-country,Venezuela,177309,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2025-04-27.csv
 world,Worldwide,17509781,https://www.thechurchnews.com/members/2026/08/02/compare-church-statistical-reports-2023-2024-2025/

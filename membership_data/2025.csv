@@ -1,4 +1,161 @@
 scope,name,members,source_url
+country,Albania,3285,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,American Samoa,17646,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Angola,8779,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Antigua and Barbuda,366,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Argentina,505819,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/argentina
+country,Armenia,3579,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Aruba,686,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Australia,165272,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/australia
+country,Austria,4753,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Bahamas,1125,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Bahrain,231,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Barbados,1082,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Belgium,7164,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Belize,5741,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Benin,8286,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Bolivia,235773,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/bolivia
+country,Bosnia and Herzegovina,91,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Botswana,5465,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Brazil,1573360,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/brazil
+country,Bulgaria,2424,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Burundi,2070,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Cambodia,18070,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/cambodia
+country,Cameroon,3673,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Canada,211581,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/canada
+country,Cape Verde,18030,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/cape-verde
+country,Cayman Islands,264,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Central African Republic,357,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Chile,624203,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/chile
+country,Colombia,223090,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/colombia
+country,Cook Islands,1890,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Costa Rica,58373,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Croatia,739,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Curacao,639,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Cyprus,701,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Czech Republic,2787,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Democratic Republic of the Congo,159771,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Denmark,4426,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/denmark
+country,Dominica,180,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Dominican Republic,156358,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/dominican-republic
+country,Ecuador,279046,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/ecuador
+country,El Salvador,132399,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/el-salvador
+country,Estonia,1149,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Ethiopia,2626,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Fiji,24847,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/fiji
+country,Finland,5024,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,France,40546,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/france
+country,French Guiana,522,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,French Polynesia,30350,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/french-polynesia
+country,Georgia,498,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Germany,42229,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/germany
+country,Ghana,122978,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Greece,818,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Grenada,429,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Guadeloupe,628,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Guam,2768,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Guatemala,297143,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/guatemala
+country,Guernsey,60,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Guyana,7400,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Haiti,27550,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/haiti
+country,Honduras,197073,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/honduras
+country,Hong Kong,24930,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/hong-kong
+country,Hungary,5274,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Iceland,445,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,India,15664,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Indonesia,7655,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Ireland,4923,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Isle of Man,285,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Israel,422,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Italy,30105,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Ivory Coast,71182,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/cote-d-ivoire
+country,Jamaica,7856,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Japan,131776,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/japan
+country,Jersey,269,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Kazakhstan,245,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Kenya,24547,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/kenya
+country,Kiribati,23585,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Kuwait,369,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Latvia,1281,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Lesotho,2278,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Liberia,25767,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Lithuania,1024,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Luxembourg,526,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Macau,1595,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Madagascar,20395,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Malawi,7857,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Malaysia,11769,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Malta,320,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Marshall Islands,6927,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Martinique,285,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Mauritius,612,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Mexico,1572287,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/mexico
+country,Micronesia,6241,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Moldova,471,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Mongolia,13250,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Montenegro,65,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Mozambique,39282,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Namibia,1492,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Nauru,146,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Netherlands,9027,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/netherlands
+country,New Caledonia,2585,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,New Zealand,120992,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/new-zealand
+country,Nicaragua,106953,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Nigeria,274043,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/nigeria
+country,Niue,400,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Northern Mariana Islands,938,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Norway,4547,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Palau,572,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Panama,63936,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/panama
+country,Papua New Guinea,46583,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Paraguay,106345,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/paraguay
+country,Peru,667836,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/peru
+country,Philippines,905082,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/philippines
+country,Poland,2315,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Portugal,50341,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/portugal
+country,Puerto Rico,26947,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/puerto-rico
+country,Republic of the Congo,15482,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Reunion,989,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Romania,3127,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Russia,18306,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Rwanda,3625,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Saint Kitts and Nevis,292,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Saint Lucia,435,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Saint Vincent,767,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Samoa,90706,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/samoa
+country,Serbia,422,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Sierra Leone,41775,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Singapore,3262,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Sint Maarten,358,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Slovakia,334,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Slovenia,466,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Solomon Islands,3232,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,South Africa,78689,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/south-africa
+country,South Korea,89092,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/south-korea
+country,Spain,71995,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Sri Lanka,1732,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Suriname,1991,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Swaziland,2598,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Sweden,9569,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Switzerland,9630,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/switzerland
+country,Taiwan,63425,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/taiwan
+country,Tanzania,6259,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Thailand,24825,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Togo,8349,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Tonga,69594,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/tonga
+country,Trinidad and Tobago,3458,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Turkey,808,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Tuvalu,381,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Uganda,26304,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Ukraine,10014,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/ukraine
+country,United Arab Emirates,2002,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,United Kingdom,190066,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/united-kingdom
+country,Uruguay,112449,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/uruguay
+country,Vanuatu,14042,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Venezuela,179389,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/venezuela
+country,Virgin Islands,704,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Zambia,7823,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
+country,Zimbabwe,52430,https://raw.githubusercontent.com/acbass49/scrape_lds_stats/refs/heads/main/data/country-2026-04-16.csv
 state,Alabama,41252,https://newsroom.churchofjesuschrist.org/facts-and-statistics/state/alabama
 state,Alaska,33574,https://newsroom.churchofjesuschrist.org/facts-and-statistics/state/alaska
 state,Arizona,442094,https://newsroom.churchofjesuschrist.org/facts-and-statistics/state/arizona
@@ -49,48 +206,4 @@ state,Washington,278576,https://newsroom.churchofjesuschrist.org/facts-and-stati
 state,West Virginia,17663,https://newsroom.churchofjesuschrist.org/facts-and-statistics/state/west-virginia
 state,Wisconsin,28950,https://newsroom.churchofjesuschrist.org/facts-and-statistics/state/wisconsin
 state,Wyoming,66665,https://newsroom.churchofjesuschrist.org/facts-and-statistics/state/wyoming
-country,Argentina,505819,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/argentina
-country,Australia,165272,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/australia
-country,Bolivia,235773,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/bolivia
-country,Brazil,1573360,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/brazil
-country,Cambodia,18070,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/cambodia
-country,Canada,211581,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/canada
-country,Cape Verde,18030,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/cape-verde
-country,Chile,624203,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/chile
-country,Colombia,223090,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/colombia
-country,Denmark,4426,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/denmark
-country,Dominican Republic,156358,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/dominican-republic
-country,Ecuador,279046,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/ecuador
-country,El Salvador,132399,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/el-salvador
-country,Fiji,24847,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/fiji
-country,France,40546,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/france
-country,French Polynesia,30350,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/french-polynesia
-country,Germany,42229,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/germany
-country,Guatemala,297143,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/guatemala
-country,Haiti,27550,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/haiti
-country,Honduras,197073,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/honduras
-country,Hong Kong,24930,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/hong-kong
-country,Ivory Coast,71182,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/cote-d-ivoire
-country,Japan,131776,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/japan
-country,Kenya,24547,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/kenya
-country,Mexico,1572287,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/mexico
-country,Netherlands,9027,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/netherlands
-country,New Zealand,120992,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/new-zealand
-country,Nigeria,274043,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/nigeria
-country,Panama,63936,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/panama
-country,Paraguay,106345,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/paraguay
-country,Peru,667836,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/peru
-country,Philippines,905082,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/philippines
-country,Portugal,50341,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/portugal
-country,Puerto Rico,26947,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/puerto-rico
-country,Samoa,90706,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/samoa
-country,South Africa,78689,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/south-africa
-country,South Korea,89092,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/south-korea
-country,Switzerland,9630,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/switzerland
-country,Taiwan,63425,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/taiwan
-country,Tonga,69594,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/tonga
-country,Ukraine,10014,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/ukraine
-country,United Kingdom,190066,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/united-kingdom
-country,Uruguay,112449,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/uruguay
-country,Venezuela,179389,https://news-uk.churchofjesuschrist.org/facts-and-statistics/country/venezuela
 world,Worldwide,17887212,https://www.thechurchnews.com/members/2026/08/02/compare-church-statistical-reports-2023-2024-2025/
